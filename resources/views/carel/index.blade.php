@@ -1,18 +1,7 @@
 @extends('carel.main')
 
-<style>
-    .bg-navbar{
-        background:#E6EBED;
-    }
-    .form-inline .form-control{
-        width:600px;
-    }
-    .btn-outline-darkblue:hover{
-        background: #063852 !important;
-        border-color:#063852 !important;
-        color:white;
-    }
-</style>
+
+
 @section('content')
 
     <body class="antialiased">
@@ -75,6 +64,9 @@
             </div>
         </div>
         --}}
+        @include('carel.pages.LandingPage.HeroBanner')
+        @include('carel.pages.LandingPage.rekomenKelas')
+        @include('carel.pages.LandingPage.kelasTersedia')
     </body>
 
 

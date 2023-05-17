@@ -1,3 +1,18 @@
+
+<style>
+    .bg-navbar{
+        background:#E6EBED;
+    }
+    .form-inline .form-control{
+        width:600px;
+    }
+    .btn-outline-darkblue:hover{
+        background: #063852 !important;
+        border-color:#063852 !important;
+        color:white;
+    }
+</style>
+
         <div>
             <nav class="navbar navbar-expand-lg bg-navbar">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">

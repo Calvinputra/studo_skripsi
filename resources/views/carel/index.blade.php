@@ -79,6 +79,9 @@
             </div>
         </nav>
         </div>
+        
+        @include('carel.pages.LandingPage.heroBanner')
+        <!-- modal -->
         {{--
             <a href="javascript:void(0)" class=" btn" data-toggle="modal" data-target="#login">Masuk</a>
     <div id="login" class="modal fade modal-login" role="dialog" style="width:">

@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 // Home
 Route::get('/', [SiteController::class, 'getIndex'])->name('carel.index');
 
+Route::get('/checkout', [CheckoutController::class, 'getCheckout'])->name('carel.pages.checkout');
+
 // Login Halaman Login
 Route::get('/signin', [AuthController::class, 'getSignIn'])->name('carel.get.signin');
 // Post Data dari Halaman Login

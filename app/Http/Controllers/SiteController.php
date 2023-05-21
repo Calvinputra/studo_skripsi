@@ -18,4 +18,8 @@ class SiteController extends Controller
     {
         return view('carel.overview');
     }
+    public function getSetting()
+    {
+        return view('carel.setting');
+    }
 }

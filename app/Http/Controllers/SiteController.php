@@ -10,4 +10,12 @@ class SiteController extends Controller
     {
         return view('carel.index');
     }
+    public function getSearch()
+    {
+        return view('carel.search');
+    }
+    public function getDetail()
+    {
+        return view('carel.overview');
+    }
 }

@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 // Home
 Route::get('/', [SiteController::class, 'getIndex'])->name('carel.index');
 
+Route::get('/search', [SiteController::class, 'getSearch'])->name('carel.search');
+
+Route::get('/detail-class', [SiteController::class, 'getDetail'])->name('carel.overview');
+
 Route::get('/checkout', [CheckoutController::class, 'getCheckout'])->name('carel.pages.checkout');
 
 // Login Halaman Login

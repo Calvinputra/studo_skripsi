@@ -42,10 +42,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <button class="btn btn-outline-success my-2 my-sm-0" style="color:white;background:#063852;" type="submit">
-                            <b>
-                                Daftar
-                            </b>
-                        </button>
+                                <b>
+                                    Daftar
+                                </b>
+                            </button>
                         </a>
                     </li>
                 </ul>

@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\OverviewController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,11 +27,9 @@ Route::namespace('studo')->group( function () {
             // Home
             Route::get('/', [SiteController::class, 'getIndex'])->name('studo.index');
 
-            Route::get('/search', [SiteController::class, 'getSearch'])->name('studo.search');
+            Route::get('/search', [SearchController::class, 'index'])->name('studo.search');
 
-            Route::get('/detail-class', [SiteController::class, 'getDetail'])->name('studo.overview');
-
-            Route::get('/settings', [SiteController::class, 'getSetting'])->name('studo.setting');
+            Route::get('/overview', [OverviewController::class, 'index'])->name('studo.overview');
 
             Route::get('/checkout', [CheckoutController::class, 'getCheckout'])->name('studo.checkout');
 
@@ -41,6 +42,10 @@ Route::namespace('studo')->group( function () {
             Route::get('/signup', [AuthController::class, 'getSignUp'])->name('studo.get.signup');
             // Post Data dari Halaman Daftar
             Route::post('/regist', [AuthController::class, 'postRegist'])->name('studo.post.regist');
+
+        Route::middleware(['auth'])->group(function () {
+            Route::get('/setting', [SettingController::class, 'index'])->name('studo.setting');
+        });
 });
 
 

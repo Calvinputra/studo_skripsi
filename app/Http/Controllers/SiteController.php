@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
-    public function getIndex()
+    public function index()
     {
+
         return view('studo.pages.site.index');
     }
 }

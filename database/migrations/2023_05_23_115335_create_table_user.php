@@ -20,7 +20,7 @@ class CreateTableUser extends Migration
             $table->string('password');
             $table->string('phone_number')->nullable();
             $table->string('avatar')->nullable();
-            $table->string('google_id');
+            $table->string('google_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });

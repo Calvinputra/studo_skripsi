@@ -23,13 +23,14 @@
                         </a>
                     </div>
                     <hr style="border-color:#20A2EB !important">
-                    <form>
-                        <div class="form-group">
+                    <form action="{{ route('studo.post.login') }}" method="POST">
+                    @csrf
+                        {{-- <div class="form-group">
                             <p class="desc-text-login">
                                 Nama lengkap
                             </p>
                             <input type="name" placeholder="Nama" name="name" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <p class="desc-text-login">
                                 Email

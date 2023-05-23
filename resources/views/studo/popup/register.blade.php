@@ -16,13 +16,14 @@
                     </div>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <a href=""  class="btn-google btn-block effect8" style="border: 1px solid #636466;border-radius:5px;padding: 10px 16px;text-decoration:none;">
+                <div class="form-group">
+                        <a href="{{ route('studo.auth.google.redirect') }}"  class="btn-google btn-block effect8" style="border: 1px solid #636466;border-radius:5px;padding: 10px 16px;text-decoration:none;">
                             <center><span class="google-text-login" >Buat dengan Google</span></center>
                         </a>
                     </div>
                     <hr style="border-color:#20A2EB !important">
-                    <form>
+                    <form action="{{ route('studo.post.regist') }}" method="post">
+                    @csrf
                         <div class="form-group">
                             <p class="desc-text-login">
                                 Nama lengkap

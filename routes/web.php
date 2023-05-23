@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+<<<<<<< HEAD
 
 Route::namespace('studo')->group( function () {
             // Google Auth
@@ -29,6 +31,18 @@ Route::namespace('studo')->group( function () {
             Route::get('/detail-class', [SiteController::class, 'getDetail'])->name('studo.overview');
 
             Route::get('/settings', [SiteController::class, 'getSetting'])->name('studo.setting');
+=======
+// Home
+Route::get('/', [SiteController::class, 'getIndex'])->name('carel.pages.site.index');
+
+Route::get('/search', [SiteController::class, 'getSearch'])->name('carel.pages.search.index');
+
+Route::get('/detail-class', [SiteController::class, 'getDetail'])->name('carel.pages.overview.index');
+
+Route::get('/settings', [SiteController::class, 'getSetting'])->name('carel.pages.setting.index');
+
+Route::get('/checkout', [CheckoutController::class, 'getCheckout'])->name('carel.pages.checkout.index');
+>>>>>>> c6a89012ea0062a59fdfce8835a50b794862bdbb
 
             Route::get('/checkout', [CheckoutController::class, 'getCheckout'])->name('studo.pages.checkout');
 

@@ -5,6 +5,15 @@
         line-height: 19px;
     }
 
+    .btn-masuk{
+        justify-content: center;
+        align-items: center;
+        padding: 10px 16px;
+        background: #063852;
+        border-radius: 5px;
+        width: 352px;
+    }
+
 /* Halaman Login dan Daftar */
     .title-text-login{
         font-size: 32px;

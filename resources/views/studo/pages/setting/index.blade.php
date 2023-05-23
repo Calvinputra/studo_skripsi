@@ -37,9 +37,15 @@
                     </a>
                 </div>
                 <div class="col-sm-8">
+<<<<<<< HEAD:resources/views/studo/pages/setting/index.blade.php
                     @include('studo.pages.setting_studo.profile')
                     @include('studo.pages.setting_studo.password')
                     @include('studo.pages.setting_studo.goals')
+=======
+                    @include('carel.pages.setting.section.profile')
+                    @include('carel.pages.setting.section.password')
+                    @include('carel.pages.setting.section.goals')
+>>>>>>> c6a89012ea0062a59fdfce8835a50b794862bdbb:resources/views/carel/pages/setting/index.blade.php
                 </div>
             </div>
         </div>

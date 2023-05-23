@@ -8,7 +8,7 @@ class SiteController extends Controller
 {
     public function getIndex()
     {
-        return view('carel.index');
+        return view('carel.pages.site.index');
     }
     public function getSearch()
     {

@@ -8,18 +8,18 @@ class SiteController extends Controller
 {
     public function getIndex()
     {
-        return view('carel.pages.site.index');
+        return view('studo.pages.site.index');
     }
     public function getSearch()
     {
-        return view('carel.pages.searchPage.index');
+        return view('studo.pages.searchPage.index');
     }
     public function getDetail()
     {
-        return view('carel.pages.overviewPage.index');
+        return view('studo.pages.overviewPage.index');
     }
     public function getSetting()
     {
-        return view('carel.setting');
+        return view('studo.setting');
     }
 }

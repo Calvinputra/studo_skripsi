@@ -1,15 +1,15 @@
-@extends('carel.main')
+@extends('studo.main')
 
 <link href="{{ url('styles/font.css') }}" rel="stylesheet" type = "text/css">
 @section('content')
     <body class="antialiased">
         <!-- Modal Popup Login Form -->
-        @include('carel.popup.login')
+        @include('studo.popup.login')
         <!-- End Modal Popup Login Form -->
 
        
-        @include('carel.pages.site.section.HeroBanner')
-        @include('carel.pages.site.section.rekomenKelas')
-        @include('carel.pages.site.section.kelasTersedia')
+        @include('studo.pages.site.section.HeroBanner')
+        @include('studo.pages.site.section.rekomenKelas')
+        @include('studo.pages.site.section.kelasTersedia')
     </body>
 @endsection

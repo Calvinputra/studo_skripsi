@@ -16,26 +16,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Home
-Route::get('/', [SiteController::class, 'getIndex'])->name('carel.index');
 
-Route::get('/search', [SiteController::class, 'getSearch'])->name('carel.search');
+Route::namespace('studo')->group( function () {
+            // Google Auth
+            Route::get('auth/google', [AuthController::class, 'redirectToGoogle'])->name('studo.auth.google.redirect');
+            Route::get('auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('studo.auth.google.callback');
+            // Home
+            Route::get('/', [SiteController::class, 'getIndex'])->name('studo.index');
 
-Route::get('/detail-class', [SiteController::class, 'getDetail'])->name('carel.overview');
+            Route::get('/search', [SiteController::class, 'getSearch'])->name('studo.search');
 
-Route::get('/settings', [SiteController::class, 'getSetting'])->name('carel.setting');
+            Route::get('/detail-class', [SiteController::class, 'getDetail'])->name('studo.overview');
 
-Route::get('/checkout', [CheckoutController::class, 'getCheckout'])->name('carel.pages.checkout');
+            Route::get('/settings', [SiteController::class, 'getSetting'])->name('studo.setting');
 
-// Login Halaman Login
-Route::get('/signin', [AuthController::class, 'getSignIn'])->name('carel.get.signin');
-// Post Data dari Halaman Login
-Route::post('/login', [AuthController::class, 'postLogin'])->name('carel.post.login');
+            Route::get('/checkout', [CheckoutController::class, 'getCheckout'])->name('studo.pages.checkout');
 
-// Login Halaman Daftar
-Route::get('/signup', [AuthController::class, 'getSignUp'])->name('carel.get.signup');
-// Post Data dari Halaman Daftar
-Route::post('/regist', [AuthController::class, 'postRegist'])->name('carel.post.regist');
+            // Login Halaman Login
+            Route::get('/signin', [AuthController::class, 'getSignIn'])->name('studo.get.signin');
+            // Post Data dari Halaman Login
+            Route::post('/login', [AuthController::class, 'postLogin'])->name('studo.post.login');
+
+            // Login Halaman Daftar
+            Route::get('/signup', [AuthController::class, 'getSignUp'])->name('studo.get.signup');
+            // Post Data dari Halaman Daftar
+            Route::post('/regist', [AuthController::class, 'postRegist'])->name('studo.post.regist');
+});
 
 
 

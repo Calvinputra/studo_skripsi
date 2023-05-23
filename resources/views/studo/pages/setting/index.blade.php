@@ -1,4 +1,4 @@
-@extends('carel.main')
+@extends('studo.main')
 
 @section('content')
     <body class="antialiased">
@@ -37,9 +37,9 @@
                     </a>
                 </div>
                 <div class="col-sm-8">
-                    @include('carel.pages.setting_studo.profile')
-                    @include('carel.pages.setting_studo.password')
-                    @include('carel.pages.setting_studo.goals')
+                    @include('studo.pages.setting_studo.profile')
+                    @include('studo.pages.setting_studo.password')
+                    @include('studo.pages.setting_studo.goals')
                 </div>
             </div>
         </div>

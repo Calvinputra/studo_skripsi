@@ -1,4 +1,4 @@
-@extends('carel.main')
+@extends('studo.main')
 
 <style>
     img{

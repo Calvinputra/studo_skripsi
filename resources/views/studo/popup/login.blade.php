@@ -13,7 +13,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <a href=""  class="btn-google btn-block effect8" style="border: 1px solid #636466;border-radius:5px;padding: 10px 16px;text-decoration:none;">
+                        <a href="{{ route('studo.auth.google.redirect') }}"  class="btn-google btn-block effect8" style="border: 1px solid #636466;border-radius:5px;padding: 10px 16px;text-decoration:none;">
                             <center><span class="google-text-login" >Masuk dengan Google</span></center>
                         </a>
                     </div>

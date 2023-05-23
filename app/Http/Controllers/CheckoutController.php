@@ -8,6 +8,6 @@ class CheckoutController extends Controller
 {
     public function getCheckout()
     {
-        return view('carel.pages.checkout');
+        return view('carel.pages.checkout.index');
     }
 }

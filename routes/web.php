@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,15 +17,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Home
-Route::get('/', [SiteController::class, 'getIndex'])->name('carel.index');
+Route::get('/', [SiteController::class, 'getIndex'])->name('carel.pages.site.index');
 
-Route::get('/search', [SiteController::class, 'getSearch'])->name('carel.search');
+Route::get('/search', [SiteController::class, 'getSearch'])->name('carel.pages.search.index');
 
-Route::get('/detail-class', [SiteController::class, 'getDetail'])->name('carel.overview');
+Route::get('/detail-class', [SiteController::class, 'getDetail'])->name('carel.pages.overview.index');
 
-Route::get('/settings', [SiteController::class, 'getSetting'])->name('carel.setting');
+Route::get('/settings', [SiteController::class, 'getSetting'])->name('carel.pages.setting.index');
 
-Route::get('/checkout', [CheckoutController::class, 'getCheckout'])->name('carel.pages.checkout');
+Route::get('/checkout', [CheckoutController::class, 'getCheckout'])->name('carel.pages.checkout.index');
 
 // Login Halaman Login
 Route::get('/signin', [AuthController::class, 'getSignIn'])->name('carel.get.signin');

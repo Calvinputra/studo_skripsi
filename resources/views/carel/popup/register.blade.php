@@ -2,7 +2,7 @@
 
 <!-- Modal -->
 
-    <div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="registerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog" style="width: 400px;">
             <!-- Modal content-->
             <div class="modal-content">
@@ -11,7 +11,7 @@
                     <div>
 
                         <p class="title-text-login modal-title black">
-                            Masuk Akun.
+                            Daftar.
                         </p>
                     </div>
                     <div>
@@ -22,7 +22,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <a href=""  class="btn-google btn-block effect8" style="border: 1px solid #636466;border-radius:5px;padding: 10px 16px;text-decoration:none;">
-                            <center><span class="google-text-login" >Masuk dengan Google</span></center>
+                            <center><span class="google-text-login" >Buat dengan Google</span></center>
                         </a>
                     </div>
                     <hr style="border-color:#20A2EB !important">
@@ -45,18 +45,9 @@
                             </p>
                             <input id="password-field" placeholder="Password" style="border: 1px solid black;border-radius:5px;" type="password" class="form-control" name="password" required>
                                 <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password-nav"></span>
-                            <div class="clearfix d-flex align-items-center justify-content-between" style="margin-top:16px;padding:0px 20px;">
-                                <div>
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                    <label class="form-check-label" for="defaultCheck1">
-                                        Remember Me
-                                    </label>
-                                </div>
-                                <a href="" style="color:#1C1B1F; margin-left:100px;"><small>Forgot Password?</small></a>
-                            </div>
                         </div>
                         <div class="form-group">
-                            <button class="button-text-login btn-masuk" style="">Masuk</button>
+                            <button class="button-text-login btn-masuk" style="">Daftar</button>
                         </div>
                     </form>
                 </div>

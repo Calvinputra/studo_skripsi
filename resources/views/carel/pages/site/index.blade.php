@@ -4,12 +4,12 @@
 @section('content')
     <body class="antialiased">
         <!-- Modal Popup Login Form -->
-        @include('carel.parts.popup.login')
+        @include('carel.popup.login')
         <!-- End Modal Popup Login Form -->
 
        
-        @include('carel.pages.landingPage.HeroBanner')
-        @include('carel.pages.landingPage.rekomenKelas')
-        @include('carel.pages.landingPage.kelasTersedia')
+        @include('carel.pages.site.section.HeroBanner')
+        @include('carel.pages.site.section.rekomenKelas')
+        @include('carel.pages.site.section.kelasTersedia')
     </body>
 @endsection

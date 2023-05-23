@@ -37,9 +37,9 @@
                     </a>
                 </div>
                 <div class="col-sm-8">
-                    @include('carel.pages.setting_studo.profile')
-                    @include('carel.pages.setting_studo.password')
-                    @include('carel.pages.setting_studo.goals')
+                    @include('carel.pages.setting.section.profile')
+                    @include('carel.pages.setting.section.password')
+                    @include('carel.pages.setting.section.goals')
                 </div>
             </div>
         </div>

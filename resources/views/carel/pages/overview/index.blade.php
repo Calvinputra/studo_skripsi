@@ -10,9 +10,9 @@
         <div class="container" style="margin-bottom:40px;">            
             <div class="row">
                 <div class="col-sm-8">
-                    @include('carel.pages.overviewPage.namaMentor')
-                    @include('carel.pages.overviewPage.tentangKelas')
-                    @include('carel.pages.overviewPage.review')
+                    @include('carel.pages.overview.section.namaMentor')
+                    @include('carel.pages.overview.section.tentangKelas')
+                    @include('carel.pages.overview.section.review')
                 </div>
                 <div class="col-sm-4">
                     <div style="margin-top:40px;background: rgba(255, 193, 0, 0.1);border-radius: 5px;padding: 24px;position:fixed;width:352px;">

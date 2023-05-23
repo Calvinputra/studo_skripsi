@@ -32,7 +32,7 @@ class AuthController extends Controller
         if($finduser){
             Auth::login($finduser);
 
-            return redirect()->route('studo.index');
+            return redirect()->route('studo.index')->with('success', 'Berhasil Login');
         } else {
             $newUser = User::create([
                 'name' => $user->name,
@@ -43,7 +43,13 @@ class AuthController extends Controller
 
             Auth::login($newUser);
 
-            return redirect()->route('studo.index');
+            return redirect()->route('studo.index')->with('success', 'Berhasil Login');
         }
+    }
+
+    public function getSignout()
+    {
+        auth()->logout();
+        return redirect()->route('studo.index')->with('success', 'Berhasil Logout');
     }
 }

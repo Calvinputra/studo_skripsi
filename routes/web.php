@@ -44,6 +44,11 @@ Route::namespace('studo')->group( function () {
             Route::post('/regist', [AuthController::class, 'postRegist'])->name('studo.post.regist');
 
         Route::middleware(['auth'])->group(function () {
+
+            Route::get('/signout', [AuthController::class, 'getSignout'])->name('studo.post.signout');
+
+
+
             Route::get('/setting', [SettingController::class, 'index'])->name('studo.setting');
         });
 });

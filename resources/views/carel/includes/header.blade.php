@@ -32,7 +32,7 @@
                     <ul class="navbar-nav mt-2 mt-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                        <button class="btn btn-outline-success my-2 my-sm-0" style="color:#063852; border-color:#063852;background:#E6EBED" type="submit">
+                        <button class="btn btn-outline-success my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="color:#063852; border-color:#063852;background:#E6EBED" type="button">
                         <b>
                             Masuk
                         </b>

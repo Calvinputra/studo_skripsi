@@ -1,0 +1,116 @@
+/* Navbar */
+    .button-text-navbar{
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 19px;
+    }
+
+/* Halaman Login dan Daftar */
+    .title-text-login{
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 39px;
+        color: #222222;
+    }
+
+    .google-text-login{
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 19px;
+        color: #222222;
+    }
+
+    .desc-text-login{
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 19px;
+        color: #222222;
+    }
+
+    .button-text-login{
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 19px;
+        color: #FFFFFF;
+    }
+
+    .info-text-login{
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17px;
+        color: #222222;
+    }
+
+/* Halaman Landing Pages */
+
+    .title-text-main{
+        font-size: 48px;
+        font-weight: 700;
+        line-height: 58px;
+        color: #222222;
+    }
+
+    .desc-text-main{
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 22px;
+        color: #222222;
+    }
+
+    /* ada 2 warna jadi warnanya sesuain aja di HTML nya */
+    .button-text-main{
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 19px;
+    }
+
+    .head-text-main{
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 39px;
+        letter-spacing: 0em;
+        color: #222222;
+    }
+    /* Card */
+    .title-text-card{
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 24px;
+        color: #222222;
+    }
+    .mentor-name-text-card{
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 19px;
+        color: #222222;
+    }
+
+    .normal-price-text-card{
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 29px;
+        color: #063852;
+    }
+
+    .disc-price-text-card{
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 19px;
+        color: #636466;
+        text-decoration: line-through;
+    }
+
+    .hover-text-card{
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 19px;
+        color: #FFFFFF;
+    }
+
+/* Search Page */
+
+    .button-text-category{
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 19px;
+    }

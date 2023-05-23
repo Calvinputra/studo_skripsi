@@ -12,11 +12,11 @@ class SiteController extends Controller
     }
     public function getSearch()
     {
-        return view('carel.search');
+        return view('carel.pages.searchPage.index');
     }
     public function getDetail()
     {
-        return view('carel.overview');
+        return view('carel.pages.overviewPage.index');
     }
     public function getSetting()
     {

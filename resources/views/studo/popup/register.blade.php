@@ -1,7 +1,4 @@
-<link href="{{ url('styles/font.css') }}" rel="stylesheet" type = "text/css">
-
 <!-- Modal -->
-
     <div class="modal fade" id="registerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog" style="width: 400px;">
             <!-- Modal content-->
@@ -9,7 +6,6 @@
                 <div class="modal-header" style="border-top-left-radius: 30% !important;border-top-right-radius:30%;">
                     <div style="display:flex; justify-content:space-between;align-items:center;width:100%;">
                     <div>
-
                         <p class="title-text-login modal-title black">
                             Daftar.
                         </p>

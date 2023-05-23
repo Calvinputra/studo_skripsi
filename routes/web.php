@@ -3,7 +3,6 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SiteController;
-use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +30,7 @@ Route::namespace('studo')->group( function () {
 
             Route::get('/settings', [SiteController::class, 'getSetting'])->name('studo.setting');
 
-            Route::get('/checkout', [CheckoutController::class, 'getCheckout'])->name('studo.pages.checkout');
+            Route::get('/checkout', [CheckoutController::class, 'getCheckout'])->name('studo.checkout');
 
             // Login Halaman Login
             Route::get('/signin', [AuthController::class, 'getSignIn'])->name('studo.get.signin');

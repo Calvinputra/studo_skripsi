@@ -20,11 +20,13 @@
                             <span style="color:#063852;font-weight: 500;font-size: 24px;line-height: 29px;">Rp20.000&nbsp;</span>
                             <span style="text-decoration: line-through; font-size: 14px; color: grey">Rp250.000</span>
                         </div>
-                            <button class="btn btn-outline-success my-2 my-sm-0" style="color:white;background:#063852;width:100%;margin:24px 0px !important;" type="submit">
+                        <a href="{{route('carel.pages.checkout.index')}}">
+                            <button class="btn my-2 my-sm-0" style="color:white;background:#063852;width:100%;margin:24px 0px !important;" type="submit">
                                 <b>
                                     Beli kelas
                                 </b>
                             </button>
+                        </a>
                             <div>
                                 <p class="m-0">
                                     detail 1

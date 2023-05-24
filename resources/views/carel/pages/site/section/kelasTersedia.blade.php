@@ -17,7 +17,7 @@
     .hover-img:hover .middle {
         opacity: 1;
     }
-    
+
     .hover-img:hover img {
         opacity: 1;
         filter: brightness(70%);
@@ -146,11 +146,13 @@
 
         </div>
         <div style="margin-top:60px;text-align:center;">
-            <button class="btn btn-outline-success my-2 my-sm-0" style="color:#063852; border-color:#063852;background:white;" type="submit">
-                <b>
-                    Lihat Lebih Banyak
-                </b>
-            </button>
+            <a href="{{route('carel.pages.search.index')}}">
+                <button class="btn my-2 my-sm-0" style="color:#063852; border-color:#063852;background:white;" type="submit">
+                    <b>
+                        Lihat Lebih Banyak
+                    </b>
+                </button>
+            </a>
         </div>
     </div>
 </div>

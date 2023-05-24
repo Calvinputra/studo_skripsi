@@ -5,6 +5,7 @@
     <body class="antialiased">
         <!-- Modal Popup Login Form -->
         @include('carel.popup.login')
+        @include('carel.popup.register')
         <!-- End Modal Popup Login Form -->
 
        

@@ -32,11 +32,11 @@
                     <ul class="navbar-nav mt-2 mt-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                        <button class="btn my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#loginModal" style="color:#063852; border-color:#063852;background:#E6EBED" type="button">
-                            <b>
-                                Masuk
-                            </b>
-                        </button>
+                            <button class="btn my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#loginModal" style="color:#063852; border-color:#063852;background:#E6EBED" type="button">
+                                <b>
+                                    Masuk
+                                </b>
+                            </button>
                         </a>
                     </li>
                     <li class="nav-item">

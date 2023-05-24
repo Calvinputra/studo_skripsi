@@ -28,10 +28,10 @@
             <input type="name" value="{{ old('name', $user->name) }}" placeholder="Nama" name="name" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
         </div>
         <div class="form-group" >
-            <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;">
+            <p  style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;">
                 Email
             </p>
-            <input type="email" value="{{ old('email', $user->email) }}" placeholder="Email" name="email" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
+            <input disabled type="email" value="{{ old('email', $user->email) }}" placeholder="Email" name="email" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
         </div>
         <div class="form-group" >
             <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;">

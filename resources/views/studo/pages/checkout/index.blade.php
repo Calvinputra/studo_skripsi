@@ -1,4 +1,4 @@
-@extends('carel.main')
+@extends('studo.main')
 
 <link href="{{ url('styles/font.css') }}" rel="stylesheet" type = "text/css">
 @section('content')

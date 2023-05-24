@@ -1,7 +1,4 @@
-<link href="{{ url('styles/font.css') }}" rel="stylesheet" type = "text/css">
-
 <!-- Modal -->
-
     <div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog" style="width: 400px;">
             <!-- Modal content-->
@@ -21,18 +18,19 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <a href=""  class="btn-google btn-block effect8" style="border: 1px solid #636466;border-radius:5px;padding: 10px 16px;text-decoration:none;">
+                        <a href="{{ route('studo.auth.google.redirect') }}"  class="btn-google btn-block effect8" style="border: 1px solid #636466;border-radius:5px;padding: 10px 16px;text-decoration:none;">
                             <center><span class="google-text-login" >Masuk dengan Google</span></center>
                         </a>
                     </div>
                     <hr style="border-color:#20A2EB !important">
-                    <form>
-                        <div class="form-group">
+                    <form action="{{ route('studo.post.login') }}" method="POST">
+                    @csrf
+                        {{-- <div class="form-group">
                             <p class="desc-text-login">
                                 Nama lengkap
                             </p>
                             <input type="name" placeholder="Nama" name="name" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <p class="desc-text-login">
                                 Email

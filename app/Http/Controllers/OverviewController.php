@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class SiteController extends Controller
+class OverviewController extends Controller
 {
     public function index()
     {
+        return view('studo.pages.overview.index');
 
-        return view('studo.pages.site.index');
     }
 }

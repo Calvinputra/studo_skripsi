@@ -1,4 +1,4 @@
-<div style="margin-top:24px;">
+<div style="margin-top:24px;" class="row tab-pane fade" id="review" role="tabpanel">
     <p style="font-weight: 700;font-size: 18px;line-height: 22px;">
         Review
     </p>

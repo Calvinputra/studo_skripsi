@@ -1,4 +1,4 @@
-<div>
+<div class="row tab-pane fade" id="goals" role="tabpanel">
     <h2 style="font-weight: 700;font-size: 32px;line-height: 39px;">
         Ubah Goals
     </h2>

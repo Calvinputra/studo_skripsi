@@ -7,6 +7,12 @@
 
     @section ('header')
         @include('studo.includes.header')
+        <!-- Modal Popup Login Form -->
+        @include('studo.popup.login')
+        <!-- End Modal Popup Login Form -->
+        <!-- Modal Popup Login Form -->
+        @include('studo.popup.register')
+        <!-- End Modal Popup Login Form -->
     @endsection
 
     @yield('alerts.main')

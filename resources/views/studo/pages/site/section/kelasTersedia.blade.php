@@ -13,6 +13,10 @@
         text-align: center;
     }
 
+    a{
+        text-decoration:none !important;
+    }
+
 
     .hover-img:hover .middle {
         opacity: 1;
@@ -146,7 +150,7 @@
 
         </div>
         <div style="margin-top:60px;text-align:center;">
-            <a href="{{route('carel.pages.search.index')}}">
+            <a href="{{route('studo.search')}}">
                 <button class="btn my-2 my-sm-0" style="color:#063852; border-color:#063852;background:white;" type="submit">
                     <b>
                         Lihat Lebih Banyak

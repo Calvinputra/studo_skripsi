@@ -16,6 +16,10 @@
         text-align: center;
     }
 
+    a{
+        text-decoration:none !important;
+    }
+
 
     .hover-img:hover .middle {
         opacity: 1;

@@ -21,6 +21,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="{{ url('styles/font.css') }}" rel="stylesheet" type = "text/css">
         <link rel="stylesheet" type="text/css" href="{{ asset('resources/css/app.css') }}">
+        <meta name="google-signin-client_id"
+         content="942875105859-fh3uu63rjvn0gjrkp9m8gdabb583nq45.apps.googleusercontent.com">
     </head>
     @yield('content')
     

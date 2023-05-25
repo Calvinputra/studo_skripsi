@@ -6,6 +6,7 @@ use App\Http\Controllers\OverviewController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,6 +50,10 @@ Route::namespace('studo')->group( function () {
             Route::get('/setting', [SettingController::class, 'index'])->name('studo.setting');
             Route::post('/setting/user/profile/update/{id}', [SettingController::class, 'updateProfile'])->name('studo.post.updateProfile');
             Route::post('/setting/user/profile/photo/update/{id}', [SettingController::class, 'updateProfilePhoto'])->name('studo.user.profile.update_photo');
+            
+            Route::get('/signout', [AuthController::class, 'getSignout'])->name('studo.post.signout');
+
+            Route::get('/setting-admin', [AdminController::class, 'indexAdmin'])->name('studo.settingAdmin');
         });
 });
 

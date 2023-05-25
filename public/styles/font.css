@@ -123,3 +123,28 @@
         font-weight: 500;
         line-height: 19px;
     }
+
+/* Admin dashboard Page */
+    .header-text-category{
+        font-weight: 700;
+        font-size: 40px;
+        line-height: 140%;
+        color: #063852;
+    }
+    .text-kelas-admin{
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 22px;
+    }
+    .text-category{
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 140%;
+        color: #063852;
+    }
+
+    .padding-header{
+        padding: 16px;
+        background: rgba(255, 193, 0, 0.1);
+        border-radius: 5px;
+    }

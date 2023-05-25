@@ -20,6 +20,19 @@ class SettingController extends Controller
             'avatar' => $avatar
         ]);
     }
+    public function indexAdmin()
+    {
+        if(!auth()->check()){
+            return redirect()->route('studo.index')->with('error','Harus Login terlebih dahulu');
+        }
+        $user = User::find(auth()->user()->id);
+        $avatar = auth()->user()->avatar;
+
+        return view('studo.pages.setting.indexAdmin', [
+            'user' => $user,
+            'avatar' => $avatar
+        ]);
+    }
 
     public function updateProfile(Request $request, $id){
         $request->validate([

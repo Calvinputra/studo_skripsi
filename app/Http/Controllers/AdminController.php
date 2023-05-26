@@ -20,4 +20,18 @@ class AdminController extends Controller
             'avatar' => $avatar
         ]);
     }
+    
+    public function profileAdmin()
+    {
+        if(!auth()->check()){
+            return redirect()->route('studo.index')->with('error','Harus Login terlebih dahulu');
+        }
+        $user = User::find(auth()->user()->id);
+        $avatar = auth()->user()->avatar;
+
+        return view('studo.pages.setting.profileAdmin', [
+            'user' => $user,
+            'avatar' => $avatar
+        ]);
+    }
 }

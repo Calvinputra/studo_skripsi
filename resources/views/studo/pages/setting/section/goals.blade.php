@@ -30,10 +30,12 @@
             <label for="exampleFormControlTextarea1">Apa motivasimu?</label>
             <textarea class="form-control" style="border-color:black;" placeholder="Apa goal yang ingin kamu capai?" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
-        <button class="btn my-4 my-sm-0" style="color:white;background:#063852;" type="submit">
-            <b>
-                Simpan
-            </b>
-        </button>
+        <div style="float:right;>
+            <button class="btn my-4 my-sm-0" style="color:white;background:#063852;" type="submit">
+                <b>
+                    Simpan
+                </b>
+            </button>
+        </div>
     </form>
 </div>

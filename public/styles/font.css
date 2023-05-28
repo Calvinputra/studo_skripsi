@@ -148,3 +148,16 @@
         background: rgba(255, 193, 0, 0.1);
         border-radius: 5px;
     }
+
+    /* informasi umum */
+    .btn-info-kelas{
+        padding: 10px 16px;
+        width: fit-content;
+        background: #063852;
+        border-radius: 20px;
+        font-weight:700;
+    }
+
+    .form-group{
+        margin-top:24px;
+    }

@@ -54,6 +54,7 @@ Route::namespace('studo')->group( function () {
             Route::get('/signout', [AuthController::class, 'getSignout'])->name('studo.post.signout');
 
             Route::get('/setting-admin', [AdminController::class, 'indexAdmin'])->name('studo.settingAdmin');
+            Route::get('/setting-admin/informasi', [AdminController::class, 'informasiAdmin'])->name('studo.kelasBaruAdmin');
             
             Route::get('/setting-admin/profile', [AdminController::class, 'profileAdmin'])->name('studo.profileAdmin');
         });

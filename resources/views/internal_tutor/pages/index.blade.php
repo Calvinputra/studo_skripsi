@@ -1,4 +1,4 @@
-@extends('studo.main')
+@extends('internal_tutor.main')
 <style>
 .active[aria-selected="true"]{
     background: #20A2EB;
@@ -86,7 +86,7 @@
                 
                 <div class="col-sm-8">
                     <div class="tab-content">
-                        @include('studo.pages.setting.sectionAdmin.dashboard')
+                        @include('internal_tutor.pages.sectionAdmin.dashboard')
                     </div>
                 </div>
             </div>

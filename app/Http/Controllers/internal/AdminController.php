@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\internal;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -15,7 +16,7 @@ class AdminController extends Controller
         $user = User::find(auth()->user()->id);
         $avatar = auth()->user()->avatar;
 
-        return view('studo.pages.setting.indexAdmin', [
+        return view('internal_tutor.pages.index', [
             'user' => $user,
             'avatar' => $avatar
         ]);
@@ -29,7 +30,7 @@ class AdminController extends Controller
         $user = User::find(auth()->user()->id);
         $avatar = auth()->user()->avatar;
 
-        return view('studo.pages.setting.profileAdmin', [
+        return view('internal_tutor.pages.profileAdmin', [
             'user' => $user,
             'avatar' => $avatar
         ]);

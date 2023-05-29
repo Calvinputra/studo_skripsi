@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\studo;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -102,7 +103,6 @@ class AuthController extends Controller
             
             return back()->with('success', 'Daftar Berhasil. Silahkan Login');
         } catch (Exception $e) {
-            dd($e);
             return back()->with('error', 'Internal Server Error');
         }
 

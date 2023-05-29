@@ -20,7 +20,7 @@ class CreateTableTutor extends Migration
             $table->string('password');
             $table->string('phone_number')->nullable();
             $table->string('avatar')->nullable();
-            $table->integer('verify_email');
+            $table->integer('verify_email')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

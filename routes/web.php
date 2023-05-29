@@ -1,12 +1,15 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\OverviewController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\SiteController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\studo\CheckoutController;
+use App\Http\Controllers\studo\OverviewController;
+use App\Http\Controllers\studo\SearchController;
+use App\Http\Controllers\studo\SettingController;
+use App\Http\Controllers\studo\SiteController;
+use App\Http\Controllers\studo\AuthController as StudoAuthController;
+
+
+use App\Http\Controllers\internal\AuthController as InternalTutorAuthController ;
+use App\Http\Controllers\internal\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,29 +39,46 @@ Route::namespace('studo')->group( function () {
 
 
             //  Post Data dari Popup Login
-            Route::post('/login', [AuthController::class, 'postLogin'])->name('studo.post.login');
+            Route::post('/login', [StudoAuthController::class, 'postLogin'])->name('studo.post.login');
             
             // Post Data dari Popup Daftar
-            Route::post('/regist', [AuthController::class, 'postSignup'])->name('studo.post.regist');
+            Route::post('/regist', [StudoAuthController::class, 'postSignup'])->name('studo.post.regist');
 
 
+        Route::middleware('auth')->group(function () {
 
-        Route::middleware(['auth'])->group(function () {
-
-            Route::get('/signout', [AuthController::class, 'getSignout'])->name('studo.post.signout');
+            Route::get('/signout', [StudoAuthController::class, 'getSignout'])->name('studo.post.signout');
 
             Route::get('/setting', [SettingController::class, 'index'])->name('studo.setting');
             Route::post('/setting/user/profile/update/{id}', [SettingController::class, 'updateProfile'])->name('studo.post.updateProfile');
             Route::post('/setting/user/profile/photo/update/{id}', [SettingController::class, 'updateProfilePhoto'])->name('studo.user.profile.update_photo');
             
-            Route::get('/signout', [AuthController::class, 'getSignout'])->name('studo.post.signout');
+            Route::get('/signout', [StudoAuthController::class, 'getSignout'])->name('studo.post.signout');
 
-            Route::get('/setting-admin', [AdminController::class, 'indexAdmin'])->name('studo.settingAdmin');
-            Route::get('/setting-admin/informasi', [AdminController::class, 'informasiAdmin'])->name('studo.kelasBaruAdmin');
-            
-            Route::get('/setting-admin/profile', [AdminController::class, 'profileAdmin'])->name('studo.profileAdmin');
         });
 });
 
+Route::namespace('internal')->group(function () {
+
+    // Sebelum Login
+    Route::middleware('guest:tutors')->group(function () {
+        Route::get('/internal', [InternalTutorAuthController::class, 'getSignin'])->name('internal_tutor.signin');
+        Route::post('/internal/post_signin', [InternalTutorAuthController::class, 'postSignin'])->name('internal_tutor.post.signin');
+        Route::get('/internal/signup', [InternalTutorAuthController::class, 'getSignup'])->name('internal_tutor.signup');
+        Route::post('/internal/post/signup', [InternalTutorAuthController::class, 'postSignup'])->name('internal_tutor.post.signup');
+    });
+    // Setelah Login
+    Route::middleware('auth:tutors')->group(function () {
+
+        Route::get('/internal/signout', [InternalTutorAuthController::class, 'getSignout'])->name('internal_tutor.post.signout');
+
+        Route::get('/internal/setting-admin', [AdminController::class, 'indexAdmin'])->name('internal_tutor.index');
+
+        Route::get('/internal/setting-admin/informasi', [AdminController::class, 'informasiAdmin'])->name('internal_tutor.kelasBaruAdmin');
+
+        Route::get('/internal/setting-admin/profile', [AdminController::class, 'profileAdmin'])->name('internal_tutor.profileAdmin');
+
+    });
+});
 
 

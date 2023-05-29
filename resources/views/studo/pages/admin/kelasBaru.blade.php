@@ -29,9 +29,9 @@
                 </div>
                 <div class="col-sm-8">
                     <div class="tab-content">
-                        @include('studo.pages.setting.sectionAdmin.informasi')
-                        @include('studo.pages.setting.sectionAdmin.materi')
-                        @include('studo.pages.setting.sectionAdmin.project')
+                        @include('internal_tutor.pages.sectionAdmin.informasi')
+                        @include('internal_tutor.pages.sectionAdmin.materi')
+                        @include('internal_tutor.pages.sectionAdmin.project')
                     </div>
                 </div>
             </div>

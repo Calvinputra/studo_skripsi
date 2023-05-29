@@ -9,7 +9,8 @@ use App\Http\Controllers\studo\AuthController as StudoAuthController;
 
 
 use App\Http\Controllers\internal\AuthController as InternalTutorAuthController ;
-use App\Http\Controllers\internal\AdminController;
+use App\Http\Controllers\internal\ClassController;
+use App\Http\Controllers\internal\TutorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,22 +62,26 @@ Route::namespace('studo')->group( function () {
 Route::namespace('internal')->group(function () {
 
     // Sebelum Login
-    Route::middleware('guest:tutors')->group(function () {
+    // Route::middleware('guest:tutors')->group(function () {
         Route::get('/internal', [InternalTutorAuthController::class, 'getSignin'])->name('internal_tutor.signin');
         Route::post('/internal/post_signin', [InternalTutorAuthController::class, 'postSignin'])->name('internal_tutor.post.signin');
         Route::get('/internal/signup', [InternalTutorAuthController::class, 'getSignup'])->name('internal_tutor.signup');
         Route::post('/internal/post/signup', [InternalTutorAuthController::class, 'postSignup'])->name('internal_tutor.post.signup');
-    });
+    // });
     // Setelah Login
     Route::middleware('auth:tutors')->group(function () {
 
         Route::get('/internal/signout', [InternalTutorAuthController::class, 'getSignout'])->name('internal_tutor.post.signout');
 
-        Route::get('/internal/setting-admin', [AdminController::class, 'indexAdmin'])->name('internal_tutor.index');
+        Route::get('/internal/tutor', [TutorController::class, 'index'])->name('internal_tutor.index');
 
-        Route::get('/internal/setting-admin/informasi', [AdminController::class, 'informasiAdmin'])->name('internal_tutor.kelasBaruAdmin');
+        Route::get('/internal/profile', [TutorController::class, 'profile'])->name('internal_tutor.profileTutor');
 
-        Route::get('/internal/setting-admin/profile', [AdminController::class, 'profileAdmin'])->name('internal_tutor.profileAdmin');
+        // View Input Class
+        Route::get('/internal/class', [ClassController::class, 'index'])->name('internal_tutor.class.index');
+        //  Input Class
+        Route::post('/internal/class/store', [ClassController::class, 'store'])->name('internal_tutor.class.store');
+
 
     });
 });

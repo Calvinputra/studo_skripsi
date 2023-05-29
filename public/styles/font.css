@@ -156,8 +156,26 @@
         background: #063852;
         border-radius: 20px;
         font-weight:700;
+        color:white;
+    }
+    .btn-info-kelas-off{
+        padding: 10px 16px;
+        width: fit-content;
+        background: #E6EBED;
+        border-radius: 20px;
+        font-weight:500;
+        color:#636466;
     }
 
     .form-group{
+        margin-top:24px;
+    }
+
+    .text-kelas-baru{
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 19px;
+        color:black;
         margin-top:24px;
     }

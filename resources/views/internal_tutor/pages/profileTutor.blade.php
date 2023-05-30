@@ -65,9 +65,9 @@
                 </div>
                 <div class="col-sm-8">
                     <div class="tab-content">
-                        @include('studo.pages.setting.sectionAdmin.profile')
-                        @include('studo.pages.setting.sectionAdmin.password')
-                        @include('studo.pages.setting.sectionAdmin.saldo')
+                        @include('internal_tutor.pages.section.profile')
+                        @include('internal_tutor.pages.section.password')
+                        @include('internal_tutor.pages.section.saldo')
                     </div>
                 </div>
             </div>

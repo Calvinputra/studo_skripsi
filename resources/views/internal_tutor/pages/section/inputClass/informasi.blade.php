@@ -89,9 +89,11 @@
             </div>
         </div>
         <div style="float:right;">
+        <a href="{{ route('internal_tutor.class.materi') }}">
             <button class="btn my-2 my-sm-0" style="color:#063852; border-color:#063852;background:white" >
                 Selanjutnya
             </button>
+        </a>
         </div>
     </form>
 <script>

@@ -78,7 +78,9 @@ Route::namespace('internal')->group(function () {
         Route::get('/internal/profile', [TutorController::class, 'profile'])->name('internal_tutor.profileTutor');
 
         // View Input Class
-        Route::get('/internal/class', [ClassController::class, 'index'])->name('internal_tutor.class.index');
+        Route::get('/internal/class/informasi', [ClassController::class, 'index'])->name('internal_tutor.class.informasi');
+        Route::get('/internal/class/materi', [ClassController::class, 'materi'])->name('internal_tutor.class.materi');
+        Route::get('/internal/class/project', [ClassController::class, 'project'])->name('internal_tutor.class.project');
         //  Input Class
         Route::post('/internal/class/store', [ClassController::class, 'store'])->name('internal_tutor.class.store');
 

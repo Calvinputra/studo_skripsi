@@ -80,7 +80,7 @@
                     <div style="border: 1px solid #E6EBED;margin:24px 0px;">
                     </div>
                     <div class="form-group">
-                        <a href="{{ route('internal_tutor.class.index') }}" class="button-text-login btn-masuk" style="width:100%;color:#063852; border-color:#063852;background:white">Buat Kelas Baru</a>
+                        <a href="{{ route('internal_tutor.class.informasi') }}" class="button-text-login btn-masuk" style="width:100%;color:#063852; border-color:#063852;background:white">Buat Kelas Baru</a>
                     </div>
                 </div>
                 

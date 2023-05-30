@@ -29,8 +29,6 @@
                 </div>
                 <div class="col-sm-8">
                     <div class="tab-content">
-                        @include('internal_tutor.pages.section.inputClass.informasi')
-                        @include('internal_tutor.pages.section.inputClass.materi')
                         @include('internal_tutor.pages.section.inputClass.project')
                     </div>
                 </div>

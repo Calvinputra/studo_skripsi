@@ -23,7 +23,7 @@ class ClassController extends Controller
         $avatar = auth()->user()->avatar;
         $tutor = Tutor::find(auth()->user()->id);
 
-        return view('internal_tutor.pages.inputClass.index', [
+        return view('internal_tutor.pages.inputClass.informasi', [
             'avatar' => $avatar,
             'tutor' => $tutor,
         ]);
@@ -60,7 +60,6 @@ class ClassController extends Controller
                 $class->price = $request->price ?? 0;
                 $class->discount = $request->discount;
                 $class->status = $request->status;
-                dd($class);
 
                 // handle file upload
                 if ($request->hasFile('thumbnail')) {
@@ -79,10 +78,42 @@ class ClassController extends Controller
             $class->save();
         });
 
-        return view('internal_tutor.pages.inputClass.index')->with('success', 'Kelas berhasil diinput');
+        return view('internal_tutor.pages.inputClass.informasi')->with('success', 'Kelas berhasil diinput');
 
         }catch(Exception $e) {
             return back()->with('error','internal server error!');
         }
+    }
+
+    // materi
+    public function materi()
+    {
+        if (!auth()->check()) {
+            return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
+        }
+
+        $avatar = auth()->user()->avatar;
+        $tutor = Tutor::find(auth()->user()->id);
+
+        return view('internal_tutor.pages.inputClass.materi', [
+            'avatar' => $avatar,
+            'tutor' => $tutor,
+        ]);
+    }
+
+    // project
+    public function project()
+    {
+        if (!auth()->check()) {
+            return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
+        }
+
+        $avatar = auth()->user()->avatar;
+        $tutor = Tutor::find(auth()->user()->id);
+
+        return view('internal_tutor.pages.inputClass.project', [
+            'avatar' => $avatar,
+            'tutor' => $tutor,
+        ]);
     }
 }

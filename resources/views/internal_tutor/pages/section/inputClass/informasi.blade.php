@@ -104,10 +104,6 @@
         </a>
         </div>
     </form>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
-
 <script>
     function calculate() {
         var normalPrice = document.getElementById('normalPrice').value;
@@ -162,12 +158,16 @@ $('#addChapter').click(function() {
             '</div>' +
             '<div class="form-group reading-input" id="reading-' + chapterCount + '" style="display: none;">' +
                 '<label for="material-' + chapterCount + '">Reading Material</label>' +
-                '<textarea class="form-control" id="material-' + chapterCount + '" placeholder="Enter reading material"></textarea>' +
+                '<textarea class="form-control tinymce-editor" id="material-' + chapterCount + '" placeholder="Enter reading material"></textarea>' +
             '</div>' +
         '</div>'
     );
     $('#chapterContents').append(chapterContent);
-
+    tinymce.init({
+        selector: '#material-' + chapterCount,
+        plugins: 'image code',
+        toolbar: 'undo redo | link image | code',
+    });
     // Activate tab
     if (isActive) {
         var tabTrigger = new bootstrap.Tab(document.querySelector('#chapter-' + chapterCount + '-tab'));

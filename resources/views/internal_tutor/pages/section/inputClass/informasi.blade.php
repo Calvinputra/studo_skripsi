@@ -29,6 +29,14 @@
         </p>
     </div>
 </div>
+{{-- test --}}
+<div class="container">
+    <ul class="nav nav-tabs" id="chapterTabs" role="tablist"></ul>
+    <div class="tab-content" id="chapterContents"></div>
+    <button id="addChapter" class="btn btn-primary">+ Add Chapter</button>
+    <button id="submitChapters" class="btn btn-success" disabled>Submit</button>
+</div>
+{{-- test --}}
     <form action="{{ route('internal_tutor.class.store') }}" method="POST">
         @csrf
         <div class="form-group">
@@ -96,6 +104,10 @@
         </a>
         </div>
     </form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
+
 <script>
     function calculate() {
         var normalPrice = document.getElementById('normalPrice').value;
@@ -106,4 +118,85 @@
         document.getElementById('finalPrice').innerHTML = finalPrice;
         document.getElementById('finalPriceInput').value = finalPrice; // tambahkan baris ini
     }
+</script>
+
+<script>
+var chapterCount = 0;
+
+$('#addChapter').click(function() {
+    chapterCount++;
+    var isActive = chapterCount === 1;
+
+    // Add new tab
+    var chapterTab = $(
+        '<li class="nav-item">' +
+            '<a class="nav-link' + (isActive ? ' active' : '') + '" id="chapter-' + chapterCount + '-tab" data-bs-toggle="pill" data-bs-target="#chapter-' + chapterCount + '" role="tab">' +
+                'Chapter ' + chapterCount +
+            '</a>' +
+        '</li>'
+    );
+    $('#chapterTabs').append(chapterTab);
+
+    // Add new tab content
+    var chapterContent = $(
+        '<div class="tab-pane fade show' + (isActive ? ' active' : '') + '" id="chapter-' + chapterCount + '" role="tabpanel">' +
+            '<div class="form-group">' +
+                '<label for="title-' + chapterCount + '">Title</label>' +
+                '<input type="text" class="form-control" id="title-' + chapterCount + '" placeholder="Enter title">' +
+            '</div>' +
+            '<div class="form-group">' +
+                '<label for="description-' + chapterCount + '">Description</label>' +
+                '<textarea class="form-control" id="description-' + chapterCount + '" placeholder="Enter description"></textarea>' +
+            '</div>' +
+            '<div class="form-group">' +
+                '<label for="type-' + chapterCount + '">Chapter Type</label>' +
+                '<select class="form-control" id="type-' + chapterCount + '">' +
+                    '<option value="">Select type</option>' +
+                    '<option value="video">Video</option>' +
+                    '<option value="reading">Reading</option>' +
+                '</select>' +
+            '</div>' +
+            '<div class="form-group video-input" id="video-' + chapterCount + '" style="display: none;">' +
+                '<label for="link-' + chapterCount + '">Video Link</label>' +
+                '<input type="text" class="form-control" id="link-' + chapterCount + '" placeholder="Enter video link">' +
+            '</div>' +
+            '<div class="form-group reading-input" id="reading-' + chapterCount + '" style="display: none;">' +
+                '<label for="material-' + chapterCount + '">Reading Material</label>' +
+                '<textarea class="form-control" id="material-' + chapterCount + '" placeholder="Enter reading material"></textarea>' +
+            '</div>' +
+        '</div>'
+    );
+    $('#chapterContents').append(chapterContent);
+
+    // Activate tab
+    if (isActive) {
+        var tabTrigger = new bootstrap.Tab(document.querySelector('#chapter-' + chapterCount + '-tab'));
+        tabTrigger.show();
+    }
+
+    setTimeout(function() {
+        // Handle chapter type change
+        $('#type-' + chapterCount).change(function() {
+            var chapterType = $(this).val();
+            if (chapterType === 'video') {
+                $('#video-' + chapterCount).show();
+                $('#reading-' + chapterCount).hide();
+            } else if (chapterType === 'reading') {
+                $('#reading-' + chapterCount).show();
+                $('#video-' + chapterCount).hide();
+            } else {
+                $('#video-' + chapterCount).hide();
+                $('#reading-' + chapterCount).hide();
+            }
+        });
+    }, 0);
+
+    if (chapterCount >= 5) {
+        $('#submitChapters').prop('disabled', false);
+    }
+});
+
+$('#submitChapters').click(function() {
+    // TODO: Validate fields and send POST request to Laravel
+});
 </script>

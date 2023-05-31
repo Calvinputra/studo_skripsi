@@ -174,25 +174,23 @@ $('#addChapter').click(function() {
         tabTrigger.show();
     }
 
-    setTimeout(function() {
-        // Handle chapter type change
-        $('#type-' + chapterCount).change(function() {
-            var chapterType = $(this).val();
-            if (chapterType === 'video') {
-                $('#video-' + chapterCount).show();
-                $('#reading-' + chapterCount).hide();
-            } else if (chapterType === 'reading') {
-                $('#reading-' + chapterCount).show();
-                $('#video-' + chapterCount).hide();
-            } else {
-                $('#video-' + chapterCount).hide();
-                $('#reading-' + chapterCount).hide();
-            }
-        });
-    }, 0);
-
     if (chapterCount >= 5) {
         $('#submitChapters').prop('disabled', false);
+    }
+});
+
+$('#chapterContents').on('change', 'select', function() {
+    var chapterType = $(this).val();
+    var chapterId = $(this).attr('id').split('-')[1];
+    if (chapterType === 'video') {
+        $('#video-' + chapterId).show();
+        $('#reading-' + chapterId).hide();
+    } else if (chapterType === 'reading') {
+        $('#reading-' + chapterId).show();
+        $('#video-' + chapterId).hide();
+    } else {
+        $('#video-' + chapterId).hide();
+        $('#reading-' + chapterId).hide();
     }
 });
 

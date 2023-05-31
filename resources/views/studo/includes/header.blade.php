@@ -58,6 +58,11 @@
                                 </b>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="nav-link" href="{{ route('studo.setting') }}">
+                                    <b>
+                                        Pengaturan
+                                    </b>
+                                </a>
                                 <a class="nav-link" href="{{ route('studo.post.signout') }}">
                                     <b>
                                         keluar

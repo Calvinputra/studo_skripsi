@@ -26,7 +26,7 @@
                     <div style="display:flex; justify-content:space-between;align-items:center;width:100%;">
                         <div>
                             <p class="title-text-login modal-title black">
-                                Daftar.
+                                Daftar
                             </p>
                         </div>
                         <div>
@@ -60,8 +60,8 @@
                                 Password
                             </p>
                             <div class="password-input">
-                                <input class="form-control" id="password" type="password" name="password" placeholder="Password" style="border: 1px solid black;border-radius:5px;"> 
-                                <i id="toggle-password2" class="fas fa-eye password-icon"></i>
+                                <input class="form-control" id="password-register" type="password" name="password" placeholder="Password" style="border: 1px solid black;border-radius:5px;"> 
+                                <i id="toggle-password-register" class="fa fa-eye password-icon"></i>
                             </div>
                         </div>
                         <div class="form-group">
@@ -75,14 +75,15 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        $("#toggle-password2").click(function() {
-            var input = $("#password");
+        $("#toggle-password-register").click(function() {
+            var input = $("#password-register");
+            var icon = $(this);
             if (input.attr("type") === "password") {
                 input.attr("type", "text");
-                $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+                icon.removeClass("fa-eye").addClass("fa-eye-slash");
             } else {
                 input.attr("type", "password");
-                $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+                icon.removeClass("fa-eye-slash").addClass("fa-eye");
             }
         });
     </script>

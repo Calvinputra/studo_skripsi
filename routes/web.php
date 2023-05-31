@@ -84,6 +84,10 @@ Route::namespace('internal')->group(function () {
         //  Input Class
         Route::post('/internal/class/store', [ClassController::class, 'store'])->name('internal_tutor.class.store');
 
+        // Update Profile Tutor
+        Route::post('/internal/tutor/profile/update/{id}', [TutorController::class, 'updateProfile'])->name('internal_tutor.post.updateProfile');
+
+
 
     });
 });

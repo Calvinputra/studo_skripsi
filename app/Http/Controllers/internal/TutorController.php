@@ -28,11 +28,11 @@ class TutorController extends Controller
         if(!auth()->check()){
             return redirect()->route('internal_tutor.index')->with('error','Harus Login terlebih dahulu');
         }
-        $user = User::find(auth()->user()->id);
+        $tutor = Tutor::find(auth()->user()->id);
         $avatar = auth()->user()->avatar;
 
         return view('internal_tutor.pages.profileTutor', [
-            'user' => $user,
+            'tutor' => $tutor,
             'avatar' => $avatar
         ]);
     }

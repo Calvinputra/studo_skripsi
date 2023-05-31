@@ -3,6 +3,10 @@
 [value=Video]{
     display: none;
 }
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+    color:#063852;
+    font-weight:700;
+}
 </style>
 <h2 class="itle-text-login">
     Buat Kelas Baru
@@ -58,7 +62,6 @@
     </div>
 </div>
 
-<div>
 <div class="container">
 
     <div class="tab-content" id="chapterContents"></div>

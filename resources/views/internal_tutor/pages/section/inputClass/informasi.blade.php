@@ -89,13 +89,6 @@
     </div>
 </div>
 
-<div class="container">
-    <ul class="nav nav-tabs" id="chapterTabs" role="tablist"></ul>
-    <div class="tab-content" id="chapterContents"></div>
-    <button id="addChapter" class="btn btn-primary">+ Add Chapter</button>
-    <button id="submitChapters" class="btn btn-success" disabled>Submit</button>
-</div>
-
 <form action="{{ route('internal_tutor.class.store') }}" method="POST">
     @csrf
     <div class="form-group">

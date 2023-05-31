@@ -3,7 +3,7 @@
         Edit Profil
     </h2>
 
-    <form method="post"action=""
+    <form method="post"action="{{ route('internal_tutor.post.updateProfile', auth()->user()->id) }}"
         enctype="multipart/form-data" id="form-image">
         @csrf
         <div style="">

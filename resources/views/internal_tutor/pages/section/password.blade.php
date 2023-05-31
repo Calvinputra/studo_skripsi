@@ -3,24 +3,25 @@
         Ubah Password
     </h2>
 
-    <form>
+    <form action="{{ route('internal_tutor.post.updatePassword', auth()->user()->id) }}" method="POST">
+        @csrf
         <div class="form-group">
             <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;margin-top:24px;">
                 Password Lama
             </p>
-            <input type="password" placeholder="" name="password_lama" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
+            <input type="text" placeholder="" name="password_lama" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
         </div>
         <div class="form-group" >
             <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;">
                 Password Baru
             </p>
-            <input type="password" name="password_baru" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
+            <input type="text" name="password_baru" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
         </div>
         <div class="form-group" >
             <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;">
                 Konfirmasi Password
             </p>
-            <input type="password" name="konfirmasi_password" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
+            <input type="text" name="konfirmasi_password" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
         </div>
         <div style="float:right;">
             <button class="btn my-4 my-sm-0" style="color:white;background:#063852;" type="submit">

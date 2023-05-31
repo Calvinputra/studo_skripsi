@@ -8,6 +8,9 @@
     <!-- Modal Popup Login Form -->
     @include('studo.popup.register')
     <!-- End Modal Popup Login Form -->
+    <!-- Modal Popup goals Form -->
+    @include('studo.popup.goals')
+    <!-- End Modal Popup goals Form -->
 @endsection
 
 @section('content')

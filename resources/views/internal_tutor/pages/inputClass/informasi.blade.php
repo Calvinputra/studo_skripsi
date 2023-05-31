@@ -57,7 +57,7 @@
     }
 </style>
 @section('content')
-    <body class="antialiased">
+    <body class="">
         <div class="container" style="margin-bottom:40px;margin-top:40px;">        
             <div class="row">
                 <div class="col-sm-4 ">
@@ -69,7 +69,7 @@
                     </a>
                 </div>
                 <div class="col-sm-8">
-                    <div class="tab-content">
+                    <div>
                         @include('internal_tutor.pages.section.inputClass.informasi')
                     </div>
                 </div>

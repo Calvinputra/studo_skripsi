@@ -36,7 +36,7 @@
                     <ul class="navbar-nav mt-2 mt-lg-0">
                     @if (auth()->check())
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('studo.setting') }}">
+                        <a class="nav-link" href="" data-bs-toggle="modal" data-bs-target="#goalsModal">
                             <p class="m-0" style="color:#063852">
                                 Goals
                             </p>

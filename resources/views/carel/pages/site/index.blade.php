@@ -7,6 +7,8 @@
         @include('carel.popup.login')
         <!-- Modal Popup Register Form -->
         @include('carel.popup.register')
+        <!-- Modal Popup Goals Form -->
+        @include('carel.popup.goals')
 
        
         @include('studo.pages.site.section.HeroBanner')

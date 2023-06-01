@@ -5,6 +5,7 @@ namespace App\Http\Controllers\studo;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class SettingController extends Controller
 {
@@ -89,5 +90,29 @@ class SettingController extends Controller
         $user->save();
 
         return back()->with('success', 'Foto profil berhasil diperbaharui');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'password_lama' => 'required',
+            'password_baru' => 'required|min:8',
+            'konfirmasi_password' => 'required|same:password_baru',
+        ]);
+    
+        // Mendapatkan user yang sedang login
+        $user = User::find(auth()->user()->id);
+    
+        // Memeriksa apakah password lama sesuai dengan yang ada di database
+        if (Hash::check($request->password_lama, $user->password)) {
+            // Memperbarui password baru
+            $user->password = Hash::make($request->password_baru);
+            $user->save();
+    
+            return back()->with('success', 'Password berhasil diperbarui');
+        } else {
+            return back()->with('error', 'Password lama tidak sesuai');
+        }
     }
 }

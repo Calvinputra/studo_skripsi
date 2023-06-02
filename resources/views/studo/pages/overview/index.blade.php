@@ -33,7 +33,7 @@
                 @if (!auth()->check())
                     @include('studo.pages.overview.section.floatingHarga')
                 @else
-                    @include('studo.pages.overview.section.floatingHarga')
+                    @include('studo.pages.overview.section.floatingMateri')
                 @endif
             </div>
         </div>

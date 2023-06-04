@@ -5,15 +5,19 @@ namespace App\Http\Controllers\studo;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Hash;
 
 class SettingController extends Controller
 {
     public function index()
     {
-        if(!auth()->check()){
-            return redirect()->route('studo.index')->with('error','Harus Login terlebih dahulu');
+        if (!auth()->check()) {
+            return redirect()->route('studo.index')->with('error', 'Harus Login terlebih dahulu');
         }
+
         $user = User::find(auth()->user()->id);
         $avatar = auth()->user()->avatar;
 
@@ -22,11 +26,13 @@ class SettingController extends Controller
             'avatar' => $avatar
         ]);
     }
+
     public function indexAdmin()
     {
-        if(!auth()->check()){
-            return redirect()->route('studo.index')->with('error','Harus Login terlebih dahulu');
+        if (!auth()->check()) {
+            return redirect()->route('studo.index')->with('error', 'Harus Login terlebih dahulu');
         }
+
         $user = User::find(auth()->user()->id);
         $avatar = auth()->user()->avatar;
 
@@ -36,7 +42,8 @@ class SettingController extends Controller
         ]);
     }
 
-    public function updateProfile(Request $request, $id){
+    public function updateProfile(Request $request, $id)
+    {
         $request->validate([
             'email' => 'nullable|email',
             'name' => 'nullable',
@@ -45,45 +52,40 @@ class SettingController extends Controller
 
         $user = User::find(auth()->user()->id);
 
-        $user->email = $request->email ? $request->email : null;
-        $user->name = $request->name ? $request->name : null;
-        $user->phone_number = $request->phone_number ? $request->phone_number : null;
+        $user->email = $request->email ?? null;
+        $user->name = $request->name ?? null;
+        $user->phone_number = $request->phone_number ?? null;
+
         $user->save();
 
         return back()->with('success', 'Biodata berhasil diperbaharui');
     }
-    public function updateProfilePhoto(Request $request, $id)
+
+    public function updateProfilePhoto(Request $request)
     {
         $rules = [
-            'photo' => 'nullable|mimes:png,jpg,jpeg,svg,',
+            'avatar' => 'nullable|mimes:png,jpg,jpeg,svg',
         ];
 
         $request->validate($rules);
-        $avatar = auth()->user()->avatar;
 
-        $user = User::find(auth()->user()->id);
-        if ($request->hasFile('photo')) {
-            if ($request->file('photo')->isValid()) {
-                $file = str_slug(auth()->user()->name) . '-' . str_random(4) . '-' . str_random(10) . '.jpg';
-                $user->avatar = $file;
-                $cover = Image::make($_FILES['photo']['tmp_name']); // original
-                $cover->backup();
+        $user = auth()->user();
+        $avatar = $user->avatar;
 
-                $cover->reset();
-                $cover->fit(300);
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            $file = Str::slug($user->name) . '-' . Str::random(4) . '-' . Str::random(10) . '.jpg';
+            $user->avatar = $file;
 
-                $extension = $request->file('photo')->getClientOriginalExtension();
+            $extension = $request->file('avatar')->getClientOriginalExtension();
+            $targetDir = 'upload/files/img/avatar/300-' . $file;
 
-                $targetDir = env('KELAS_AWS_BUCKET_ROOT') . '/upload/files/img/avatar/300-' . $file;
+            // Simpan file ke penyimpanan lokal (misalnya: folder public)
+            $request->file('avatar')->storeAs('public/' . $targetDir, $file);
 
-                $uploadFile = $cover->encode($extension);
-                Storage::disk('s3')->put($targetDir, $uploadFile, 'public');
+            $path = 'upload/files/img/avatar/300-' . $avatar;
 
-                $path = './' . env('KELAS_AWS_BUCKET_ROOT') . '/upload/files/img/avatar/300-' . $avatar;
-
-                if (file_exists($path)) {
-                    unlink($path);
-                }
+            if (Storage::disk('public')->exists($path)) {
+                Storage::disk('public')->delete($path);
             }
         }
 

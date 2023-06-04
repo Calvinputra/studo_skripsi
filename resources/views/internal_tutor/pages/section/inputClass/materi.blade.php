@@ -1,32 +1,4 @@
-<style>
-    
-[value=Video]{
-    display: none;
-}
-.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
-    color:#063852;
-    font-weight:700;
-    border-bottom: 3px #063852 solid !important;
-    
-}
-.nav-tabs .nav-link{
-    color:#063852;
-    font-weight:400;
-    border-radius:0px !important;
-    border:none;
-}
-.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
-    border-bottom: 1px #063852 solid;cursor:pointer;
-}
-.nav-link{
-    color: #063852 !important;
-}
-</style>
-<h2 class="itle-text-login">
-    Buat Kelas Baru
-</h2>
-
-@section('content')
+@extends('internal_tutor.main')
     <style>
         [value=Video]{
             display: none;
@@ -34,8 +6,26 @@
         .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
             color:#063852;
             font-weight:700;
+            border-bottom: 3px #063852 solid !important;
+            
+        }
+        .nav-tabs .nav-link{
+            color:#063852;
+            font-weight:400;
+            border-radius:0px !important;
+            border:none;
+        }
+        .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+            border-bottom: 1px #063852 solid;cursor:pointer;
+        }
+        .nav-link{
+            color: #063852 !important;
         }
     </style>
+@section('content')
+    <h2 class="itle-text-login">
+        Buat Kelas Baru
+    </h2>
     <div class="container" style="margin-bottom:40px;margin-top:40px;">        
         <div class="row">
             <h2 class="itle-text-login">

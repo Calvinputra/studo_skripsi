@@ -90,7 +90,7 @@ class ClassController extends Controller
         $avatar = auth()->user()->avatar;
         $tutor = Tutor::find(auth()->user()->id);
 
-        return view('internal_tutor.pages.inputClass.project', [
+        return view('internal_tutor.pages.inputClass.materi', [
             'avatar' => $avatar,
             'tutor' => $tutor,
         ]);

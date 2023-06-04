@@ -20,15 +20,14 @@ class ClassController extends Controller
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
 
-        $avatar = auth()->user()->avatar;
         $tutor = Tutor::find(auth()->user()->id);
 
+
         return view('internal_tutor.pages.inputClass.informasi', [
-            'avatar' => $avatar,
             'tutor' => $tutor,
         ]);
     }
-    public function store(Request $request)
+    public function storeInformasi(Request $request)
     {
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
@@ -78,7 +77,7 @@ class ClassController extends Controller
 
             $class->save();
 
-        return view('internal_tutor.pages.inputClass.informasi', [
+        return view('internal_tutor.pages.inputClass.materi', [
             'tutor' => $tutor,
         ])->with('success', 'Kelas berhasil diinput');
     }
@@ -98,6 +97,60 @@ class ClassController extends Controller
             'tutor' => $tutor,
         ]);
     }
+    // public function storeInformasi(Request $request)
+    // {
+    //     if (!auth()->check()) {
+    //         return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
+    //     }
+    //     $tutor = Tutor::find(auth()->user()->id);
+    //     $request->validate([
+    //         'name' => 'required',
+    //         'tutor_id' => 'required',
+    //         'description' => 'required',
+    //         'competency_unit' => 'required',
+    //         'category' => 'required',
+    //         'price' => 'required',
+    //         'status' => 'required',
+    //         'discount' => 'required',
+    //         // 'slug' => 'required',
+    //         'duration' => 'required',
+    //         'status' => 'required',
+    //     ]);
+
+    //     $slug = Str::slug($request->name, '-');
+    //     $class = new Classes;
+    //     $class->name = $request->name;
+    //     $class->tutor_id = $request->tutor_id;
+    //     $class->description = $request->description;
+    //     $class->competency_unit = $request->competency_unit;
+    //     $class->slug = $slug;
+    //     $class->duration = $request->duration ?? '-';
+    //     $class->category = $request->category;
+    //     $class->price = $request->price ?? '-';
+    //     $class->discount = $request->discount;
+    //     $class->status = $request->status;
+
+    //     // handle file upload
+    //     if ($request->hasFile('thumbnail')) {
+    //         // get file
+    //         $file = $request->file('thumbnail');
+
+    //         // generate unique name for the file
+    //         $filename = time() . '.' . $file->getClientOriginalExtension();
+
+    //         // save file to public/thumbnails directory
+    //         $path = $file->storeAs('thumbnails', $filename, 'public');
+
+    //         // save file name to database
+    //         $class->thumbnail = $path;
+    //     }
+
+    //     $class->save();
+
+    //     return view('internal_tutor.pages.inputClass.materi', [
+    //         'tutor' => $tutor,
+    //     ])->with('success', 'Kelas berhasil diinput');
+    // }
 
     // project
     public function project()

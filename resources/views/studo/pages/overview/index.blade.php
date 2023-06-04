@@ -10,7 +10,6 @@
 </style>
 
 @section('content')
-
     <body class="antialiased">
         <div class="container" style="margin-bottom:40px;">            
             <div class="row">
@@ -30,15 +29,13 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                @if (!auth()->check())
-                    @include('studo.pages.overview.section.floatingHarga')
-                @else
-                    @include('studo.pages.overview.section.floatingMateri')
-                @endif
+                    @if (!auth()->check())
+                        @include('studo.pages.overview.section.floatingHarga')
+                    @else
+                        @include('studo.pages.overview.section.floatingMateri')
+                    @endif
+                </div>
             </div>
         </div>
-        
     </body>
-
-
 @endsection

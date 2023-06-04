@@ -83,7 +83,7 @@ Route::namespace('internal')->group(function () {
         Route::get('/internal/class/materi', [ClassController::class, 'materi'])->name('internal_tutor.class.materi');
         Route::get('/internal/class/project', [ClassController::class, 'project'])->name('internal_tutor.class.project');
         //  Input Class
-        Route::post('/internal/class/store', [ClassController::class, 'store'])->name('internal_tutor.class.store');
+        Route::post('/internal/class/storeInformasi', [ClassController::class, 'storeInformasi'])->name('internal_tutor.class.store');
 
         // Update Profile Tutor
         Route::post('/internal/tutor/profile/update/{id}', [TutorController::class, 'updateProfile'])->name('internal_tutor.post.updateProfile');

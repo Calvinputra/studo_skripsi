@@ -62,7 +62,6 @@
     }
 </style>
 @section('content')
-
     <body class="">
         <div class="container" style="margin-bottom:40px;margin-top:40px;">
             <div class="row">
@@ -220,6 +219,36 @@
                 </div>
             </div>
         </div>
-
     </body>
+    <script>
+        function calculate() {
+            var normalPrice = document.getElementById('normalPrice').value;
+            var discount = document.getElementById('discount').value;
+            
+            var finalPrice = normalPrice - (normalPrice * (discount / 100));
+            
+            document.getElementById('finalPrice').innerHTML = finalPrice;
+            document.getElementById('finalPriceInput').value = finalPrice;
+        }
+    </script>
+    <script>
+        var chapterCount = 0;
+
+        $('#addChapter').click(function() {
+            chapterCount++;
+            var isActive = chapterCount === 1;
+
+            // Add new tab
+            var chapterTab = $(
+                '<li class="nav-item">' +
+                    '<a class="nav-link' + (isActive ? ' active' : '') + '" id="chapter-' + chapterCount + '-tab" data-bs-toggle="pill" data-bs-target="#chapter-' + chapterCount + '" role="tab">' +
+                        'Chapter ' + chapterCount +
+                    '</a>' +
+                '</li>'
+            );
+            $('#chapterTabs').append(chapterTab);
+
+        // Add new tab content
+        });
+    </script>
 @endsection

@@ -33,6 +33,7 @@ class ClassController extends Controller
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
+        $tutor = Tutor::find(auth()->user()->id);
         $request->validate([
             'name' => 'required',
             'tutor_id' => 'required',
@@ -77,7 +78,9 @@ class ClassController extends Controller
 
             $class->save();
 
-        return view('internal_tutor.pages.inputClass.informasi')->with('success', 'Kelas berhasil diinput');
+        return view('internal_tutor.pages.inputClass.informasi', [
+            'tutor' => $tutor,
+        ])->with('success', 'Kelas berhasil diinput');
     }
 
     // materi

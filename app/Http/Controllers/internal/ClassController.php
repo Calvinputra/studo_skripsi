@@ -77,7 +77,7 @@ class ClassController extends Controller
 
             $class->save();
 
-        return view('internal_tutor.pages.inputClass.materi')->with('success', 'Kelas berhasil diinput');
+        return view('internal_tutor.pages.inputClass.informasi')->with('success', 'Kelas berhasil diinput');
     }
 
     // materi
@@ -90,7 +90,7 @@ class ClassController extends Controller
         $avatar = auth()->user()->avatar;
         $tutor = Tutor::find(auth()->user()->id);
 
-        return view('internal_tutor.pages.inputClass.project', [
+        return view('internal_tutor.pages.inputClass.materi', [
             'avatar' => $avatar,
             'tutor' => $tutor,
         ]);
@@ -106,7 +106,7 @@ class ClassController extends Controller
         $avatar = auth()->user()->avatar;
         $tutor = Tutor::find(auth()->user()->id);
 
-        return view('internal_tutor.pages.inputClass.informasi', [
+        return view('internal_tutor.pages.inputClass.project', [
             'avatar' => $avatar,
             'tutor' => $tutor,
         ]);

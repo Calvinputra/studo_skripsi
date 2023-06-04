@@ -55,4 +55,7 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="{{ asset('resources/js/app.js') }}"></script>
 </body>
+<footer>
+@include('studo.includes.footer')
+</footer>
 </html>

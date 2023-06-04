@@ -1,7 +1,6 @@
 @extends('studo.main')
 
 @section('header')
-    @include('studo.includes.header')
     <!-- Modal Popup Login Form -->
     @include('studo.popup.login')
     <!-- End Modal Popup Login Form -->

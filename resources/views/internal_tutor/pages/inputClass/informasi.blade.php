@@ -66,7 +66,7 @@
         <div class="container" style="margin-bottom:40px;margin-top:40px;">
             <div class="row">
                 <div>
-                    <form action="{{ route('internal_tutor.class.store') }}" method="POST"
+                    <form action="{{ route('internal_tutor.class.storeInformasi') }}" method="POST"
                         enctype="multipart/form-data" id="form-image">
                         @csrf
                         <div class="container" style="margin-bottom:40px;margin-top:40px;">

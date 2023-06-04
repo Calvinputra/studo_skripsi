@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\internal;
 
 use App\Http\Controllers\Controller;
+use App\Models\Classes;
 use App\Models\Tutor;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -18,9 +19,13 @@ class TutorController extends Controller
         $tutor = Tutor::find(auth()->user()->id);
         $avatar = auth()->user()->avatar;
 
+        $classes = Classes::where('tutor_id', '=', $tutor->id)->first();
+        $count_classes = Classes::where('tutor_id', '=', $tutor->id)->count();
+
         return view('internal_tutor.pages.index', [
             'tutor' => $tutor,
-            'avatar' => $avatar
+            'classes' => $classes,
+            'count_classes' => $count_classes
         ]);
     }
     

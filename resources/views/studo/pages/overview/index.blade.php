@@ -10,7 +10,6 @@
 </style>
 
 @section('content')
-
     <body class="antialiased">
         <div class="container" style="margin-bottom:40px;">            
             <div class="row">

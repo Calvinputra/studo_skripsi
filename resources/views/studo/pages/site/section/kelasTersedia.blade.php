@@ -158,5 +158,25 @@
                 </button>
             </a>
         </div>
+
+        <div class="row " style="padding: 24px;background: rgba(32, 162, 235, 0.1);border-radius: 5px;margin-top:80px;">
+            <div class="col-sm-9 d-grid align-items-center">
+                <h2 class="title-text-login">
+                    Ayo Jadi Tutor di [Nama Aplikasi]
+                </h2>
+                <p>
+                    Jadilah tutor kami dan berikan perubahan positif pada kehidupan pelajar sekaligus mengembangkan diri kamu!
+                </p>
+            </div>
+            <div class="col-sm-3 d-grid align-items-center">
+                <a class="nav-link text-right" href="{{ route('internal_tutor.signin')}}">
+                    <button class="btn my-2 my-sm-0 " style="color:white;background:#063852;" type="button">
+                        <b>
+                            Daftar Sebagai Tutor
+                        </b>
+                    </button>
+                </a>
+            </div>
+        </div>
     </div>
 </div>

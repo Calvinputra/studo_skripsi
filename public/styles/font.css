@@ -158,6 +158,14 @@
     }
 
     /* informasi umum */
+    .btn-overview{
+        color:#063852; 
+        border-color:#063852;
+        background:white;
+        padding: 10px 16px;
+        border: 1px solid #063852;
+        border-radius:5px;
+    }
     .btn-info-kelas{
         padding: 10px 16px;
         width: fit-content;

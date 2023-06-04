@@ -2,6 +2,17 @@
 <html>
 <head>
     <!-- Bootstrap -->
+    @section('header')
+    <!-- Modal Popup Login Form -->
+    @include('studo.popup.login')
+    <!-- End Modal Popup Login Form -->
+    <!-- Modal Popup Login Form -->
+    @include('studo.popup.register')
+    <!-- End Modal Popup Login Form -->
+    <!-- Modal Popup goals Form -->
+    @include('studo.popup.goals')
+    <!-- End Modal Popup goals Form -->
+@endsection
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="{{ asset('js/app.js') }}"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">

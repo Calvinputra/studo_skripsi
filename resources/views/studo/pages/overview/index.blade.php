@@ -17,28 +17,26 @@
                 <div class="col-sm-8">
                     <div class="tab-content">
                         @if (auth()->check())
-                        @include('studo.pages.overview.section.namaMentor')
-                        @include('studo.pages.overview.section.tentangKelas')
-                        @include('studo.pages.overview.section.project')
+                            @include('studo.pages.overview.section.namaMentor')
+                            @include('studo.pages.overview.section.tentangKelas')
+                            @include('studo.pages.overview.section.project')
 
-                    @else
-                        @include('studo.pages.overview.section.namaMentor')
-                        @include('studo.pages.overview.section.tentangKelas')
-                        @include('studo.pages.overview.section.benefit')
-                        @include('studo.pages.overview.section.review')
-                    @endif
+                        @else
+                            @include('studo.pages.overview.section.namaMentor')
+                            @include('studo.pages.overview.section.tentangKelas')
+                            @include('studo.pages.overview.section.benefit')
+                            @include('studo.pages.overview.section.review')
+                        @endif
                     </div>
                 </div>
                 <div class="col-sm-4">
-                @if (!auth()->check())
-                    @include('studo.pages.overview.section.floatingHarga')
-                @else
-                    @include('studo.pages.overview.section.floatingMateri')
-                @endif
+                    @if (!auth()->check())
+                        @include('studo.pages.overview.section.floatingHarga')
+                    @else
+                        @include('studo.pages.overview.section.floatingMateri')
+                    @endif
+                </div>
             </div>
         </div>
-        
     </body>
-
-
 @endsection

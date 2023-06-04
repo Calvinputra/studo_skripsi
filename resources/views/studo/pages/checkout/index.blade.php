@@ -18,22 +18,58 @@
             
         </div>
         <div class="col-sm-5" style="">
+            <div class="d-flex align-items-center justify-content-between" style="padding: 8px;border: 1px solid #FFC100;">
+                <p class="desc-text-main m-0" style="font-weight:500;">
+                    1x Kelas Reguler
+                </p>
+                <span style="font-size: 16px;line-height: 29px;font-weight: 500;"><span style="text-decoration: line-through;color: grey;font-size: 12px;line-height:19px;margin-right:4px;"> Rp20.000</span>Rp10.000</span>
+                
+            </div>
             <b>
-                <p class="desc-text-main" style="font-weight:700;">
+                <p class="desc-text-main" style="font-weight:700; margin:16px 0px;">
                     Detail Pembayaran
                 </p>
             </b>
-            <p class="desc-text-main" style="font-weight:500;">
-                1 Kelas Reguler
-            </p>
-            <div>
-                <span style="font-size: 24px;line-height: 29px;font-weight: 500;">Rp10.000</span><span style="text-decoration: line-through;color: grey;font-size: 16px;line-height:19px;margin-left:4px;"> Rp20.000</span>
+
+            <div class="d-flex align-items-center justify-content-between">
+                <p class="desc-text-main m-0" style="font-weight:500;"">
+                    Sub Total
+                </p>
+                <p class="m-0" style="">
+                    Rp250.000
+                </p>
             </div>
+
+
+
+            <div class="d-flex align-items-center justify-content-between">
+                <p class="desc-text-main m-0" style="font-weight:500;color:#20A2EB">
+                    Diskon
+                </p>
+                <p class="m-0"style="color:#20A2EB">
+                    Rp201.000
+                </p>
+            </div>
+            <div style="border: 1px solid #D9D9D9;margin:16px 0px;">
+            </div>
+            <div class="d-flex align-items-center justify-content-between">
+                <b>
+                    <p class="desc-text-main m-0" style="font-weight:700;">
+                        Total Pembayaran
+                    </p>
+                </b>
+                <b>
+                    <p class="m-0" style=";">
+                        Rp49.000
+                    </p>
+                </b>
+            </div>
+
             <div style="margin-top:24px;">
                 <a  href="#">
-                    <button class="btn btn-outline-success my-2 my-sm-0" style="width:376px;color:white;background:#063852;" type="submit">
+                    <button class="btn btn-outline-success my-2 my-sm-0" style="width:100%;color:white;background:#063852;height: 51px;" type="submit">
                         <b>
-                            Lihat Kelas
+                            Beli Kelas
                         </b>
                     </button>
                 </a>

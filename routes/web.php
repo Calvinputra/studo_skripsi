@@ -53,6 +53,7 @@ Route::namespace('studo')->group( function () {
             Route::get('/setting', [SettingController::class, 'index'])->name('studo.setting');
             Route::post('/setting/user/profile/update/{id}', [SettingController::class, 'updateProfile'])->name('studo.post.updateProfile');
             Route::post('/setting/user/profile/photo/update/{id}', [SettingController::class, 'updateProfilePhoto'])->name('studo.user.profile.update_photo');
+            Route::post('/setting/user/profile/updatePassword/{id}', [SettingController::class, 'updatePassword'])->name('studo.post.updatePassword');
             
             Route::get('/signout', [App\Http\Controllers\studo\AuthController::class, 'getSignout'])->name('studo.post.signout');
 
@@ -86,6 +87,7 @@ Route::namespace('internal')->group(function () {
 
         // Update Profile Tutor
         Route::post('/internal/tutor/profile/update/{id}', [TutorController::class, 'updateProfile'])->name('internal_tutor.post.updateProfile');
+        Route::post('/internal/tutor/profile/updatePassword/{id}', [TutorController::class, 'updatePassword'])->name('internal_tutor.post.updatePassword');
 
 
 

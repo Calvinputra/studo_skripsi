@@ -3,7 +3,7 @@
         Edit Profil
     </h2>
 
-    <form method="post"action="{{ route('internal_tutor.post.updateProfile', auth()->user()->id) }}"
+    <form method="post"action=""
         enctype="multipart/form-data" id="form-image">
         @csrf
         <div style="">
@@ -19,25 +19,25 @@
             </button>
         </div>
     </form>
-    <form action="" method="POST">
+    <form action="{{ route('internal_tutor.post.updateProfile', auth()->user()->id) }}" method="POST">
         @csrf
         <div class="form-group">
             <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;margin-top:24px;">
                 Nama lengkap
             </p>
-            <input type="name" value="" placeholder="Nama" name="name" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
+            <input type="name" value="{{ old('name', $tutor->name) }}" placeholder="Nama" name="name" style="border: 1px solid black;border-radius:5px;" class="form-control">
         </div>
         <div class="form-group" >
             <p  style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;">
                 Email
             </p>
-            <input disabled type="email" value="" placeholder="Email" name="email" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
+            <input disabled type="email" value="{{ old('email', $tutor->email) }}" placeholder="Email" name="email" style="border: 1px solid black;border-radius:5px;" class="form-control" ">
         </div>
         <div class="form-group" >
             <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;">
                 Nomor Telepon
             </p>
-            <input type="number" value="{" placeholder="Nomor Telepon" name="phone_number" style="border: 1px solid black;border-radius:5px;" class="form-control">
+            <input type="number" value="{{ old('phone_number', $tutor->phone_number) }}" placeholder="Nomor Telepon" name="phone_number" style="border: 1px solid black;border-radius:5px;" class="form-control">
         </div>
         <div style="float:right">
             <button class="btn my-4 my-sm-0" style="color:white;background:#063852;" type="submit">

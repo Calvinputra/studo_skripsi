@@ -53,8 +53,8 @@
                                 Password
                             </p>
                             <div class="password-input">
-                                <input class="form-control" id="password-login" type="password" name="password" placeholder="Password" style="border: 1px solid black;border-radius:5px;"> 
-                                <i id="toggle-password-login" class="fas fa-eye password-icon"></i>
+                                <input class="form-control" id="password-login1" type="password" name="password" placeholder="Password" style="border: 1px solid black;border-radius:5px;"> 
+                                <i id="toggle-password-login1" class="fas fa-eye password-icon"></i>
                             </div>
                             <div class="clearfix d-flex align-items-center justify-content-between" style="margin-top:16px;padding:0px 20px;">
                                 <div>
@@ -77,15 +77,20 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        $("#toggle-password-login").click(function() {
-            var input = $("#password-login");
-            if (input.attr("type") === "password") {
-                input.attr("type", "text");
-                $(this).removeClass("fa-eye").addClass("fa-eye-slash");
-            } else {
-                input.attr("type", "password");
-                $(this).removeClass("fa-eye-slash").addClass("fa-eye");
-            }
+        $(document).ready(function() {
+            $("#toggle-password-login1").click(function() {
+                var input = $("#password-login1");
+                var icon = $(this);
+
+                if (input.attr("type") === "password") {
+                    input.attr("type", "text");
+                    icon.removeClass("fa-eye").addClass("fa-eye-slash");
+                } else {
+                    input.attr("type", "password");
+                    icon.removeClass("fa-eye-slash").addClass("fa-eye");
+                }
+            });
         });
     </script>
 </body>
+</html>

@@ -188,3 +188,11 @@
         line-height: 19px;
         color: #063852;
     }
+
+    /* materi pembelajaran floating */
+    .text-materi{
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 140%;
+        color: #222222;
+    }

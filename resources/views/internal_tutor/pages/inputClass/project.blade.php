@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-sm-8">
                     <div class="tab-content">
-                        @include('internal_tutor.pages.section.inputClass.project')
+                        @include('internal_tutor.pages.section.inputClassSection.project')
                     </div>
                 </div>
             </div>

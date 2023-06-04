@@ -70,7 +70,7 @@
                 </div>
                 <div class="col-sm-8">
                     <div>
-                        @include('internal_tutor.pages.section.inputClass.informasi')
+                        @include('internal_tutor.pages.section.inputClassSection.informasi')
                     </div>
                 </div>
             </div>

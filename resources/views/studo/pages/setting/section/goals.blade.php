@@ -2,40 +2,77 @@
     <h2 style="font-weight: 700;font-size: 32px;line-height: 39px;">
         Ubah Goals
     </h2>
+    {{--
+        <form>
+            <div style="">
+                <select class="custom-select" id="inputGroupSelect02" style="border-color:black;">
+                    <option selected>Kelas Lorem Ipsum</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+            <div class="row" style="margin-top:24px;">
+                <div class="col-sm-6">
+                    <fieldset class="form-group">
+                        <label class="form-label semibold">Tanggal mulai belajar</label>
+                        <input type="date" style="border-color:black;" name="start_date" value="{{ old('start_date') }}" class="form-control" placeholder="Start Date">
+                    </fieldset>
+                </div>
+                <div class="col-sm-6">
+                    <fieldset class="form-group">
+                        <label class="form-label semibold">Tanggal selesai belajar</label>
+                        <input type="date" style="border-color:black;" name="start_date" value="{{ old('start_date') }}" class="form-control" placeholder="Start Date">
+                    </fieldset>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Apa motivasimu?</label>
+                <textarea class="form-control" style="border-color:black;" placeholder="Apa goal yang ingin kamu capai?" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <div style="float:right;>
+                <button class="btn my-4 my-sm-0" style="color:white;background:#063852;" type="submit">
+                    <b>
+                        Simpan
+                    </b>
+                </button>
+            </div>
+        </form>
+    --}}
 
-    <form>
-        <div style="">
-            <select class="custom-select" id="inputGroupSelect02" style="border-color:black;">
-                <option selected>Kelas Lorem Ipsum</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
+    <div class="row">
+        <div class="col-sm-1">
+            <center>
+
+                <p class="m-0 text-kelas-baru">
+                    Goals
+                </p>
+                <p class="m-0 text-kelas-baru">
+                    1
+                </p>
+            </center>
         </div>
-        <div class="row" style="margin-top:24px;">
-            <div class="col-sm-6">
-                <fieldset class="form-group">
-                    <label class="form-label semibold">Tanggal mulai belajar</label>
-                    <input type="date" style="border-color:black;" name="start_date" value="{{ old('start_date') }}" class="form-control" placeholder="Start Date">
-                </fieldset>
-            </div>
-            <div class="col-sm-6">
-                <fieldset class="form-group">
-                    <label class="form-label semibold">Tanggal selesai belajar</label>
-                    <input type="date" style="border-color:black;" name="start_date" value="{{ old('start_date') }}" class="form-control" placeholder="Start Date">
-                </fieldset>
-            </div>
+        <div class="col-sm-8">
+            <p class="m-0 text-kelas-baru">
+                Kelas Programming
+            </p>
+            <p class="m-0 text-kelas-baru" style="font-weight:500;margin-top:8px !important">
+                Aku ingin menyelesaikan kelas ini untuk menambah ilmu 
+            </p>
         </div>
-        <div class="form-group">
-            <label for="exampleFormControlTextarea1">Apa motivasimu?</label>
-            <textarea class="form-control" style="border-color:black;" placeholder="Apa goal yang ingin kamu capai?" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <div class="col-sm-2">
+            <center>
+                <p>
+                    01/08/2023 
+                    <br>
+                    -
+                    <br> 
+                    01/08/2023
+                </p>
+            </center>
         </div>
-        <div style="float:right;>
-            <button class="btn my-4 my-sm-0" style="color:white;background:#063852;" type="submit">
-                <b>
-                    Simpan
-                </b>
-            </button>
+        <div class="col-sm-1">
+            
         </div>
-    </form>
+    </div>
 </div>

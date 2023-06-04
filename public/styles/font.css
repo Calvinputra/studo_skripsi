@@ -51,6 +51,12 @@
         line-height: 17px;
         color: #222222;
     }
+    .text-progress{
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 120%;
+        color: #222222;
+    }
 
 /* Halaman Landing Pages */
 
@@ -168,9 +174,22 @@
         font-weight:500;
         color:#636466;
     }
+    .text-kelas-belum-selesai{
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 140%;
+        color: #636466;
+    }
 
     .form-group{
         margin-top:24px;
+    }
+
+    .text-kelas{
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 140%;
+        color: #636466;
     }
 
     .text-kelas-baru{

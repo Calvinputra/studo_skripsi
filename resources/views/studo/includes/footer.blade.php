@@ -10,7 +10,7 @@
         </center>
     </div>
 </div>
-<div class="" style="background:#063852;">
+<div class="" style="background:#063852;padding: 8px 40px;">
     <div class="container d-flex align-items-center justify-content-between">
         <div>
             <p class="m-0" style="color:white">
@@ -21,7 +21,7 @@
             <a href="" style="margin-right:24px;color:white">
                 <span>Kelas</span>
             </a>
-            <a href="" style="color:white">
+            <a href="{{ route('internal_tutor.signin')}}" style="color:white">
                 <span>Masuk Sebagai Tutor</span>
             </a>
         </div>

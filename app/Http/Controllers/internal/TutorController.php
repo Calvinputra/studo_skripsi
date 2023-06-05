@@ -19,7 +19,7 @@ class TutorController extends Controller
         $tutor = Tutor::find(auth()->user()->id);
         $avatar = auth()->user()->avatar;
 
-        $classes = Classes::where('tutor_id', '=', $tutor->id)->first();
+        $classes = Classes::where('tutor_id', '=', $tutor->id)->get();
         $count_classes = Classes::where('tutor_id', '=', $tutor->id)->count();
 
         return view('internal_tutor.pages.index', [

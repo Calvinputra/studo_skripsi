@@ -12,6 +12,13 @@
             @include('internal_tutor.includes.header')
         @endif
     @endsection
+        @if ($errors->any())
+        <script>
+            $(document).ready(function () {
+                toastr.error("{{$errors->first()}}");
+            });
+        </script>
+    @endif
 
     @yield('alerts')
     @yield('header')

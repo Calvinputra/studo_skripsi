@@ -18,6 +18,7 @@
                         @if (auth()->check())
                             @include('studo.pages.overview.section.namaMentor')
                             @include('studo.pages.overview.section.tentangKelas')
+                            @include('studo.pages.overview.section.forum')
                             @include('studo.pages.overview.section.project')
 
                         @else

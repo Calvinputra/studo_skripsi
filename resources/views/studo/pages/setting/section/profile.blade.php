@@ -3,7 +3,7 @@
         Edit Profil
     </h2>
 
-    <form action="{{ route('internal_tutor.class.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('internal_tutor.class.storeInformasi') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div style="">
             <input type="file" name="avatar" id="image_upload" accept=".png, .jpg, .jpeg" />

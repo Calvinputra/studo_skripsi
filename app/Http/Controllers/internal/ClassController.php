@@ -80,17 +80,16 @@ class ClassController extends Controller
 
         $class->save();
 
-        return view('internal_tutor.pages.inputClass.materi', [
-            'tutor' => $tutor,
-        ])->with('success', 'Kelas berhasil diinput');
+        return view('internal_tutor.pages.inputClass.materi', ['tutor' => $tutor])->with('success', 'Kelas berhasil diinput');
     }
 
     // materi
-    public function materi()
+    public function materi($slug)
     {
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
+        $class = Classes::where('slug', '=', $slug)->first();
 
         $avatar = auth()->user()->avatar;
         $tutor = Tutor::find(auth()->user()->id);
@@ -98,6 +97,7 @@ class ClassController extends Controller
         return view('internal_tutor.pages.inputClass.materi', [
             'avatar' => $avatar,
             'tutor' => $tutor,
+            'class' => $class
         ]);
     }
     public function storeMateri(Request $request)
@@ -108,21 +108,28 @@ class ClassController extends Controller
 
         $tutor = Tutor::find(auth()->user()->id);
 
+        // Mendapatkan jumlah materi yang sudah ada untuk kelas ini
+        $existingMateris = Materi::where('classes_id', $request->classes_id)->count();
+
+        // Memeriksa apakah sudah ada minimal 5 materi
+        if ($existingMateris < 5) {
+            return redirect()->back()->with('error', 'Harus ada minimal 5 chapter sebelum dapat men-submit');
+        }
+
         $validatedData = $request->validate([
-            'name' => 'required|unique:materi,name', // menambahkan validasi unik pada field name
+            'name' => 'required|unique:materis,name',
             'classes_id' => 'required',
             'type' => 'required',
         ], [
-            'name.unique' => 'Judul Chapter sudah ada, silahkan pilih judul yang berbeda', // pesan kustom
+            'name.unique' => 'Judul Chapter sudah ada, silahkan pilih judul yang berbeda',
         ]);
+
         $materi = new Materi;
         $materi->name = $request->name;
         $materi->classes_id = $request->classes_id;
-        $materi->description = $request->description;
         $materi->description = $request->description ?? '-';
         $materi->link = $request->link ?? '-';
         $materi->reading = $request->reading ?? '-';
-
         $materi->save();
 
         return view('internal_tutor.pages.inputClass.project', [

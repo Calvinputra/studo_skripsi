@@ -43,7 +43,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('studo.setting') }}">
+                        <a class="nav-link" href="{{ route('studo.search') }}">
                             <p class="m-0" style="color:#063852">
                                 Kelas Saya
                             </p>

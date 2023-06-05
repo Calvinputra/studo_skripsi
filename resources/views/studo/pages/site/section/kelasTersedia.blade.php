@@ -38,11 +38,19 @@
 <div class="container" style="padding-top:80px;padding-bottom:80px;">
     <div>
         <center>
+        @if (auth()->check())
+            <h1 style="margin-top:80px">
+                <b>
+                    Kelas yang belum dibeli
+                </b>
+            </h1>
+        @else
+        <h1 style="margin-top:80px">
             <b>
-                <h1>
-                    Kelas yang tersedia
-                </h1>
+                Kelas yang tersedia
             </b>
+        </h1>
+        @endif
         </center>
         <div class="row" >
             <div class="col-sm-4 hover-img"style="margin-top:60px;">

@@ -62,6 +62,7 @@
     }
 </style>
 @section('content')
+
     <body class="">
         <div class="container" style="margin-bottom:40px;margin-top:40px;">
             <div class="row">
@@ -123,21 +124,21 @@
                                         <input class="form-control" type="file" id="thumbnail" name="thumbnail"
                                             style="border: 1px solid black;border-radius:5px;" required="required">
                                     </div>
-                                    <div class="form-group">
-                                        <p
-                                            style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;margin-top:24px;">
-                                            Judul kelas <span style="color: #EB2020">*</span>
-                                        </p>
-                                        <input type="text" placeholder="Digital Marketing" name="name"
-                                            style="border: 1px solid black;border-radius:5px;" class="form-control"
-                                            required="required">
-                                    </div>
+                                        <div class="form-group">
+                                            <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;margin-top:24px;">
+                                                Judul kelas <span style="color: #EB2020">*</span>
+                                            </p>
+                                            <input type="text" placeholder="Digital Marketing" name="name"
+                                                style="border: 1px solid black;border-radius:5px;" class="form-control"
+                                                required="required" value="{{ old('name') }}">
+                                        </div>
                                     <div style="margin-top:24px;">
                                         <label class="form-label semibold">Kategori <span
                                                 style="color: #EB2020">*</span></label>
-                                        <select class="custom-select" name="category" id="inputGroupSelect02"
-                                            style="border-color:black;" required="required">
+                                            <select class="custom-select" name="category" id="inputGroupSelect02"
+                                                style="border-color:black;" required="required">
                                             <option selected>Pilih Kategory</option>
+                                            <option value="programming" {{ old('category') == 'programming' ? 'selected' : '' }}>Programming & Web Development</option>
                                             <option value="programming">Programming & Web Development</option>
                                             <option value="graphic_design">Graphic Design</option>
                                             <option value="digital_marketing">Digital Marketing</option>
@@ -154,13 +155,13 @@
                                         <label for="exampleFormControlTextarea1">Deskripsi<span
                                                 style="color: #EB2020">*</span></label>
                                         <textarea class="form-control" name="description" style="border-color:black;" placeholder="Deskripsikan Kelasmu"
-                                            id="exampleFormControlTextarea1" rows="3"></textarea>
+                                            id="exampleFormControlTextarea1" rows="3" value="{{ old('competency_unit') }}"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Benefit mengikuti kelas ini<span
                                                 style="color: #EB2020">*</span></label>
                                         <textarea class="form-control" name="competency_unit" style="border-color:black;" placeholder="Benefit"
-                                            id="exampleFormControlTextarea1" rows="3"></textarea>
+                                            id="exampleFormControlTextarea1" rows="3" value="{{ old('competency_unit') }}"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Durasi Total Pembelajaran (menit)<span

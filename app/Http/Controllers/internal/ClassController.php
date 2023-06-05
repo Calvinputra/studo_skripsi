@@ -4,6 +4,7 @@ namespace App\Http\Controllers\internal;
 
 use App\Http\Controllers\Controller;
 use App\Models\Classes;
+use App\Models\Materi;
 use App\Models\Tutor;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -32,9 +33,11 @@ class ClassController extends Controller
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
+
         $tutor = Tutor::find(auth()->user()->id);
-        $request->validate([
-            'name' => 'required',
+
+        $validatedData = $request->validate([
+            'name' => 'required|unique:classes,name', // menambahkan validasi unik pada field name
             'tutor_id' => 'required',
             'description' => 'required',
             'competency_unit' => 'required',
@@ -42,40 +45,40 @@ class ClassController extends Controller
             'price' => 'required',
             'status' => 'required',
             'discount' => 'required',
-            // 'slug' => 'required',
             'duration' => 'required',
             'status' => 'required',
+        ], [
+            'name.unique' => 'Judul kelas sudah ada, silahkan pilih judul yang berbeda', // pesan kustom
         ]);
-
         $slug = Str::slug($request->name, '-');
-            $class = new Classes;
-            $class->name = $request->name;
-            $class->tutor_id = $request->tutor_id;
-            $class->description = $request->description;
-            $class->competency_unit = $request->competency_unit;
-            $class->slug = $slug;
-            $class->duration = $request->duration ?? '-';
-            $class->category = $request->category;
-            $class->price = $request->price ?? '-';
-            $class->discount = $request->discount;
-            $class->status = $request->status;
+        $class = new Classes;
+        $class->name = $request->name;
+        $class->tutor_id = $request->tutor_id;
+        $class->description = $request->description;
+        $class->competency_unit = $request->competency_unit;
+        $class->slug = $slug;
+        $class->duration = $request->duration ?? '-';
+        $class->category = $request->category;
+        $class->price = $request->price ?? '-';
+        $class->discount = $request->discount;
+        $class->status = $request->status;
 
-            // handle file upload
-            if ($request->hasFile('thumbnail')) {
-                // get file
-                $file = $request->file('thumbnail');
+        // handle file upload
+        if ($request->hasFile('thumbnail')) {
+            // get file
+            $file = $request->file('thumbnail');
 
-                // generate unique name for the file
-                $filename = time() . '.' . $file->getClientOriginalExtension();
+            // generate unique name for the file
+            $filename = time() . '.' . $file->getClientOriginalExtension();
 
-                // save file to public/thumbnails directory
-                $path = $file->storeAs('thumbnails', $filename, 'public');
+            // save file to public/thumbnails directory
+            $path = $file->storeAs('thumbnails', $filename, 'public');
 
-                // save file name to database
-                $class->thumbnail = $path;
-            }
+            // save file name to database
+            $class->thumbnail = $path;
+        }
 
-            $class->save();
+        $class->save();
 
         return view('internal_tutor.pages.inputClass.materi', [
             'tutor' => $tutor,
@@ -97,60 +100,35 @@ class ClassController extends Controller
             'tutor' => $tutor,
         ]);
     }
-    // public function storeInformasi(Request $request)
-    // {
-    //     if (!auth()->check()) {
-    //         return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
-    //     }
-    //     $tutor = Tutor::find(auth()->user()->id);
-    //     $request->validate([
-    //         'name' => 'required',
-    //         'tutor_id' => 'required',
-    //         'description' => 'required',
-    //         'competency_unit' => 'required',
-    //         'category' => 'required',
-    //         'price' => 'required',
-    //         'status' => 'required',
-    //         'discount' => 'required',
-    //         // 'slug' => 'required',
-    //         'duration' => 'required',
-    //         'status' => 'required',
-    //     ]);
+    public function storeMateri(Request $request)
+    {
+        if (!auth()->check()) {
+            return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
+        }
 
-    //     $slug = Str::slug($request->name, '-');
-    //     $class = new Classes;
-    //     $class->name = $request->name;
-    //     $class->tutor_id = $request->tutor_id;
-    //     $class->description = $request->description;
-    //     $class->competency_unit = $request->competency_unit;
-    //     $class->slug = $slug;
-    //     $class->duration = $request->duration ?? '-';
-    //     $class->category = $request->category;
-    //     $class->price = $request->price ?? '-';
-    //     $class->discount = $request->discount;
-    //     $class->status = $request->status;
+        $tutor = Tutor::find(auth()->user()->id);
 
-    //     // handle file upload
-    //     if ($request->hasFile('thumbnail')) {
-    //         // get file
-    //         $file = $request->file('thumbnail');
+        $validatedData = $request->validate([
+            'name' => 'required|unique:materi,name', // menambahkan validasi unik pada field name
+            'classes_id' => 'required',
+            'type' => 'required',
+        ], [
+            'name.unique' => 'Judul Chapter sudah ada, silahkan pilih judul yang berbeda', // pesan kustom
+        ]);
+        $materi = new Materi;
+        $materi->name = $request->name;
+        $materi->classes_id = $request->classes_id;
+        $materi->description = $request->description;
+        $materi->description = $request->description ?? '-';
+        $materi->link = $request->link ?? '-';
+        $materi->reading = $request->reading ?? '-';
 
-    //         // generate unique name for the file
-    //         $filename = time() . '.' . $file->getClientOriginalExtension();
+        $materi->save();
 
-    //         // save file to public/thumbnails directory
-    //         $path = $file->storeAs('thumbnails', $filename, 'public');
-
-    //         // save file name to database
-    //         $class->thumbnail = $path;
-    //     }
-
-    //     $class->save();
-
-    //     return view('internal_tutor.pages.inputClass.materi', [
-    //         'tutor' => $tutor,
-    //     ])->with('success', 'Kelas berhasil diinput');
-    // }
+        return view('internal_tutor.pages.inputClass.project', [
+            'tutor' => $tutor,
+        ])->with('success', 'Chapter berhasil diinput');
+    }
 
     // project
     public function project()

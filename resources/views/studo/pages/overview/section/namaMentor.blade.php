@@ -42,13 +42,13 @@
             <div style="margin-top:40px;">
                 <ul class="nav">
                     <div class="nav-item">
-                        <a  id="nav-benefit-tab" data-bs-toggle="tab" href="#kelas" class="btn-overview">
+                        <a  id="nav-benefit-tab" data-bs-toggle="tab" href="#kelas" class="btn-overview active">
                             <b>
                                 Tentang Kelas
                             </b>
                         </a>
                     </div>
-                    <div class="nav-item" >
+                    <div class="nav-item" style="margin:0px 16px;" >
                         <a  id="nav-benefit-tab" data-bs-toggle="tab" href="#benefit" class="btn-overview">
                             <b>
                                 Benefit
@@ -71,7 +71,7 @@
             <ul class="nav">
 
                 <div class="nav-item">
-                    <a class="btn-overview" id="nav-benefit-tab" data-bs-toggle="tab" href="#kelas">
+                    <a class="btn-overview active" id="nav-benefit-tab" data-bs-toggle="tab" href="#kelas">
                         <b>
                             Tentang Kelas
                         </b>

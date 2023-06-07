@@ -1,4 +1,4 @@
-<div class="row tab-pane fade show active" id="profile" role="tabpanel">
+<div class="row tab-pane active" id="profile" role="tabpanel">
     <h2 style="font-weight: 700;font-size: 32px;line-height: 39px;">
         Edit Profil
     </h2>

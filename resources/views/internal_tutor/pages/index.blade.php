@@ -45,7 +45,7 @@
                 <div style="border: 1px solid #E6EBED;margin:24px 0px;">
                 </div>
                 <ul class="nav" style="display:grid;">
-                    <a class="hover-dashboard"  id="nav-profile-tab" data-bs-toggle="tab" href="#profile" style="text-decoration:none;">
+                    <a class="hover-dashboard active"  id="nav-profile-tab" data-bs-toggle="tab" href="#profile" style="text-decoration:none;">
                         <div style="padding: 16px;height: 56px;border-radius: 5px;">
                             <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path style="fill:black" d="M14.5 21L13.1 17.9L10 16.5L13.1 15.1L14.5 12L15.9 15.1L19 16.5L15.9 17.9L14.5 21ZM0 18V6L8 0L16 6V10.175C15.75 10.1083 15.4958 10.0625 15.2375 10.0375C14.9792 10.0125 14.725 10 14.475 10C12.6583 10 11.125 10.6333 9.875 11.9C8.625 13.1667 8 14.7 8 16.5C8 16.75 8.0125 17 8.0375 17.25C8.0625 17.5 8.10833 17.75 8.175 18H0Z" fill="white"/>

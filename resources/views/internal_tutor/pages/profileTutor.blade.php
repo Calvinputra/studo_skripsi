@@ -1,4 +1,4 @@
-@extends('studo.main')
+@extends('internal_tutor.main')
 <style>
 .active[aria-selected="true"]{
     background: #20A2EB;

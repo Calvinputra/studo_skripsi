@@ -21,4 +21,16 @@ class QuestController extends Controller
             'user' => $user,
         ]);
     }
+    public function indexPostTest()
+    {
+    if (auth()->check()){
+        $user = User::find(auth()->user()->id);
+    }
+    else{
+        $user = NULL;
+    }
+        return view('studo.pages.quest.post-test', [
+            'user' => $user,
+        ]);
+    }
 }

@@ -276,7 +276,7 @@
                                     </div>
                                     <div style="float:right;">
                                         <button class="btn my-2 my-sm-0"
-                                            style="color:#063852; border-color:#063852;background:white">
+                                            style="color:#063852; border-color:#063852;background:white; font-weight: bold">
                                             Selanjutnya
                                         </button>
                                     </div>

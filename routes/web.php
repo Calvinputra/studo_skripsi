@@ -12,6 +12,7 @@ use App\Http\Controllers\internal\AuthController as InternalTutorAuthController 
 use App\Http\Controllers\internal\ClassController;
 use App\Http\Controllers\internal\TutorController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,12 +80,15 @@ Route::namespace('internal')->group(function () {
         Route::get('/internal/profile', [TutorController::class, 'profile'])->name('internal_tutor.profileTutor');
 
         // View Input Class
-        Route::get('/internal/class/informasi', [ClassController::class, 'index'])->name('internal_tutor.class.informasi');
+        Route::get('/internal/class/informasi/{slug?}', [ClassController::class, 'index'])->name('internal_tutor.class.informasi');
         Route::get('/internal/class/materi/{slug}', [ClassController::class, 'materi'])->name('internal_tutor.class.materi');
-        Route::get('/internal/class/project', [ClassController::class, 'project'])->name('internal_tutor.class.project');
+        Route::get('/internal/class/project/{slug}', [ClassController::class, 'project'])->name('internal_tutor.class.project');
+
+        // Edit Informasi Class
+        Route::get('/internal/class/informasi/edit/{slug}', [ClassController::class, 'edit'])->name('internal_tutor.class.informasi.edit');
         
         //  Input Class Informasi
-        Route::post('/internal/class/storeInformasi', [ClassController::class, 'storeInformasi'])->name('internal_tutor.class.storeInformasi');
+        Route::post('/internal/class/storeInformasi/{slug}', [ClassController::class, 'storeInformasi'])->name('internal_tutor.class.storeInformasi');
 
         //  Input Class Materi
         Route::post('/internal/class/storeMateri/{slug}', [ClassController::class, 'storeMateri'])->name('internal_tutor.class.storeMateri');
@@ -92,7 +96,6 @@ Route::namespace('internal')->group(function () {
         // Update Profile Tutor
         Route::post('/internal/tutor/profile/update/{id}', [TutorController::class, 'updateProfile'])->name('internal_tutor.post.updateProfile');
         Route::post('/internal/tutor/profile/updatePassword/{id}', [TutorController::class, 'updatePassword'])->name('internal_tutor.post.updatePassword');
-
 
 
     });

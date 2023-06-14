@@ -1,24 +1,56 @@
 @extends('internal_tutor.main')
 <style>
-.active[aria-selected="true"]{
-    background: #20A2EB;
-    border-radius: 5px;
-    fill:white;
-    color:white
-}
-.active[aria-selected="true"]:hover{
-    background: #20A2EB;
-}
-.active path{
-    fill:white !important;
-}
-.active span{
-    color:white !important;
-}
-.hover-dashboard:hover{
-    background: rgba(32, 162, 235, 0.1);
-    border-radius: 5px;
-}
+    .active[aria-selected="true"]{
+        background: #20A2EB;
+        border-radius: 5px;
+        fill:white;
+        color:white
+    }
+    .active[aria-selected="true"]:hover{
+        background: #20A2EB;
+    }
+    .active path{
+        fill:white !important;
+    }
+    .active span{
+        color:white !important;
+    }
+    .hover-dashboard:hover{
+        background: rgba(32, 162, 235, 0.1);
+        border-radius: 5px;
+    }
+    .middle {
+        transition: .5s ease;
+        opacity: 0;
+        position: absolute;
+        top: 75px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    a{
+        text-decoration:none !important;
+    }
+
+
+    .hover-img:hover .middle {
+        opacity: 1;
+    }
+
+    .hover-img:hover img {
+        opacity: 1;
+        filter: brightness(70%);
+    }
+
+    .text {
+        border: 1px solid black;
+        border-radius: 5px;justify-content: center;
+        align-items: center;
+        padding: 10px 16px;
+        width:150px;
+    }
 </style>
 @section('content')
     <div class="container" style="margin-bottom:40px;margin-top:40px;">        

@@ -76,13 +76,17 @@ class SettingController extends Controller
             $file = Str::slug($user->name) . '-' . Str::random(4) . '-' . Str::random(10) . '.jpg';
             $user->avatar = $file;
 
+            // Ambil ekstensi file asli
             $extension = $request->file('avatar')->getClientOriginalExtension();
-            $targetDir = 'upload/files/img/avatar/300-' . $file;
+
+            // Anda bisa langsung menentukan direktori target sebagai 'upload/files/img/avatar/' tanpa menambahkan $file
+            $targetDir = 'upload/files/img/avatar/';
 
             // Simpan file ke penyimpanan lokal (misalnya: folder public)
             $request->file('avatar')->storeAs('public/' . $targetDir, $file);
 
-            $path = 'upload/files/img/avatar/300-' . $avatar;
+            // Hapus file avatar lama jika ada
+            $path = 'upload/files/img/avatar/' . $file;
 
             if (Storage::disk('public')->exists($path)) {
                 Storage::disk('public')->delete($path);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\internal;
 
 use App\Http\Controllers\Controller;
+use App\Models\Chapter;
 use App\Models\Classes;
 use App\Models\Materi;
 use App\Models\Tutor;
@@ -15,7 +16,7 @@ use Illuminate\Support\Str;
 
 class ClassController extends Controller
 {
-    public function index()
+    public function index($slug = null)
     {
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
@@ -23,18 +24,51 @@ class ClassController extends Controller
 
         $tutor = Tutor::find(auth()->user()->id);
 
+        $edit = null;
 
         return view('internal_tutor.pages.inputClass.informasi', [
             'tutor' => $tutor,
+            'slug' => $slug,
+            'edit' => $edit
         ]);
     }
-    public function storeInformasi(Request $request)
+    public function edit($slug)
+    {
+        if (!auth()->check()) {
+            return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
+        }
+        $edit = Classes::where('slug', $slug)->first();
+
+        if ($edit->tutor_id != auth()->user()->id) {
+            return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
+        }
+        $tutor = Tutor::find(auth()->user()->id);
+
+        
+        $total_duration = Chapter::where('class_id', $edit->id)
+        ->sum('duration');
+
+        return view('internal_tutor.pages.inputClass.informasi', [
+            'tutor' => $tutor,
+            'slug' => $slug,
+            'edit' => $edit,
+            'total_duration' => $total_duration
+        ]);
+    }
+    public function storeInformasi(Request $request, $slug = null)
     {
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
 
         $tutor = Tutor::find(auth()->user()->id);
+        $class = Classes::where('slug', $request->slug)->first();
+
+        if ($class->tutor_id != auth()->user()->id) {
+            return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
+        }
+        
+        // dd($class);
 
         $validatedData = $request->validate([
             'name' => 'required|unique:classes,name', // menambahkan validasi unik pada field name
@@ -50,13 +84,13 @@ class ClassController extends Controller
         ], [
             'name.unique' => 'Judul kelas sudah ada, silahkan pilih judul yang berbeda', // pesan kustom
         ]);
-        $slug = Str::slug($request->name, '-');
+        // $slug = Str::slug($request->name, '-');
         $class = new Classes;
         $class->name = $request->name;
         $class->tutor_id = $request->tutor_id;
         $class->description = $request->description;
         $class->competency_unit = $request->competency_unit;
-        $class->slug = $slug;
+        $class->slug = $request->slug;
         $class->duration = $request->duration ?? '-';
         $class->category = $request->category;
         $class->price = $request->price ?? '-';
@@ -79,8 +113,11 @@ class ClassController extends Controller
         }
 
         $class->save();
-
-        return view('internal_tutor.pages.inputClass.materi', ['tutor' => $tutor])->with('success', 'Kelas berhasil diinput');
+        if($slug){
+            return redirect()->route('internal_tutor.class.materi', ['slug' => $slug])->with('success', 'Kelas berhasil di Edit');
+        }else{
+            return redirect()->route('internal_tutor.class.materi', ['slug' => $request->slug ])->with('success', 'Kelas berhasil diinput');
+        }
     }
 
     // materi
@@ -89,52 +126,58 @@ class ClassController extends Controller
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
-        $class = Classes::where('slug', '=', $slug)->first();
 
-        $avatar = auth()->user()->avatar;
+        $class = Classes::where('slug', $slug)->first();
+        
+        if($class->tutor_id != auth()->user()->id){
+            return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
+        }
+        
+        $chapters = Chapter::where('class_id', $class->id)->orderBy('priority', 'ASC')->get();
+        $count_video = Chapter::where('type', 'video')->where('class_id', $class->id)->count();
+        $count_reading = Chapter::where('type', 'reading')->where('class_id', $class->id)->count();
+
         $tutor = Tutor::find(auth()->user()->id);
 
         return view('internal_tutor.pages.inputClass.materi', [
-            'avatar' => $avatar,
-            'tutor' => $tutor,
-            'class' => $class
-        ]);
+            'slug' => $slug, 
+            'class' => $class,
+            'chapters' => $chapters,
+            'count_video' => $count_video,
+            'count_reading' => $count_reading
+            ])->with('success', 'Kelas berhasil diinput');
     }
-    public function storeMateri(Request $request)
+    public function storeMateri(Request $request,  $slug)
     {
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
+        $class = Classes::where('slug', $slug)->first();
 
+        if ($class->tutor_id != auth()->user()->id) {
+            return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
+        }
         $tutor = Tutor::find(auth()->user()->id);
 
-        // Mendapatkan jumlah materi yang sudah ada untuk kelas ini
-        $existingMateris = Materi::where('classes_id', $request->classes_id)->count();
-
-        // Memeriksa apakah sudah ada minimal 5 materi
-        if ($existingMateris < 5) {
-            return redirect()->back()->with('error', 'Harus ada minimal 5 chapter sebelum dapat men-submit');
-        }
-
         $validatedData = $request->validate([
-            'name' => 'required|unique:materis,name',
-            'classes_id' => 'required',
+            'name' => 'required',
+            'class_id' => 'required',
             'type' => 'required',
-        ], [
-            'name.unique' => 'Judul Chapter sudah ada, silahkan pilih judul yang berbeda',
         ]);
+        // dd($request->all());
 
-        $materi = new Materi;
-        $materi->name = $request->name;
-        $materi->classes_id = $request->classes_id;
-        $materi->description = $request->description ?? '-';
-        $materi->link = $request->link ?? '-';
-        $materi->reading = $request->reading ?? '-';
-        $materi->save();
+        $chapter = new Chapter;
+        $chapter->type = $request->type;
+        $chapter->name = $request->name;
+        $chapter->class_id = $request->class_id;
+        $chapter->priority = $request->priority;
+        $chapter->description = $request->description ?? '-';
+        $chapter->url = $request->url ?? '-';
+        $chapter->reading = $request->reading ?? '-';
+        $chapter->duration = $request->duration ?? '-';
+        $chapter->save();
 
-        return view('internal_tutor.pages.inputClass.project', [
-            'tutor' => $tutor,
-        ])->with('success', 'Chapter berhasil diinput');
+        return redirect()->route('internal_tutor.class.materi', ['slug' => $request->slug])->with('success', 'Chapters berhasil diinput');
     }
 
     // project

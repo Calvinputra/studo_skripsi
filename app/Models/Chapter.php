@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Materi extends Model
+class Chapter extends Model
 {
     use HasFactory;
-    protected $table = 'materi';
+    protected $table = 'chapters';
 
     protected $fillable = [
-        'name', 'description', 'type'
+        'name', 'type', 'duration', 'priority'
     ];
 }

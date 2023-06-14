@@ -8,7 +8,7 @@
         <div style="">
             <input type="file" name="avatar" id="image_upload" accept=".png, .jpg, .jpeg" />
             @if ($user->avatar)
-                <img style="margin-top: 40px; width:500px; height:500px" src="{{ asset('upload/files/img/avatar/300-' . $user->avatar) }}" alt="">
+                <img style="margin-top: 40px; width:500px; height:500px" src="{{ 'http://127.0.0.1:8000/upload/files/img/avatar/' . $user->avatar }}" alt="">
             @else
                 <img style="margin-top: 40px;" src="https://via.placeholder.com/300" alt="">
             @endif

@@ -67,7 +67,7 @@
         <div class="container" style="margin-bottom:40px;margin-top:40px;">
             <div class="row">
                 <div>
-                    <form action="{{ route('internal_tutor.class.storeInformasi') }}" method="POST"
+                    <form action="{{ route('internal_tutor.class.storeInformasi', $slug ?? 'default') }}" method="POST"
                         enctype="multipart/form-data" id="form-image">
                         @csrf
                         <div class="container" style="margin-bottom:40px;margin-top:40px;">
@@ -121,7 +121,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="thumbnail">Thumbnail<span style="color: #EB2020">*</span></label>
-                                        <input class="form-control" type="file" id="thumbnail" name="thumbnail"
+                                        <input class="form-control" type="file" id="thumbnail" name="thumbnail" 
                                             style="border: 1px solid black;border-radius:5px;" required="required">
                                     </div>
                                         <div class="form-group">
@@ -130,45 +130,49 @@
                                             </p>
                                             <input type="text" placeholder="Digital Marketing" name="name"
                                                 style="border: 1px solid black;border-radius:5px;" class="form-control"
-                                                required="required" value="{{ old('name') }}">
+                                                required="required" value="{{ old('name', isset($edit) ? $edit->name : '') }}">
                                         </div>
-                                    <div style="margin-top:24px;">
-                                        <label class="form-label semibold">Kategori <span
-                                                style="color: #EB2020">*</span></label>
-                                            <select class="custom-select" name="category" id="inputGroupSelect02"
-                                                style="border-color:black;" required="required">
-                                            <option selected>Pilih Kategory</option>
-                                            <option value="programming" {{ old('category') == 'programming' ? 'selected' : '' }}>Programming & Web Development</option>
-                                            <option value="programming">Programming & Web Development</option>
-                                            <option value="graphic_design">Graphic Design</option>
-                                            <option value="digital_marketing">Digital Marketing</option>
-                                            <option value="business_skill">Business Skills</option>
-                                            <option value="data_science">Data Science & Analytics</option>
-                                            <option value="health">Health & Wellness</option>
-                                            <option value="language">Language Learning</option>
-                                            <option value="art_music">Art & Music</option>
-                                            <option value="photography">Photography</option>
-                                            <option value="personal_development">Personal Development</option>
-                                        </select>
-                                    </div>
+                                        @php
+                                            $categories = [
+                                                'programming' => 'Programming & Web Development',
+                                                'graphic_design' => 'Graphic Design',
+                                                'digital_marketing' => 'Digital Marketing',
+                                                'business_skill' => 'Business Skills',
+                                                'data_science' => 'Data Science & Analytics',
+                                                'health' => 'Health & Wellness',
+                                                'language' => 'Language Learning',
+                                                'art_music' => 'Art & Music',
+                                                'photography' => 'Photography',
+                                                'personal_development' => 'Personal Development'
+                                            ];
+                                        @endphp
+                                        <div style="margin-top:24px;">
+                                            <label class="form-label semibold">Kategori <span style="color: #EB2020">*</span></label>
+                                            <select class="custom-select" name="category" id="inputGroupSelect02" style="border-color:black;" required="required">
+                                                <option selected>Pilih Kategory</option>
+                                                @foreach ($categories as $key => $value)
+                                                    <option value="{{ $key }}" {{ old('category', isset($edit) ? $edit->category : '') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Deskripsi<span
                                                 style="color: #EB2020">*</span></label>
                                         <textarea class="form-control" name="description" style="border-color:black;" placeholder="Deskripsikan Kelasmu"
-                                            id="exampleFormControlTextarea1" rows="3" value="{{ old('competency_unit') }}"></textarea>
+                                            id="exampleFormControlTextarea1" rows="3">{{ old('description', isset($edit) ? $edit->description : '') }}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Benefit mengikuti kelas ini<span
                                                 style="color: #EB2020">*</span></label>
                                         <textarea class="form-control" name="competency_unit" style="border-color:black;" placeholder="Benefit"
-                                            id="exampleFormControlTextarea1" rows="3" value="{{ old('competency_unit') }}"></textarea>
+                                            id="exampleFormControlTextarea1" rows="3">{{ old('competency_unit', isset($edit) ? $edit->competency_unit : '') }}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Durasi Total Pembelajaran (menit)<span
                                                 style="color: #EB2020">*</span></label>
                                         <input type="text"
-                                            placeholder="Otomatis Kalkulasi dari total Durasi Chapter" name="duration"
-                                            style="border: 1px solid black;border-radius:5px;" class="form-control"
+                                            name="duration"
+                                            style="border: 1px solid black;border-radius:5px;" class="form-control" value="{{ old('total_duration', isset($total_duration) ? $total_duration : '') }}" 
                                             disabled>
                                     </div>
                                     <div class="form-group">
@@ -180,7 +184,7 @@
                                                 <p style="color:#636466;margin-right:16px;width:150px;">Harga
                                                     Normal<span style="color: #EB2020">*</span></label></p>
                                                 <input id="normalPrice" type="number" placeholder="100000"
-                                                    style="border: 1px solid black;border-radius:5px;"
+                                                    style="border: 1px solid black;border-radius:5px;" value="{{ old('price', isset($edit) ? $edit->price / (1 - ($edit->discount / 100 )): '') }}"
                                                     class="form-control" required="required" oninput="calculate()">
                                             </div>
                                         </div>
@@ -189,7 +193,7 @@
                                             <div class="d-flex">
                                                 <p style="color:#636466;margin-right:16px;width:150px;">Diskon (%)</p>
                                                 <input id="discount" name="discount" type="number" placeholder="0"
-                                                    style="border: 1px solid black;border-radius:5px;"
+                                                    style="border: 1px solid black;border-radius:5px;" value="{{ old('discount', isset($edit) ? $edit->discount : '') }}"
                                                     class="form-control" oninput="calculate()">
                                             </div>
                                         </div>
@@ -197,11 +201,12 @@
                                             style="padding: 8px 16px;border: 1px solid #636466;border-radius: 5px;margin:10px 0px">
                                             <div class="d-flex">
                                                 <p style="color:#636466;margin-right:16px;width:150px;">Harga Akhir</p>
-                                                <p id="finalPrice"></p>
+                                                <p id="finalPrice" ></p>
                                                 <input type="hidden" id="finalPriceInput" name="price">
                                                 <input type="hidden" name="tutor_id" value="{{ $tutor->id }}">
                                                 <input type="hidden" name="status" value="deactive">
                                                 <input type="hidden" name="duration" value="0">
+                                                <input type="hidden" id="slug-input" name="slug">
                                             </div>
                                         </div>
                                     </div>
@@ -248,6 +253,14 @@
             $('#chapterTabs').append(chapterTab);
 
         // Add new tab content
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('input[name="name"]').on('input', function() {
+                let slug = $(this).val().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+                $('#slug-input').val(slug);
+            });
         });
     </script>
 @endsection

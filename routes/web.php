@@ -80,7 +80,7 @@ Route::namespace('internal')->group(function () {
         Route::get('/internal/profile', [TutorController::class, 'profile'])->name('internal_tutor.profileTutor');
 
         // View Input Class
-        Route::get('/internal/class/informasi', [ClassController::class, 'index'])->name('internal_tutor.class.informasi');
+        Route::get('/internal/class/informasi/{slug?}', [ClassController::class, 'index'])->name('internal_tutor.class.informasi');
         Route::get('/internal/class/materi/{slug}', [ClassController::class, 'materi'])->name('internal_tutor.class.materi');
         Route::get('/internal/class/project/{slug}', [ClassController::class, 'project'])->name('internal_tutor.class.project');
 
@@ -88,7 +88,7 @@ Route::namespace('internal')->group(function () {
         Route::get('/internal/class/informasi/edit/{slug}', [ClassController::class, 'edit'])->name('internal_tutor.class.informasi.edit');
         
         //  Input Class Informasi
-        Route::post('/internal/class/storeInformasi/{slug}', [ClassController::class, 'storeInformasi'])->name('internal_tutor.class.storeInformasi');
+        Route::post('/internal/class/storeInformasi/{slug?}', [ClassController::class, 'storeInformasi'])->name('internal_tutor.class.storeInformasi');
 
         //  edit Class Informasi
         Route::post('/internal/class/updateInformasi/{slug}', [ClassController::class, 'updateInformasi'])->name('internal_tutor.class.updateInformasi');

@@ -174,7 +174,8 @@ class ClassController extends Controller
         $chapters = Chapter::where('class_id', $class->id)->orderBy('priority', 'ASC')->get();
         $count_video = Chapter::where('type', 'video')->where('class_id', $class->id)->count();
         $count_reading = Chapter::where('type', 'reading')->where('class_id', $class->id)->count();
-
+        $count_chapter = Chapter::where('class_id', $class->id)->count();
+        
         $tutor = Tutor::find(auth()->user()->id);
 
         return view('internal_tutor.pages.inputClass.materi', [
@@ -182,33 +183,8 @@ class ClassController extends Controller
             'class' => $class,
             'chapters' => $chapters,
             'count_video' => $count_video,
-            'count_reading' => $count_reading
-            ])->with('success', 'Kelas berhasil diinput');
-    }
-    public function quest($slug)
-    {
-        if (!auth()->check()) {
-            return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
-        }
-
-        $class = Classes::where('slug', $slug)->first();
-        
-        if($class->tutor_id != auth()->user()->id){
-            return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
-        }
-        
-        $chapters = Chapter::where('class_id', $class->id)->orderBy('priority', 'ASC')->get();
-        $count_video = Chapter::where('type', 'video')->where('class_id', $class->id)->count();
-        $count_reading = Chapter::where('type', 'reading')->where('class_id', $class->id)->count();
-
-        $tutor = Tutor::find(auth()->user()->id);
-
-        return view('internal_tutor.pages.inputClass.quest', [
-            'slug' => $slug, 
-            'class' => $class,
-            'chapters' => $chapters,
-            'count_video' => $count_video,
-            'count_reading' => $count_reading
+            'count_reading' => $count_reading,
+            'count_chapter' => $count_chapter
             ])->with('success', 'Kelas berhasil diinput');
     }
     public function storeMateri(Request $request,  $slug)
@@ -242,6 +218,69 @@ class ClassController extends Controller
         $chapter->save();
 
         return redirect()->route('internal_tutor.class.materi', ['slug' => $request->slug])->with('success', 'Chapters berhasil diinput');
+    }
+    
+    public function updateMateri(Request $request,  $slug)
+    {
+        if (!auth()->check()) {
+            return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
+        }
+        $class = Classes::where('slug', $slug)->where('tutor_id', auth()->user()->id)->first();
+
+        if (!$class) {
+            return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
+        }
+        $tutor = Tutor::find(auth()->user()->id);
+
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'class_id' => 'required',
+            'type' => 'required',
+        ]);
+        // dd($request->all());
+
+        $chapter = new Chapter;
+        $chapter->type = $request->type;
+        $chapter->name = $request->name;
+        $chapter->class_id = $request->class_id;
+        $chapter->priority = $request->priority;
+        $chapter->description = $request->description ?? '-';
+        $chapter->url = $request->url ?? '-';
+        $chapter->reading = $request->reading ?? '-';
+        $chapter->duration = $request->duration ?? '-';
+        $chapter->save();
+
+        return redirect()->route('internal_tutor.class.materi', ['slug' => $request->slug])->with('success', 'Chapters berhasil diinput');
+    }
+    public function quest($slug)
+    {
+        if (!auth()->check()) {
+            return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
+        }
+
+        $class = Classes::where('slug', $slug)->first();
+        
+        if($class->tutor_id != auth()->user()->id){
+            return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
+        }
+        
+        $chapters = Chapter::where('class_id', $class->id)->orderBy('priority', 'ASC')->get();
+        $count_video = Chapter::where('type', 'video')->where('class_id', $class->id)->count();
+        $count_reading = Chapter::where('type', 'reading')->where('class_id', $class->id)->count();
+
+        $tutor = Tutor::find(auth()->user()->id);
+
+        return view('internal_tutor.pages.inputClass.quest', [
+            'slug' => $slug, 
+            'class' => $class,
+            'chapters' => $chapters,
+            'count_video' => $count_video,
+            'count_reading' => $count_reading
+            ])->with('success', 'Kelas berhasil diinput');
+    }
+    public function download_template_question_import()
+    {
+        return response()->download('assets/template-import/quiz_question_template.xlsx');
     }
 
     // project

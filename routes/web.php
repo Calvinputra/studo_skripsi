@@ -85,8 +85,12 @@ Route::namespace('internal')->group(function () {
 
         // View Input Class
         Route::get('/internal/class/informasi/{slug?}', [ClassController::class, 'index'])->name('internal_tutor.class.informasi');
+
         Route::get('/internal/class/materi/{slug}', [ClassController::class, 'materi'])->name('internal_tutor.class.materi');
+
         Route::get('/internal/class/quest/{slug}', [ClassController::class, 'quest'])->name('internal_tutor.class.quest');
+        Route::get('internal/class/question/download_template', [ClassController::class, 'download_template_question_import'])->name('internal_tutor.class.quest.download_template_question_import');
+
         Route::get('/internal/class/project/{slug}', [ClassController::class, 'project'])->name('internal_tutor.class.project');
 
         // Edit Informasi Class
@@ -94,12 +98,13 @@ Route::namespace('internal')->group(function () {
         
         //  Input Class Informasi
         Route::post('/internal/class/storeInformasi/{slug?}', [ClassController::class, 'storeInformasi'])->name('internal_tutor.class.storeInformasi');
+        //  Input Class Materi
+        Route::post('/internal/class/storeMateri/{slug}', [ClassController::class, 'storeMateri'])->name('internal_tutor.class.storeMateri');
 
         //  edit Class Informasi
         Route::post('/internal/class/updateInformasi/{slug}', [ClassController::class, 'updateInformasi'])->name('internal_tutor.class.updateInformasi');
-
-        //  Input Class Materi
-        Route::post('/internal/class/storeMateri/{slug}', [ClassController::class, 'storeMateri'])->name('internal_tutor.class.storeMateri');
+        //  edit Class Materi
+        Route::post('/internal/class/updateMateri/{slug}', [ClassController::class, 'updateMateri'])->name('internal_tutor.class.updateMateri');
 
         // Update Profile Tutor
         Route::post('/internal/tutor/profile/update/{id}', [TutorController::class, 'updateProfile'])->name('internal_tutor.post.updateProfile');

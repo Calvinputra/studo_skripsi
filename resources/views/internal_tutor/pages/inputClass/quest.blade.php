@@ -97,7 +97,7 @@
                 <div class="col-sm-9">
                     <div class="tab-content">
                             <h2 class="title-text-login">
-                                Buat Chapter Baru dari Kelas {{ $class->name }}
+                                Quest Kelas {{ $class->name }}
                             </h2>
                         <div class="d-flex align-items-center" >
                             <div class="btn-info-kelas" style="margin:40 0px;">
@@ -159,9 +159,9 @@
                             </p>
                         </div>
                         <div style="margin-top:40px;">
-                            <a href="" >
+                            <a href="{{ route('internal_tutor.class.quest.download_template_question_import') }}" >
                                 <u>
-                                    Download Template Soal
+                                    <i class="fa fa-download"></i> Download Template Soal
                                 </u>
                             </a>
                         </div>
@@ -222,7 +222,7 @@
 
                         <div style="float:right;margin-top:40px;">
                             <button class="btn my-2 my-sm-0"
-                                style="color:#063852; border-color:#063852;background:white">
+                                style="color:#063852; border-color:#063852;background:white; font-weight: bold">
                                 Selanjutnya
                             </button>
                         </div>

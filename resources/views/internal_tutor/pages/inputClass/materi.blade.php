@@ -120,7 +120,7 @@ table.dataTable thead .sorting{
                 <div class="col-sm-9">
                     <div class="tab-content">
                             <h2 class="title-text-login">
-                                Buat Chapter Baru dari Kelas {{ $class->name }}
+                                Chapter Kelas {{ $class->name }}
                             </h2>
                         <div class="d-flex align-items-center" >
                             <div class="btn-info-kelas" style="margin:40 0px;">
@@ -199,6 +199,7 @@ table.dataTable thead .sorting{
                         </div>
                     </div>
                     <div class="container">
+                        {{-- Input --}}
                         <form id="materiForm" action="{{ route('internal_tutor.class.storeMateri', $class->slug) }}"
                             method="POST">
                             @csrf
@@ -214,31 +215,31 @@ table.dataTable thead .sorting{
                                         </div>
                                         <div class="modal-body">
                                             <div class="mb-3">
-                                                <select class="form-select" id="chapterType" name="type">
+                                                <select class="form-select" id="addChapterType" name="type">
                                                     <option value="">Select type</option>
                                                     <option value="video">Video</option>
                                                     <option value="reading">Reading</option>
                                                 </select>
                                             </div>
-                                            <div class="mb-3" id="chapterTitleGroup" style="display: none;">
+                                            <div class="mb-3" id="addChapterTitleGroup" style="display: none;">
                                                 <input type="text" class="form-control" id="chapterTitle"
                                                     name="name" placeholder="Enter title">
                                             </div>
-                                            <div class="mb-3" id="chapterDescriptionGroup" style="display: none;">
+                                            <div class="mb-3" id="addChapterDescriptionGroup" style="display: none;">
                                                 <textarea class="form-control" id="chapterDescription" name="description" placeholder="Enter description"></textarea>
                                             </div>
-                                            <div class="mb-3" id="chapterUrlGroup" style="display: none;">
+                                            <div class="mb-3" id="addChapterUrlGroup" style="display: none;">
                                                 <input type="text" class="form-control" id="chapterUrl"
                                                     name="url" placeholder="Enter video link">
                                             </div>
-                                            <div class="mb-3" id="chapterContentGroup" style="display: none;">
+                                            <div class="mb-3" id="addChapterContentGroup" style="display: none;">
                                                 <textarea class="form-control" id="chapterContent" name="reading" placeholder="Enter reading material"></textarea>
                                             </div>
-                                            <div class="mb-3" id="chapterDurationGroup" style="display: none;">
+                                            <div class="mb-3" id="addChapterDurationGroup" style="display: none;">
                                                 <input type="number" class="form-control" id="chapterDuration"
                                                     name="duration" placeholder="Minute">
                                             </div>
-                                            <div class="mb-3" id="chapterPriorityGroup" style="display: none;">
+                                            <div class="mb-3" id="addChapterPriorityGroup" style="display: none;">
                                                 <input type="number" class="form-control" id="chapterPriority"
                                                     name="priority" placeholder="Priority">
                                             </div>
@@ -253,6 +254,7 @@ table.dataTable thead .sorting{
                                 </div>
                             </div>
                         </form>
+                        {{-- Edit --}}
                         @if ($chapters)
                             <section class="intro">
                                 <div class="bg-image">
@@ -306,12 +308,21 @@ table.dataTable thead .sorting{
                                 Chapter Belum tersedia, Buatlah Chapter Terlebih Dahulu
                             </div>
                         @endif
-                        <div style="float:right;">
-                            <button class="btn my-2 my-sm-0"
-                                style="color:#063852; border-color:#063852;background:white">
-                                Selanjutnya
-                            </button>
-                        </div>
+                        @if($count_chapter >= 5)
+                            <div style="float:right;" class="pt-3">
+                                <a class="btn my-2 my-sm-0" href="{{ route('internal_tutor.class.quest', $class->slug) }}"
+                                    style="color:#063852; border-color:#063852;background:white;font-weight: bold">
+                                    Selanjutnya
+                                </a>
+                            </div>
+                        @else
+                            <div style="float:right;" class="pt-3">
+                                <a class="btn my-2 my-sm-0"
+                                    style="color:rgba(230, 235, 237, 1); border-color:rgba(230, 235, 237, 1);font-weight: bold">
+                                    Selanjutnya
+                                </a>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -325,38 +336,38 @@ table.dataTable thead .sorting{
         // Wait for the modal to be fully shown
         $('#addChapterModal').on('shown.bs.modal', function() {
             // Get the form elements
-            var chapterTypeSelect = document.getElementById('chapterType');
-            var chapterTitleGroup = document.getElementById('chapterTitleGroup');
-            var chapterDurationGroup = document.getElementById('chapterDurationGroup');
-            var chapterPriorityGroup = document.getElementById('chapterPriorityGroup');
-            var chapterDescriptionGroup = document.getElementById('chapterDescriptionGroup');
-            var chapterUrlGroup = document.getElementById('chapterUrlGroup');
-            var chapterContentGroup = document.getElementById('chapterContentGroup');
+            var addChapterTypeSelect = document.getElementById('addChapterType');
+            var addChapterTitleGroup = document.getElementById('addChapterTitleGroup');
+            var addChapterDurationGroup = document.getElementById('addChapterDurationGroup');
+            var addChapterPriorityGroup = document.getElementById('addChapterPriorityGroup');
+            var addChapterDescriptionGroup = document.getElementById('addChapterDescriptionGroup');
+            var addChapterUrlGroup = document.getElementById('addChapterUrlGroup');
+            var addChapterContentGroup = document.getElementById('addChapterContentGroup');
 
             // Handle change event on chapterTypeSelect
-            chapterTypeSelect.addEventListener('change', function() {
-                var selectedChapterType = chapterTypeSelect.value;
+            addChapterTypeSelect.addEventListener('change', function() {
+                var selectedAddChapterType = addChapterTypeSelect.value;
 
                 // Hide all form groups first
-                chapterTitleGroup.style.display = 'none';
-                chapterDurationGroup.style.display = 'none';
-                chapterPriorityGroup.style.display = 'none';
-                chapterDescriptionGroup.style.display = 'none';
-                chapterUrlGroup.style.display = 'none';
-                chapterContentGroup.style.display = 'none';
+                addChapterTitleGroup.style.display = 'none';
+                addChapterDurationGroup.style.display = 'none';
+                addChapterPriorityGroup.style.display = 'none';
+                addChapterDescriptionGroup.style.display = 'none';
+                addChapterUrlGroup.style.display = 'none';
+                addChapterContentGroup.style.display = 'none';
 
-                // Show form groups based on selectedChapterType
-                if (selectedChapterType === 'video') {
-                    chapterTitleGroup.style.display = 'block';
-                    chapterDurationGroup.style.display = 'block';
-                    chapterPriorityGroup.style.display = 'block';
-                    chapterDescriptionGroup.style.display = 'block';
-                    chapterUrlGroup.style.display = 'block';
-                } else if (selectedChapterType === 'reading') {
-                    chapterTitleGroup.style.display = 'block';
-                    chapterDurationGroup.style.display = 'block';
-                    chapterPriorityGroup.style.display = 'block';
-                    chapterContentGroup.style.display = 'block';
+                // Show form groups based on selectedAddChapterType
+                if (selectedAddChapterType === 'video') {
+                    addChapterTitleGroup.style.display = 'block';
+                    addChapterDurationGroup.style.display = 'block';
+                    addChapterPriorityGroup.style.display = 'block';
+                    addChapterDescriptionGroup.style.display = 'block';
+                    addChapterUrlGroup.style.display = 'block';
+                } else if (selectedAddChapterType === 'reading') {
+                    addChapterTitleGroup.style.display = 'block';
+                    addChapterDurationGroup.style.display = 'block';
+                    addChapterPriorityGroup.style.display = 'block';
+                    addChapterContentGroup.style.display = 'block';
                 }
             });
         });

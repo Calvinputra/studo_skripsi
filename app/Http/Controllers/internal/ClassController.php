@@ -62,28 +62,33 @@ class ClassController extends Controller
         }
 
         $tutor = Tutor::find(auth()->user()->id);
-        $class = Classes::where('slug', $request->slug)->first();
+        if($slug){
+            $class = Classes::where('slug', $slug)->first();
+        }else{
+            $class = Classes::where('slug', $request->slug)->first();
+        }
 
         if ($class->tutor_id != auth()->user()->id) {
             return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
         }
-        
-        // dd($class);
 
-        $validatedData = $request->validate([
-            'name' => 'required|unique:classes,name', // menambahkan validasi unik pada field name
-            'tutor_id' => 'required',
-            'description' => 'required',
-            'competency_unit' => 'required',
-            'category' => 'required',
-            'price' => 'required',
-            'status' => 'required',
-            'discount' => 'required',
-            'duration' => 'required',
-            'status' => 'required',
-        ], [
-            'name.unique' => 'Judul kelas sudah ada, silahkan pilih judul yang berbeda', // pesan kustom
-        ]);
+        if ($slug) {
+        }else{
+            $validatedData = $request->validate([
+                'name' => 'required|unique:classes,name', // menambahkan validasi unik pada field name
+                'tutor_id' => 'required',
+                'description' => 'required',
+                'competency_unit' => 'required',
+                'category' => 'required',
+                'price' => 'required',
+                'status' => 'required',
+                'discount' => 'required',
+                'duration' => 'required',
+                'status' => 'required',
+            ], [
+                'name.unique' => 'Judul kelas sudah ada, silahkan pilih judul yang berbeda', // pesan kustom
+            ]);
+        }
         // $slug = Str::slug($request->name, '-');
         $class = new Classes;
         $class->name = $request->name;

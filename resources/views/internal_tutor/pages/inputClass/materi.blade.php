@@ -56,6 +56,9 @@
         border-bottom: 3px #063852 solid !important;
 
     }
+th{
+    color: #222222;
+}
 
     .nav-tabs .nav-link {
         color: #063852;
@@ -68,6 +71,9 @@
     .nav-tabs .nav-link:hover {
         border-bottom: 1px #063852 solid;
         cursor: pointer;
+    }
+    .table-scroll{
+        border-radius: 0px !important;
     }
 
     .nav-link {
@@ -230,34 +236,36 @@
                                             <div class="row justify-content-center">
                                                 <div class="col-12">
                                                     <div class="card shadow-2-strong">
-                                                        <div class="card-body p-0">
-                                                            <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative;">
-                                                                <table id="myTable" class="table mb-0" style="background-color: #063852">
-                                                                    <thead style="background-color: #393939;">
-                                                                        <tr class="text-uppercase" style="color: white">
-                                                                            <th scope="col" class="filter" data-filter="type">Type</th>
-                                                                            <th scope="col" class="filter" data-filter="name">Nama Chapter</th>
-                                                                            <th scope="col" class="filter" data-filter="duration">Duration</th>
-                                                                            <th scope="col" class="filter" data-filter="priority">Priority</th>
-                                                                            <th scope="col">Action</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        @foreach ($chapters as $chapter)
-                                                                            <tr>
-                                                                                <td>{{ $chapter->type }}</td>
-                                                                                <td>{{ $chapter->name }}</td>
-                                                                                <td>{{ $chapter->duration }}</td>
-                                                                                <td>{{ $chapter->priority }}</td>
-                                                                                <td>
-                                                                                    <div class="btn-group" role="group" aria-label="Button group">
-                                                                                        <a href="" style="color: #20A2EB;">Edit</a>
-                                                                                    </div>
-                                                                                </td>
+                                                        <div style="padding:16px;">
+                                                            <div class="card-body p-0">
+                                                                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative;">
+                                                                    <table id="myTable" class="table mb-0" style="background-color: rgba(32, 162, 235, 0.1)">
+                                                                        <thead style="background-color: rgba(32, 162, 235, 0.1);border-radius: 5px;">
+                                                                            <tr class="text-uppercase" style="color: white">
+                                                                                <th scope="col" class="filter" data-filter="type">Type</th>
+                                                                                <th scope="col" class="filter" data-filter="name">Nama Chapter</th>
+                                                                                <th scope="col" class="filter" data-filter="duration">Duration</th>
+                                                                                <th scope="col" class="filter" data-filter="priority">Priority</th>
+                                                                                <th scope="col">Action</th>
                                                                             </tr>
-                                                                        @endforeach
-                                                                    </tbody>
-                                                                </table>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @foreach ($chapters as $chapter)
+                                                                                <tr>
+                                                                                    <td>{{ $chapter->type }}</td>
+                                                                                    <td>{{ $chapter->name }}</td>
+                                                                                    <td>{{ $chapter->duration }}</td>
+                                                                                    <td>{{ $chapter->priority }}</td>
+                                                                                    <td>
+                                                                                        <div class="btn-group" role="group" aria-label="Button group">
+                                                                                            <a href="" style="color: #20A2EB;">Edit</a>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            @endforeach
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

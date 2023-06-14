@@ -5,6 +5,7 @@ use App\Http\Controllers\studo\OverviewController;
 use App\Http\Controllers\studo\SearchController;
 use App\Http\Controllers\studo\SettingController;
 use App\Http\Controllers\studo\SiteController;
+use App\Http\Controllers\studo\QuestController;
 use App\Http\Controllers\studo\AuthController as StudoAuthController;
 
 
@@ -55,6 +56,8 @@ Route::namespace('studo')->group( function () {
             Route::post('/setting/user/profile/update/{id}', [SettingController::class, 'updateProfile'])->name('studo.post.updateProfile');
             Route::post('/setting/user/profile/photo/update/{id}', [SettingController::class, 'updateProfilePhoto'])->name('studo.user.profile.update_photo');
             Route::post('/setting/user/profile/updatePassword/{id}', [SettingController::class, 'updatePassword'])->name('studo.post.updatePassword');
+            
+            Route::get('/quest/pretest/', [QuestController::class, 'indexPreTest'])->name('studo.pages.quest.pre-test');
             
             Route::get('/signout', [App\Http\Controllers\studo\AuthController::class, 'getSignout'])->name('studo.post.signout');
 

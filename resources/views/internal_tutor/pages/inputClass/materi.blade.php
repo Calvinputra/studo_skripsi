@@ -229,6 +229,60 @@ th{
                             </div>
                         </form>
                         {{-- Edit --}}
+                        <form id="materiupdateForm" action="{{ route('internal_tutor.class.updateMateri', $class->slug) }}"
+                            method="POST">
+                            @csrf
+                            <!-- Modal -->
+                            <div class="modal fade" id="updateChapterModal" tabindex="-1"
+                                aria-labelledby="updateChapterModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="updateChapterModalLabel">Update Chapter</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <select class="form-select" id="updateChapterType" name="type">
+                                                    <option value="">Select type</option>
+                                                    <option value="video">Video</option>
+                                                    <option value="reading">Reading</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3" id="updateChapterTitleGroup" style="display: none;">
+                                                <input type="text" class="form-control" id="chapterTitle"
+                                                    name="name" placeholder="Enter title">
+                                            </div>
+                                            <div class="mb-3" id="updateChapterDescriptionGroup" style="display: none;">
+                                                <textarea class="form-control" id="chapterDescription" name="description" placeholder="Enter description"></textarea>
+                                            </div>
+                                            <div class="mb-3" id="updateChapterUrlGroup" style="display: none;">
+                                                <input type="text" class="form-control" id="chapterUrl"
+                                                    name="url" placeholder="Enter video link">
+                                            </div>
+                                            <div class="mb-3" id="updateChapterContentGroup" style="display: none;">
+                                                <textarea class="form-control" id="chapterContent" name="reading" placeholder="Enter reading material"></textarea>
+                                            </div>
+                                            <div class="mb-3" id="updateChapterDurationGroup" style="display: none;">
+                                                <input type="number" class="form-control" id="chapterDuration"
+                                                    name="duration" placeholder="Minute">
+                                            </div>
+                                            <div class="mb-3" id="updateChapterPriorityGroup" style="display: none;">
+                                                <input type="number" class="form-control" id="chapterPriority"
+                                                    name="priority" placeholder="Priority">
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="class_id" value="{{ $class->id }}">
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                         @if ($chapters)
                             <section class="intro">
                                 <div class="bg-image">
@@ -258,8 +312,8 @@ th{
                                                                                     <td>{{ $chapter->duration }}</td>
                                                                                     <td>{{ $chapter->priority }}</td>
                                                                                     <td>
-                                                                                        <div class="btn-group" role="group" aria-label="Button group">
-                                                                                            <a href="" style="color: #20A2EB;">Edit</a>
+                                                                                        <div data-bs-toggle="modal" data-bs-target="#updateChapterModal" class="btn-group" role="group" aria-label="Button group">
+                                                                                            <a href="#" style="color: #20A2EB;">Edit</a>
                                                                                         </div>
                                                                                     </td>
                                                                                 </tr>
@@ -341,6 +395,44 @@ th{
                     addChapterDurationGroup.style.display = 'block';
                     addChapterPriorityGroup.style.display = 'block';
                     addChapterContentGroup.style.display = 'block';
+                }
+            });
+        });
+        // Wait for the modal to be fully shown
+        $('#updateChapterModal').on('shown.bs.modal', function() {
+            // Get the form elements
+            var updateChapterTypeSelect = document.getElementById('updateChapterType');
+            var updateChapterTitleGroup = document.getElementById('updateChapterTitleGroup');
+            var updateChapterDurationGroup = document.getElementById('updateChapterDurationGroup');
+            var updateChapterPriorityGroup = document.getElementById('updateChapterPriorityGroup');
+            var updateChapterDescriptionGroup = document.getElementById('updateChapterDescriptionGroup');
+            var updateChapterUrlGroup = document.getElementById('updateChapterUrlGroup');
+            var updateChapterContentGroup = document.getElementById('updateChapterContentGroup');
+
+            // Handle change event on chapterTypeSelect
+            updateChapterTypeSelect.updateEventListener('change', function() {
+                var selectedUpdateChapterType = updateChapterTypeSelect.value;
+
+                // Hide all form groups first
+                updateChapterTitleGroup.style.display = 'none';
+                updateChapterDurationGroup.style.display = 'none';
+                updateChapterPriorityGroup.style.display = 'none';
+                updateChapterDescriptionGroup.style.display = 'none';
+                updateChapterUrlGroup.style.display = 'none';
+                updateChapterContentGroup.style.display = 'none';
+
+                // Show form groups based on selectedUpdateChapterType
+                if (selectedUpdateChapterType === 'video') {
+                    updateChapterTitleGroup.style.display = 'block';
+                    updateChapterDurationGroup.style.display = 'block';
+                    updateChapterPriorityGroup.style.display = 'block';
+                    updateChapterDescriptionGroup.style.display = 'block';
+                    updateChapterUrlGroup.style.display = 'block';
+                } else if (selectedUpdateChapterType === 'reading') {
+                    updateChapterTitleGroup.style.display = 'block';
+                    updateChapterDurationGroup.style.display = 'block';
+                    updateChapterPriorityGroup.style.display = 'block';
+                    updateChapterContentGroup.style.display = 'block';
                 }
             });
         });

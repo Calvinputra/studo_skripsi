@@ -37,9 +37,9 @@ class ClassController extends Controller
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
-        $edit = Classes::where('slug', $slug)->first();
+        $edit = Classes::where('slug', $slug)->where('tutor_id', auth()->user()->id)->first();
 
-        if ($edit->tutor_id != auth()->user()->id) {
+        if (!$edit) {
             return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
         }
         $tutor = Tutor::find(auth()->user()->id);
@@ -65,7 +65,7 @@ class ClassController extends Controller
         $tutor = Tutor::find(auth()->user()->id);
         // $class = Classes::where('slug', $request->slug)->first();
 
-        // if ($class->tutor_id != auth()->user()->id) {
+        // if (!$class) {
         //     return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
         // }
 
@@ -120,9 +120,9 @@ class ClassController extends Controller
         }
 
         $tutor = Tutor::find(auth()->user()->id);
-        $classes = Classes::where('slug', $slug)->first();
+        $classes = Classes::where('slug', $slug)->where('tutor_id', auth()->user()->id)->first();
 
-        if ($classes->tutor_id != auth()->user()->id) {
+        if (!$classes) {
             return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
         }
         // $slug = Str::slug($request->name, '-');
@@ -165,9 +165,9 @@ class ClassController extends Controller
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
 
-        $class = Classes::where('slug', $slug)->first();
+        $class = Classes::where('slug', $slug)->where('tutor_id', auth()->user()->id)->first();
         
-        if($class->tutor_id != auth()->user()->id){
+        if(!$class){
             return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
         }
         
@@ -190,9 +190,9 @@ class ClassController extends Controller
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
-        $class = Classes::where('slug', $slug)->first();
+        $class = Classes::where('slug', $slug)->where('tutor_id', auth()->user()->id)->first();
 
-        if ($class->tutor_id != auth()->user()->id) {
+        if (!$class) {
             return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
         }
         $tutor = Tutor::find(auth()->user()->id);

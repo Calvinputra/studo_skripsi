@@ -58,6 +58,7 @@ Route::namespace('studo')->group( function () {
             Route::post('/setting/user/profile/updatePassword/{id}', [SettingController::class, 'updatePassword'])->name('studo.post.updatePassword');
             
             Route::get('/quest/pretest/', [QuestController::class, 'indexPreTest'])->name('studo.pages.quest.pre-test');
+            Route::get('/quest/posttest/', [QuestController::class, 'indexPostTest'])->name('studo.pages.quest.post-test');
             
             Route::get('/signout', [App\Http\Controllers\studo\AuthController::class, 'getSignout'])->name('studo.post.signout');
 

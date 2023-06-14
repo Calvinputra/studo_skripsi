@@ -22,7 +22,6 @@ class CreateTableClass extends Migration
             $table->string('slug');
             $table->string('thumbnail');
             $table->string('category');
-            $table->string('duration');
             $table->integer('price');
             $table->integer('discount');
             $table->enum('status', ['active', 'deactive'])->default('active');

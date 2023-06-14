@@ -115,7 +115,7 @@
                                         fill="#063852" />
                                 </svg>
                             </div>
-                            <div class="btn-info-kelas" style="margin:40 0px;">
+                            <div class="btn-info-kelas-off" style="margin:40 0px;">
                                 <p class="m-0" style="">
                                     Quest
                                 </p>

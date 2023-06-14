@@ -82,6 +82,7 @@ Route::namespace('internal')->group(function () {
         // View Input Class
         Route::get('/internal/class/informasi/{slug?}', [ClassController::class, 'index'])->name('internal_tutor.class.informasi');
         Route::get('/internal/class/materi/{slug}', [ClassController::class, 'materi'])->name('internal_tutor.class.materi');
+        Route::get('/internal/class/quest/{slug}', [ClassController::class, 'quest'])->name('internal_tutor.class.quest');
         Route::get('/internal/class/project/{slug}', [ClassController::class, 'project'])->name('internal_tutor.class.project');
 
         // Edit Informasi Class

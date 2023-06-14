@@ -185,6 +185,32 @@ class ClassController extends Controller
             'count_reading' => $count_reading
             ])->with('success', 'Kelas berhasil diinput');
     }
+    public function quest($slug)
+    {
+        if (!auth()->check()) {
+            return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
+        }
+
+        $class = Classes::where('slug', $slug)->first();
+        
+        if($class->tutor_id != auth()->user()->id){
+            return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
+        }
+        
+        $chapters = Chapter::where('class_id', $class->id)->orderBy('priority', 'ASC')->get();
+        $count_video = Chapter::where('type', 'video')->where('class_id', $class->id)->count();
+        $count_reading = Chapter::where('type', 'reading')->where('class_id', $class->id)->count();
+
+        $tutor = Tutor::find(auth()->user()->id);
+
+        return view('internal_tutor.pages.inputClass.quest', [
+            'slug' => $slug, 
+            'class' => $class,
+            'chapters' => $chapters,
+            'count_video' => $count_video,
+            'count_reading' => $count_reading
+            ])->with('success', 'Kelas berhasil diinput');
+    }
     public function storeMateri(Request $request,  $slug)
     {
         if (!auth()->check()) {

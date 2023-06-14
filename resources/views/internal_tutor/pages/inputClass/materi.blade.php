@@ -190,6 +190,10 @@
                                             <div class="mb-3" id="chapterContentGroup" style="display: none;">
                                                 <textarea class="form-control" id="chapterContent" name="reading" placeholder="Enter reading material"></textarea>
                                             </div>
+                                            <div class="mb-3" id="chapterDurationGroup" style="display: none;">
+                                                <input type="number" class="form-control" id="chapterDuration"
+                                                    name="duration" placeholder="Minute">
+                                            </div>
                                             <div class="mb-3" id="chapterPriorityGroup" style="display: none;">
                                                 <input type="number" class="form-control" id="chapterPriority"
                                                     name="priority" placeholder="Priority">
@@ -220,6 +224,7 @@
                                                                         <tr class="text-uppercase" style="color: white">
                                                                             <th scope="col" class="filter" data-filter="type">Type</th>
                                                                             <th scope="col" class="filter" data-filter="name">Nama Chapter</th>
+                                                                            <th scope="col" class="filter" data-filter="duration">Duration</th>
                                                                             <th scope="col" class="filter" data-filter="priority">Priority</th>
                                                                             <th scope="col">Action</th>
                                                                         </tr>
@@ -229,6 +234,7 @@
                                                                             <tr>
                                                                                 <td>{{ $chapter->type }}</td>
                                                                                 <td>{{ $chapter->name }}</td>
+                                                                                <td>{{ $chapter->duration }}</td>
                                                                                 <td>{{ $chapter->priority }}</td>
                                                                                 <td>
                                                                                     <div class="btn-group" role="group" aria-label="Button group">
@@ -271,6 +277,7 @@
             // Get the form elements
             var chapterTypeSelect = document.getElementById('chapterType');
             var chapterTitleGroup = document.getElementById('chapterTitleGroup');
+            var chapterDurationGroup = document.getElementById('chapterDurationGroup');
             var chapterPriorityGroup = document.getElementById('chapterPriorityGroup');
             var chapterDescriptionGroup = document.getElementById('chapterDescriptionGroup');
             var chapterUrlGroup = document.getElementById('chapterUrlGroup');
@@ -282,6 +289,7 @@
 
                 // Hide all form groups first
                 chapterTitleGroup.style.display = 'none';
+                chapterDurationGroup.style.display = 'none';
                 chapterPriorityGroup.style.display = 'none';
                 chapterDescriptionGroup.style.display = 'none';
                 chapterUrlGroup.style.display = 'none';
@@ -290,11 +298,13 @@
                 // Show form groups based on selectedChapterType
                 if (selectedChapterType === 'video') {
                     chapterTitleGroup.style.display = 'block';
+                    chapterDurationGroup.style.display = 'block';
                     chapterPriorityGroup.style.display = 'block';
                     chapterDescriptionGroup.style.display = 'block';
                     chapterUrlGroup.style.display = 'block';
                 } else if (selectedChapterType === 'reading') {
                     chapterTitleGroup.style.display = 'block';
+                    chapterDurationGroup.style.display = 'block';
                     chapterPriorityGroup.style.display = 'block';
                     chapterContentGroup.style.display = 'block';
                 }

@@ -212,6 +212,7 @@ class ClassController extends Controller
         $chapter->description = $request->description ?? '-';
         $chapter->url = $request->url ?? '-';
         $chapter->reading = $request->reading ?? '-';
+        $chapter->duration = $request->duration;
         $chapter->save();
 
         return redirect()->route('internal_tutor.class.materi', ['slug' => $request->slug])->with('success', 'Chapters berhasil diinput');

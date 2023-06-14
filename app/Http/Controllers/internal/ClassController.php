@@ -57,16 +57,17 @@ class ClassController extends Controller
     }
     public function storeInformasi(Request $request)
     {
+        
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
-
+        
         $tutor = Tutor::find(auth()->user()->id);
-            $class = Classes::where('slug', $request->slug)->first();
+        // $class = Classes::where('slug', $request->slug)->first();
 
-        if ($class->tutor_id != auth()->user()->id) {
-            return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
-        }
+        // if ($class->tutor_id != auth()->user()->id) {
+        //     return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
+        // }
 
         $validatedData = $request->validate([
             'name' => 'required|unique:classes,name', // menambahkan validasi unik pada field name

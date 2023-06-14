@@ -72,7 +72,7 @@
                         enctype="multipart/form-data" id="form-image">
                         @csrf
                     @else
-                        <form action="{{ route('internal_tutor.class.storeInformasi', $slug ?? 'default') }}" method="POST"
+                        <form action="{{ route('internal_tutor.class.storeInformasi') }}" method="POST"
                         enctype="multipart/form-data" id="form-image">
                         @csrf
                     @endif

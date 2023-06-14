@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ClassController extends Controller
@@ -55,40 +55,32 @@ class ClassController extends Controller
             'total_duration' => $total_duration
         ]);
     }
-    public function storeInformasi(Request $request, $slug = null)
+    public function storeInformasi(Request $request)
     {
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
 
         $tutor = Tutor::find(auth()->user()->id);
-        if($slug){
-            $class = Classes::where('slug', $slug)->first();
-        }else{
             $class = Classes::where('slug', $request->slug)->first();
-        }
 
         if ($class->tutor_id != auth()->user()->id) {
             return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
         }
 
-        if ($slug) {
-        }else{
-            $validatedData = $request->validate([
-                'name' => 'required|unique:classes,name', // menambahkan validasi unik pada field name
-                'tutor_id' => 'required',
-                'description' => 'required',
-                'competency_unit' => 'required',
-                'category' => 'required',
-                'price' => 'required',
-                'status' => 'required',
-                'discount' => 'required',
-                'duration' => 'required',
-                'status' => 'required',
-            ], [
-                'name.unique' => 'Judul kelas sudah ada, silahkan pilih judul yang berbeda', // pesan kustom
-            ]);
-        }
+        $validatedData = $request->validate([
+            'name' => 'required|unique:classes,name', // menambahkan validasi unik pada field name
+            'tutor_id' => 'required',
+            'description' => 'required',
+            'competency_unit' => 'required',
+            'category' => 'required',
+            'price' => 'required',
+            'status' => 'required',
+            'discount' => 'required',
+            'status' => 'required',
+        ], [
+            'name.unique' => 'Judul kelas sudah ada, silahkan pilih judul yang berbeda', // pesan kustom
+        ]);
         // $slug = Str::slug($request->name, '-');
         $class = new Classes;
         $class->name = $request->name;
@@ -96,7 +88,6 @@ class ClassController extends Controller
         $class->description = $request->description;
         $class->competency_unit = $request->competency_unit;
         $class->slug = $request->slug;
-        $class->duration = $request->duration ?? '-';
         $class->category = $request->category;
         $class->price = $request->price ?? '-';
         $class->discount = $request->discount;
@@ -118,13 +109,54 @@ class ClassController extends Controller
         }
 
         $class->save();
-        if($slug){
-            return redirect()->route('internal_tutor.class.materi', ['slug' => $slug])->with('success', 'Kelas berhasil di Edit');
-        }else{
-            return redirect()->route('internal_tutor.class.materi', ['slug' => $request->slug ])->with('success', 'Kelas berhasil diinput');
-        }
+        return redirect()->route('internal_tutor.class.materi', ['slug' => $request->slug ])->with('success', 'Kelas berhasil diinput');
     }
 
+    public function updateInformasi(Request $request, $slug)
+    {
+        if (!auth()->check()) {
+            return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
+        }
+
+        $tutor = Tutor::find(auth()->user()->id);
+        $classes = Classes::where('slug', $slug)->first();
+
+        if ($classes->tutor_id != auth()->user()->id) {
+            return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
+        }
+        // $slug = Str::slug($request->name, '-');
+        $class = Classes::find($classes->id);
+        $class->name = $request->name;
+        $class->tutor_id = $request->tutor_id;
+        $class->description = $request->description;
+        $class->competency_unit = $request->competency_unit;
+        $class->slug = $request->slug;
+        $class->category = $request->category;
+        $class->price = $request->price ?? '-';
+        $class->discount = $request->discount;
+        $class->status = $request->status;
+
+        // handle file upload
+        if (!$request->hasFile('thumbnail')) {
+            $class['thumbnail'] = $classes->thumbnail;
+        }else{
+            // get file
+            $file = $request->file('thumbnail');
+
+            // generate unique name for the file
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+
+            // save file to public/thumbnails directory
+            $path = $file->storeAs('thumbnails', $filename, 'public');
+
+            // save file name to database
+            $class->thumbnail = $path;
+        }
+
+
+        $class->save();
+        return redirect()->route('internal_tutor.class.materi', ['slug' => $slug])->with('success', 'Kelas berhasil di Edit');
+    }
     // materi
     public function materi($slug)
     {
@@ -179,7 +211,6 @@ class ClassController extends Controller
         $chapter->description = $request->description ?? '-';
         $chapter->url = $request->url ?? '-';
         $chapter->reading = $request->reading ?? '-';
-        $chapter->duration = $request->duration ?? '-';
         $chapter->save();
 
         return redirect()->route('internal_tutor.class.materi', ['slug' => $request->slug])->with('success', 'Chapters berhasil diinput');

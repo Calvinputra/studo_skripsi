@@ -67,9 +67,16 @@
         <div class="container" style="margin-bottom:40px;margin-top:40px;">
             <div class="row">
                 <div>
-                    <form action="{{ route('internal_tutor.class.storeInformasi', $slug ?? 'default') }}" method="POST"
+                    @if (isset($slug))
+                        <form action="{{ route('internal_tutor.class.updateInformasi', $slug) }}" method="POST" 
                         enctype="multipart/form-data" id="form-image">
                         @csrf
+                    @else
+                        <form action="{{ route('internal_tutor.class.storeInformasi') }}" method="POST"
+                        enctype="multipart/form-data" id="form-image">
+                        @csrf
+                    @endif
+
                         <div class="container" style="margin-bottom:40px;margin-top:40px;">
                             <div class="row">
                                 <div class="col-sm-4">
@@ -119,11 +126,50 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="thumbnail">Thumbnail<span style="color: #EB2020">*</span></label>
-                                        <input class="form-control" type="file" id="thumbnail" name="thumbnail" 
-                                            style="border: 1px solid black;border-radius:5px;" required="required">
-                                    </div>
+                                    @if($slug)
+                                        <div class="form-group">
+                                            <label for="thumbnail">Thumbnail</label>
+                                            <input class="form-control" type="file" id="thumbnail" name="thumbnail" style="border: 1px solid black;border-radius:5px;"
+                                            value="{{ old('thumbnail', isset($edit) ? $edit->thumbnail : '')}}">
+                                            <p>File sebelumnya: {{ $edit->thumbnail }}</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;margin-top:24px;">
+                                                Judul kelas <span style="color: #EB2020">*</span>
+                                            </p>
+                                            <input type="text" disabled placeholder="Digital Marketing" name="name"
+                                            style="border: 1px solid black;border-radius:5px;" class="form-control"
+                                            value="{{ old('name', isset($edit) ? $edit->name : '') }}">
+                                        </div>
+                                        <div style="margin-top:24px;">
+                                            <label class="form-label semibold">Kategori <span style="color: #EB2020">*</span></label>
+                                            <select class="custom-select" disabled name="category" id="inputGroupSelect02" style="border-color:black;">
+                                                <option selected>Pilih Kategory</option>
+                                                @php
+                                                    $categories = [
+                                                        'programming' => 'Programming & Web Development',
+                                                        'graphic_design' => 'Graphic Design',
+                                                        'digital_marketing' => 'Digital Marketing',
+                                                        'business_skill' => 'Business Skills',
+                                                        'data_science' => 'Data Science & Analytics',
+                                                        'health' => 'Health & Wellness',
+                                                        'language' => 'Language Learning',
+                                                        'art_music' => 'Art & Music',
+                                                        'photography' => 'Photography',
+                                                        'personal_development' => 'Personal Development'
+                                                    ];
+                                                @endphp
+                                                @foreach ($categories as $key => $value)
+                                                    <option value="{{ $key }}" {{ old('category', isset($edit) ? $edit->category : '') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    @else
+                                        <div class="form-group">
+                                            <label for="thumbnail">Thumbnail<span style="color: #EB2020">*</span></label>
+                                            <input class="form-control" type="file" id="thumbnail" name="thumbnail" 
+                                                style="border: 1px solid black;border-radius:5px;" required="required">
+                                        </div>
                                         <div class="form-group">
                                             <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;margin-top:24px;">
                                                 Judul kelas <span style="color: #EB2020">*</span>
@@ -155,6 +201,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                    @endif
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Deskripsi<span
                                                 style="color: #EB2020">*</span></label>
@@ -171,7 +218,6 @@
                                         <label for="exampleFormControlTextarea1">Durasi Total Pembelajaran (menit)<span
                                                 style="color: #EB2020">*</span></label>
                                         <input type="text"
-                                            name="duration"
                                             style="border: 1px solid black;border-radius:5px;" class="form-control" value="{{ old('total_duration', isset($total_duration) ? $total_duration : '') }}" 
                                             disabled>
                                     </div>
@@ -205,8 +251,13 @@
                                                 <input type="hidden" id="finalPriceInput" name="price">
                                                 <input type="hidden" name="tutor_id" value="{{ $tutor->id }}">
                                                 <input type="hidden" name="status" value="deactive">
-                                                <input type="hidden" name="duration" value="0">
-                                                <input type="hidden" id="slug-input" name="slug">
+                                                @if($slug)
+                                                    <input type="hidden" name="name" value="{{ old('name', isset($edit) ? $edit->name : '') }}">
+                                                    <input type="hidden" name="category" value="{{ old('category', isset($edit) ? $edit->category : '') }}">
+                                                    <input type="hidden" name="slug" value="{{ old('slug', isset($edit) ? $edit->slug : '') }}">
+                                                @else
+                                                    <input type="hidden" id="slug-input" name="slug">
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -225,14 +276,20 @@
         </div>
     </body>
     <script>
+        window.onload = function() {
+            calculate();
+        }
+
         function calculate() {
             var normalPrice = document.getElementById('normalPrice').value;
             var discount = document.getElementById('discount').value;
-            
-            var finalPrice = normalPrice - (normalPrice * (discount / 100));
-            
-            document.getElementById('finalPrice').innerHTML = finalPrice;
-            document.getElementById('finalPriceInput').value = finalPrice;
+
+            if(normalPrice && discount){
+                var finalPrice = normalPrice - (normalPrice * (discount / 100));
+
+                document.getElementById('finalPrice').innerHTML = finalPrice;
+                document.getElementById('finalPriceInput').value = finalPrice;
+            }
         }
     </script>
     <script>

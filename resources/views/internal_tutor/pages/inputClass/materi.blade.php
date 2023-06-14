@@ -259,6 +259,12 @@
                                 Chapter Belum tersedia, Buatlah Chapter Terlebih Dahulu
                             </div>
                         @endif
+                        <div style="float:right;">
+                            <button class="btn my-2 my-sm-0"
+                                style="color:#063852; border-color:#063852;background:white">
+                                Selanjutnya
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

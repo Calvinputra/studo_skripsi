@@ -16,14 +16,15 @@
         align-items:center;
     }
 </style>
-
         <div>
             <nav class="navbar navbar-expand-lg bg-navbar">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-between container" id="navbarTogglerDemo01">
-                    <a class="navbar-brand" href="#">Logo</a>
+                    <a class="navbar-brand" href="{{ route('studo.index') }}">
+                        <img style="width:96px;height:40px;" src="{{ asset('/thumbnails/studo.png') }}" alt="">
+                    </a>
                     <div>
                         <form class="form-inline my-2 my-lg-0">
                             <input class="form-control" style="border-radius:5px 0px 0px 5px" type="search" placeholder="Search" aria-label="Search">

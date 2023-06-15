@@ -20,6 +20,7 @@
                             @include('studo.pages.overview.section.tentangKelas')
                             @include('studo.pages.overview.section.forum')
                             @include('studo.pages.overview.section.project')
+                            @include('studo.pages.overview.section.leaderboard')
 
                         @else
                             @include('studo.pages.overview.section.namaMentor')

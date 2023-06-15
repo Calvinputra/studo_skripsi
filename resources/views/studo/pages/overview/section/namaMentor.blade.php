@@ -72,7 +72,7 @@
                 <div class="nav-item">
                     <a class="btn-overview active" id="nav-benefit-tab" data-bs-toggle="tab" href="#kelas">
                         <b>
-                            Tentang Kelas
+                            Detail Kelas
                         </b>
                     </a>
                 </div>
@@ -87,6 +87,13 @@
                     <a class="btn-overview" id="nav-review-tab" data-bs-toggle="tab" href="#project">
                         <b>
                             Project
+                        </b>
+                    </a>
+                </div>
+                <div class="nav-item" style="margin:0px 16px;">
+                    <a class="btn-overview" id="nav-review-tab" data-bs-toggle="tab" href="#leaderboard">
+                        <b>
+                            Leaderboard
                         </b>
                     </a>
                 </div>

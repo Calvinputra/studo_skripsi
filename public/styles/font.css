@@ -166,6 +166,21 @@
         border: 1px solid #063852;
         border-radius:5px;
     }
+    .btn-publish{
+        color: #20A2EB !important;
+        background: rgba(32, 162, 235, 0.1);
+        padding:16px;
+        border-radius:5px;
+        font-weight:700;
+    }
+    .btn-dashboard{
+        color:#063852; 
+        border-color:#063852;
+        background:white;
+        padding: 10px;
+        border: 1px solid #063852;
+        border-radius:5px;
+    }
     .btn-info-kelas{
         padding: 10px 16px;
         width: fit-content;

@@ -44,7 +44,6 @@ class ClassController extends Controller
         }
         $tutor = Tutor::find(auth()->user()->id);
 
-        
         $total_duration = Chapter::where('class_id', $edit->id)
         ->sum('duration');
 
@@ -219,8 +218,8 @@ class ClassController extends Controller
 
         return redirect()->route('internal_tutor.class.materi', ['slug' => $request->slug])->with('success', 'Chapters berhasil diinput');
     }
-    
-    public function updateMateri(Request $request,  $slug)
+
+    public function updateMateri(Request $request,$slug, $id)
     {
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
@@ -239,19 +238,20 @@ class ClassController extends Controller
         ]);
         // dd($request->all());
 
-        $chapter = new Chapter;
-        $chapter->type = $request->type;
-        $chapter->name = $request->name;
-        $chapter->class_id = $request->class_id;
-        $chapter->priority = $request->priority;
-        $chapter->description = $request->description ?? '-';
-        $chapter->url = $request->url ?? '-';
-        $chapter->reading = $request->reading ?? '-';
-        $chapter->duration = $request->duration ?? '-';
-        $chapter->save();
+        $updateChapter = Chapter::find($id);
+        $updateChapter->type = $request->type;
+        $updateChapter->name = $request->name;
+        $updateChapter->class_id = $request->class_id;
+        $updateChapter->priority = $request->priority;
+        $updateChapter->description = $request->description ?? '-';
+        $updateChapter->url = $request->url ?? '-';
+        $updateChapter->reading = $request->reading ?? '-';
+        $updateChapter->duration = $request->duration ?? '-';
+        $updateChapter->save();
 
-        return redirect()->route('internal_tutor.class.materi', ['slug' => $request->slug])->with('success', 'Chapters berhasil diinput');
+        return redirect()->route('internal_tutor.class.materi', ['slug' => $request->slug])->with('success', 'Chapters berhasil diedit');
     }
+
     public function quest($slug)
     {
         if (!auth()->check()) {
@@ -278,6 +278,36 @@ class ClassController extends Controller
             'count_reading' => $count_reading
             ])->with('success', 'Kelas berhasil diinput');
     }
+
+    public function import_quiz_question(Request $request)
+    {
+        $this->validate($request, [
+            'quiz_type' => 'required',
+            'program_digital_quiz_id' => 'required',
+            'file'      => 'required|mimes:xls,xlsx',
+        ]);
+
+        $data = [
+            'quiz_type' => $request->quiz_type,
+            'program_digital_quiz_id' => $request->program_digital_quiz_id,
+        ];
+
+        $import = new QuizQuestionImport($data);
+        try {
+            if ($request->file('file')) {
+                Excel::import($import, $request->file('file'));
+            }
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            // return back()->withFailures($e->failures());
+            return back()->with('error', 'Isian File tidak sesuai dengan format yang ditentukan');
+        }
+
+        $program_digital_quiz_id = $request->program_digital_quiz_id;
+
+        // return redirect()->route('internal.program_digital_quizzes.show', $program_digital_quiz_id)->with('message','Pertanyaan Quiz sukses di import!');
+        return back()->with('message', 'Pertanyaan Quiz sukses di import!');
+    }
+
     public function download_template_question_import()
     {
         return response()->download('assets/template-import/quiz_question_template.xlsx');

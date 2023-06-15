@@ -104,7 +104,10 @@ Route::namespace('internal')->group(function () {
         //  edit Class Informasi
         Route::post('/internal/class/updateInformasi/{slug}', [ClassController::class, 'updateInformasi'])->name('internal_tutor.class.updateInformasi');
         //  edit Class Materi
-        Route::post('/internal/class/updateMateri/{slug}', [ClassController::class, 'updateMateri'])->name('internal_tutor.class.updateMateri');
+        Route::post('/internal/class/{slug}/updateMateri/{id}', [ClassController::class, 'updateMateri'])->name('internal_tutor.class.updateMateri');
+
+        // Input Quest
+        Route::post('internal/class/question/pretest/{slug}/import', [ClassController::class, 'import_quiz_question'])->name('internal.program_digital_quizzes.import');
 
         // Update Profile Tutor
         Route::post('/internal/tutor/profile/update/{id}', [TutorController::class, 'updateProfile'])->name('internal_tutor.post.updateProfile');

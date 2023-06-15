@@ -233,46 +233,6 @@
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Wait for the modal to be fully shown
-        $('#addChapterModal').on('shown.bs.modal', function() {
-            // Get the form elements
-            var chapterTypeSelect = document.getElementById('chapterType');
-            var chapterTitleGroup = document.getElementById('chapterTitleGroup');
-            var chapterDurationGroup = document.getElementById('chapterDurationGroup');
-            var chapterPriorityGroup = document.getElementById('chapterPriorityGroup');
-            var chapterDescriptionGroup = document.getElementById('chapterDescriptionGroup');
-            var chapterUrlGroup = document.getElementById('chapterUrlGroup');
-            var chapterContentGroup = document.getElementById('chapterContentGroup');
-
-            // Handle change event on chapterTypeSelect
-            chapterTypeSelect.addEventListener('change', function() {
-                var selectedChapterType = chapterTypeSelect.value;
-
-                // Hide all form groups first
-                chapterTitleGroup.style.display = 'none';
-                chapterDurationGroup.style.display = 'none';
-                chapterPriorityGroup.style.display = 'none';
-                chapterDescriptionGroup.style.display = 'none';
-                chapterUrlGroup.style.display = 'none';
-                chapterContentGroup.style.display = 'none';
-
-                // Show form groups based on selectedChapterType
-                if (selectedChapterType === 'video') {
-                    chapterTitleGroup.style.display = 'block';
-                    chapterDurationGroup.style.display = 'block';
-                    chapterPriorityGroup.style.display = 'block';
-                    chapterDescriptionGroup.style.display = 'block';
-                    chapterUrlGroup.style.display = 'block';
-                } else if (selectedChapterType === 'reading') {
-                    chapterTitleGroup.style.display = 'block';
-                    chapterDurationGroup.style.display = 'block';
-                    chapterPriorityGroup.style.display = 'block';
-                    chapterContentGroup.style.display = 'block';
-                }
-            });
-        });
-    </script>
-    <script>
     $(document).ready( function () {
         $('#myTable').DataTable();
     } );

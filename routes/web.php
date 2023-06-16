@@ -110,7 +110,7 @@ Route::namespace('internal')->group(function () {
         Route::post('/internal/class/{slug}/updateMateri/{id}', [ClassController::class, 'updateMateri'])->name('internal_tutor.class.updateMateri');
 
         // Input Quest
-        Route::post('internal/class/question/pretest/{slug}/import', [ClassController::class, 'import_quiz_question'])->name('internal.program_digital_quizzes.import');
+        Route::post('internal/class/question/pretest/import', [ClassController::class, 'import_quiz_question'])->name('internal.program_digital_quizzes.prestet.import');
 
         // Update Profile Tutor
         Route::post('/internal/tutor/profile/update/{id}', [TutorController::class, 'updateProfile'])->name('internal_tutor.post.updateProfile');

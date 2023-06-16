@@ -183,13 +183,16 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div>
-                                    <button class="btn my-2 my-sm-0 "style="color:white;background:#063852;" type="button">
-                                        <b>
-                                            Upload
-                                        </b>
-                                    </button>
-                                </div>
+                                <form method="post" action="{{ route('internal.program_digital_quizzes.prestet.import') }}" id="addForm"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <div>
+                                        <label for="formFile" class="btn my-2 my-sm-0" style="color:white;background:#063852;">
+                                            <b>Upload</b>
+                                        </label>
+                                        <input class="form-control dropify" style="display:none;" type="file" id="formFile" name="file" data-allowed-file-extensions="xlsx xls" required>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <div style="margin-top:24px;">
@@ -211,11 +214,10 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="btn my-2 my-sm-0 "style="color:white;background:#063852;" type="button">
-                                        <b>
-                                            Upload
-                                        </b>
-                                    </button>
+                                    <label for="formFile" class="btn my-2 my-sm-0" style="color:white;background:#063852;">
+                                        <b>Upload</b>
+                                    </label>
+                                    <input class="form-control dropify" style="display:none;" type="file" id="formFile" name="file" data-allowed-file-extensions="xlsx xls" required>
                                 </div>
                             </div>
                         </div>

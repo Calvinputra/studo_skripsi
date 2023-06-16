@@ -2,19 +2,17 @@
 
 namespace App\Imports;
 
-use App\ProgramDigitalModels\ProgramDigitalQuizQuestion;
-use App\ProgramDigitalModels\ProgramDigitalQuizAnswer;
 
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 
-<z></z>
+
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class QuizQuestionImport implements ToModel, WithHeadingRow, WithValidation ,WithBatchInserts, WithChunkReading
+class QuizQuestionImport implements ToModel, WithHeadingRow, WithValidation, WithBatchInserts, WithChunkReading
 {
     use Importable;
 
@@ -30,26 +28,26 @@ class QuizQuestionImport implements ToModel, WithHeadingRow, WithValidation ,Wit
     public function model(array $row)
     {
         $question = ProgramDigitalQuizQuestion::create([
-                        'program_digital_quiz_id' =>  $this->data['program_digital_quiz_id'],
-                        'quiz_type' =>  $this->data['quiz_type'],
-                        'question' =>  $row['question'],
-                        'priority' =>  $row['priority'],
-                    ]);
+            'program_digital_quiz_id' =>  $this->data['program_digital_quiz_id'],
+            'quiz_type' =>  $this->data['quiz_type'],
+            'question' =>  $row['question'],
+            'priority' =>  $row['priority'],
+        ]);
 
         $row_keys = array_keys($row);
         $answers = array_values(preg_grep('/^answer_/i', $row_keys));
 
         foreach ($answers as $correct => $answer) {
             if ($row[$answer]) {
-                ProgramDigitalQuizAnswer::create([   
-                    'program_digital_quiz_question_id'=> $question->id,
-                    'answer'=> $row[$answer],
-                    'is_correct'=> $row['is_correct'] == ($correct + 1) ? 1 : 0,
+                ProgramDigitalQuizAnswer::create([
+                    'program_digital_quiz_question_id' => $question->id,
+                    'answer' => $row[$answer],
+                    'is_correct' => $row['is_correct'] == ($correct + 1) ? 1 : 0,
                 ]);
             }
         }
     }
-    
+
     public function rules(): array
     {
         return [
@@ -72,5 +70,4 @@ class QuizQuestionImport implements ToModel, WithHeadingRow, WithValidation ,Wit
     {
         return 100;
     }
-
 }

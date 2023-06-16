@@ -70,7 +70,7 @@ table.dataTable thead .sorting{
         <div class="d-flex align-items-center" style="margin-top:18px;">
             <ul class="nav">
                 <div class="nav-item">
-                    <a class="btn-dashboard active-dashboard" id="nav-dashboard-tab" data-bs-toggle="tab" href="#kelasAktif">
+                    <a class="btn-dashboard active-dashboard active" id="nav-dashboard-tab" data-bs-toggle="tab" href="#kelasAktif">
                         <b>
                             Kelas yang aktif
                         </b>

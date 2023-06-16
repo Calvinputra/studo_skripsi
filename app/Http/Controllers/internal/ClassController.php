@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\internal;
 
 use App\Http\Controllers\Controller;
+use App\Imports\QuizQuestionImport;
 use App\Models\Chapter;
 use App\Models\Classes;
 use App\Models\Materi;

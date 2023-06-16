@@ -345,6 +345,12 @@
                                 Selanjutnya
                             </button>
                         </div>
+                        <div style="float:left;" class="pt-3">
+                            <a class="btn my-2 my-sm-0" href="{{ route('internal_tutor.class.materi', $class->slug) }}"
+                                style="color:#063852; border-color:#063852;background:white;font-weight: bold">
+                                Sebelumnya
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

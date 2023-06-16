@@ -356,6 +356,12 @@ table.dataTable.no-footer{
                             </div>
                         @endif
                         @if($count_chapter >= 5)
+                            <div style="float:left;" class="pt-3">
+                                <a class="btn my-2 my-sm-0" href="{{ route('internal_tutor.class.informasi', $class->slug) }}"
+                                    style="color:#063852; border-color:#063852;background:white;font-weight: bold">
+                                    Sebelumnya
+                                </a>
+                            </div>
                             <div style="float:right;" class="pt-3">
                                 <a class="btn my-2 my-sm-0" href="{{ route('internal_tutor.class.quest', $class->slug) }}"
                                     style="color:#063852; border-color:#063852;background:white;font-weight: bold">
@@ -363,6 +369,12 @@ table.dataTable.no-footer{
                                 </a>
                             </div>
                         @else
+                        <div style="float:left;" class="pt-3">
+                            <a class="btn my-2 my-sm-0" href="{{ route('internal_tutor.class.informasi', $class->slug) }}"
+                                style="color:#063852; border-color:#063852;background:white;font-weight: bold">
+                                Sebelumnya
+                            </a>
+                        </div>
                             <div style="float:right;" class="pt-3">
                                 <a class="btn my-2 my-sm-0"
                                     style="color:rgba(230, 235, 237, 1); border-color:rgba(230, 235, 237, 1);font-weight: bold">

@@ -4,6 +4,7 @@
     <!-- Bootstrap -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ url('styles/font.css') }}" rel="stylesheet" type = "text/css">
+    <link href="{{ url('styles/table-tutor.css') }}" rel="stylesheet" type = "text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">

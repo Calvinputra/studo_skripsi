@@ -64,50 +64,6 @@ table.dataTable.no-footer{
         border-bottom: 3px #063852 solid !important;
 
     }
-    .dropbtn {
-        color: white;
-        padding: 0px;
-        font-size: 16px;
-        border: none;
-    }
-
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #FFC100;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-        padding:2px 8px;
-        width: 440px;
-        height: 31px;
-        border-radius: 5px;
-        margin-top:5px;
-    }
-
-    .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-    }
-
-    .dropdown-content a:hover {background-color: #ddd;}
-
-    .dropdown:hover .dropdown-content {display: block;}
-    
-th{
-    color: #222222;
-}
-
-table.dataTable thead .sorting{
-    background-image: url("/thumbnails/both.png") !important;
-    
-}
 
     .nav-tabs .nav-link {
         color: #063852;
@@ -231,7 +187,7 @@ table.dataTable thead .sorting{
                                                 </svg>
                                             </a>
                                         </div>
-                                </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -284,9 +240,9 @@ table.dataTable thead .sorting{
                                         </div>
                                         <input type="hidden" name="class_id" value="{{ $class->id }}">
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
+                                            <button type="button" class="btn" style="color:#063852; border-color:#063852;background:white"
                                                 data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save</button>
+                                            <button type="submit" class="btn" style="color:white;background:#063852;">Save</button>
                                         </div>
                                     </div>
                                 </div>
@@ -358,7 +314,7 @@ table.dataTable thead .sorting{
                                                         <div style="padding:16px;">
                                                             <div class="card-body p-0">
                                                                 <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative;">
-                                                                    <table id="myTable" class="table mb-0" style="background-color: rgba(32, 162, 235, 0.1)">
+                                                                    <table id="myTableMateri" class="table mb-0" style="background-color: rgba(32, 162, 235, 0.1)">
                                                                         <thead style="background-color: rgba(32, 162, 235, 0.1);border-radius: 5px;">
                                                                             <tr class="text-uppercase" style="color: white">
                                                                                     <th scope="col" class="filter" data-filter="type">Type</th>
@@ -519,7 +475,7 @@ table.dataTable thead .sorting{
     </script>
     <script>
     $(document).ready( function () {
-        $('#myTable').DataTable();
+        $('#myTableMateri').DataTable();
     } );
     </script>
 @endsection

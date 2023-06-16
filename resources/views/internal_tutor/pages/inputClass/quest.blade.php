@@ -179,20 +179,31 @@
                                             Upload Soal Quest: Pre-Test    
                                         </p>
                                         <p class="m-0">
-                                            File dalam bentuk .xls
+                                            File dalam bentuk .xlsx
                                         </p>
                                     </div>
                                 </div>
-                                <form method="post" action="{{ route('internal.program_digital_quizzes.prestet.import') }}" id="addForm"
-                                    enctype="multipart/form-data">
-                                    @csrf
+                                @if($check_pretest)
                                     <div>
-                                        <label for="formFile" class="btn my-2 my-sm-0" style="color:white;background:#063852;">
-                                            <b>Upload</b>
+                                        <label for="formFilePretest" class="btn my-2 my-sm-0" style="color:white;background:#67c624;">
+                                            <b>Done</b>
                                         </label>
-                                        <input class="form-control dropify" style="display:none;" type="file" id="formFile" name="file" data-allowed-file-extensions="xlsx xls" required>
+                                        <input class="form-control dropify" style="display:none;" type="file">
                                     </div>
-                                </form>
+                                @else
+                                    <form method="post" action="{{ route('internal.quest.question.import') }}" id="addFormPretest"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" name="quest_type" value="pretest">
+                                        <input type="hidden" name="quest_id" value="{{ $quest->id }}">
+                                        <div>
+                                            <label for="formFilePretest" class="btn my-2 my-sm-0" style="color:white;background:#063852;">
+                                                <b>Upload</b>
+                                            </label>
+                                            <input class="form-control dropify" style="display:none;" type="file" id="formFilePretest" name="file" data-allowed-file-extensions="xlsx xls" required>
+                                        </div>
+                                    </form>
+                                @endif
                             </div>
                         </div>
                         <div style="margin-top:24px;">
@@ -209,16 +220,31 @@
                                             Upload Soal Quest: Post-Test    
                                         </p>
                                         <p class="m-0">
-                                            File dalam bentuk .xls
+                                            File dalam bentuk .xlsx
                                         </p>
                                     </div>
-                                </div>
-                                <div>
-                                    <label for="formFile" class="btn my-2 my-sm-0" style="color:white;background:#063852;">
-                                        <b>Upload</b>
-                                    </label>
-                                    <input class="form-control dropify" style="display:none;" type="file" id="formFile" name="file" data-allowed-file-extensions="xlsx xls" required>
-                                </div>
+                                </div>               
+                                @if($check_posttest)
+                                    <div>
+                                        <label for="formFilePosttest" class="btn my-2 my-sm-0" style="color:white;background:#67c624;">
+                                            <b>Done</b>
+                                        </label>
+                                        <input class="form-control dropify" style="display:none;" type="file">
+                                    </div>
+                                @else
+                                    <form method="post" action="{{ route('internal.quest.question.import') }}" id="addFormPosttest"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" name="quest_type" value="posttest">
+                                        <input type="hidden" name="quest_id" value="{{ $quest->id }}">
+                                        <div>
+                                            <label for="formFilePosttest" class="btn my-2 my-sm-0" style="color:white;background:#063852;">
+                                                <b>Upload</b>
+                                            </label>
+                                            <input class="form-control dropify" style="display:none;" type="file" id="formFilePosttest" name="file" data-allowed-file-extensions="xlsx xls" required>
+                                        </div>
+                                    </form>
+                                @endif
                             </div>
                         </div>
 
@@ -234,9 +260,24 @@
         </div>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
     $(document).ready( function () {
         $('#myTable').DataTable();
     } );
     </script>
+    <script>
+    $(document).ready(function(){
+        $('#formFilePretest').change(function() {
+            $('#addFormPretest').submit();
+        });
+    });
+    </script>
+    <script>
+    $(document).ready(function(){
+        $('#formFilePosttest').change(function() {
+            $('#addFormPosttest').submit();
+        });
+    });
+</script>
 @endsection

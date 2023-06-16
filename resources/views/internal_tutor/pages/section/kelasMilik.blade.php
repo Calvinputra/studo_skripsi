@@ -1,4 +1,4 @@
-<div class="row tab-pane fade" id="kelasAktif" role="tabpanel">
+<div class="row tab-pane active" id="kelasAktif" role="tabpanel">
     @if($count_classes != 0)
     @foreach ($classes as $class)
         <div class="row" style="margin:24px 0px;">

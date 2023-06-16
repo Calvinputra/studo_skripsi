@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\internal;
 
 use App\Http\Controllers\Controller;
-use App\Imports\QuizQuestionImport;
+use App\Imports\QuestQuestionImport;
 use App\Models\Chapter;
 use App\Models\Classes;
 use App\Models\Materi;
+use App\Models\Project;
+use App\Models\Quest;
 use App\Models\Tutor;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -14,6 +16,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClassController extends Controller
 {
@@ -64,24 +67,24 @@ class ClassController extends Controller
         
         $tutor = Tutor::find(auth()->user()->id);
         // $class = Classes::where('slug', $request->slug)->first();
-
+        
         // if (!$class) {
-        //     return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
-        // }
-
-        $validatedData = $request->validate([
-            'name' => 'required|unique:classes,name', // menambahkan validasi unik pada field name
-            'tutor_id' => 'required',
-            'description' => 'required',
-            'competency_unit' => 'required',
-            'category' => 'required',
-            'price' => 'required',
-            'status' => 'required',
-            'discount' => 'required',
-            'status' => 'required',
-        ], [
-            'name.unique' => 'Judul kelas sudah ada, silahkan pilih judul yang berbeda', // pesan kustom
-        ]);
+            //     return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
+            // }
+            
+            $validatedData = $request->validate([
+                'name' => 'required|unique:classes,name', // menambahkan validasi unik pada field name
+                'tutor_id' => 'required',
+                'description' => 'required',
+                'competency_unit' => 'required',
+                'category' => 'required',
+                'price' => 'required',
+                'status' => 'required',
+                'discount' => 'required',
+                'status' => 'required',
+            ], [
+                'name.unique' => 'Judul kelas sudah ada, silahkan pilih judul yang berbeda', // pesan kustom
+            ]);
         // $slug = Str::slug($request->name, '-');
         $class = new Classes;
         $class->name = $request->name;
@@ -93,23 +96,31 @@ class ClassController extends Controller
         $class->price = $request->price ?? '-';
         $class->discount = $request->discount;
         $class->status = $request->status;
-
+        
         // handle file upload
         if ($request->hasFile('thumbnail')) {
             // get file
             $file = $request->file('thumbnail');
-
+            
             // generate unique name for the file
             $filename = time() . '.' . $file->getClientOriginalExtension();
-
+            
             // save file to public/thumbnails directory
             $path = $file->storeAs('thumbnails', $filename, 'public');
-
+            
             // save file name to database
             $class->thumbnail = $path;
         }
-
+        
         $class->save();
+        
+        $check_project = Quest::where('class_id', $class->id)->where('tutor_id', $tutor->id)->first();
+        if(!$check_project){
+            $project = new Quest;
+            $project->class_id = $class->id;
+            $project->tutor_id = $tutor->id;
+            $project->save();
+        }
         return redirect()->route('internal_tutor.class.materi', ['slug' => $request->slug ])->with('success', 'Kelas berhasil diinput');
     }
 
@@ -154,8 +165,15 @@ class ClassController extends Controller
             $class->thumbnail = $path;
         }
 
-
         $class->save();
+
+        $check_project = Quest::where('class_id', $class->id)->where('tutor_id', $tutor->id)->first();
+        if (!$check_project) {
+            $project = new Quest;
+            $project->class_id = $class->id;
+            $project->tutor_id = $tutor->id;
+            $project->save();
+        }
         return redirect()->route('internal_tutor.class.materi', ['slug' => $slug])->with('success', 'Kelas berhasil di Edit');
     }
     // materi
@@ -269,6 +287,17 @@ class ClassController extends Controller
         $count_video = Chapter::where('type', 'video')->where('class_id', $class->id)->count();
         $count_reading = Chapter::where('type', 'reading')->where('class_id', $class->id)->count();
 
+        $quest = Quest::where('class_id', $class->id)->where('tutor_id', auth()->user()->id)->first();
+        $check_pretest = Quest::join('quest_question', 'quest_question.quest_id', '=', 'quest.id')
+        ->where('class_id', $class->id)
+        ->where('tutor_id', auth()->user()->id)
+        ->where('quest_type', 'pretest')->first();
+
+        $check_posttest = Quest::join('quest_question', 'quest_question.quest_id', '=', 'quest.id')
+        ->where('class_id', $class->id)
+        ->where('tutor_id', auth()->user()->id)
+        ->where('quest_type', 'posttest')->first();
+
         $tutor = Tutor::find(auth()->user()->id);
 
         return view('internal_tutor.pages.inputClass.quest', [
@@ -276,24 +305,26 @@ class ClassController extends Controller
             'class' => $class,
             'chapters' => $chapters,
             'count_video' => $count_video,
-            'count_reading' => $count_reading
+            'count_reading' => $count_reading,
+            'quest' => $quest,
+            'check_pretest' => $check_pretest,
+            'check_posttest' => $check_posttest,
             ])->with('success', 'Kelas berhasil diinput');
     }
 
     public function import_quiz_question(Request $request)
     {
         $this->validate($request, [
-            'quiz_type' => 'required',
-            'program_digital_quiz_id' => 'required',
+            'quest_type' => 'required',
+            'quest_id' => 'required',
             'file'      => 'required|mimes:xls,xlsx',
         ]);
-
         $data = [
-            'quiz_type' => $request->quiz_type,
-            'program_digital_quiz_id' => $request->program_digital_quiz_id,
+            'quest_type' => $request->quest_type,
+            'quest_id' => $request->quest_id,
         ];
 
-        $import = new QuizQuestionImport($data);
+        $import = new QuestQuestionImport($data);
         try {
             if ($request->file('file')) {
                 Excel::import($import, $request->file('file'));
@@ -303,10 +334,10 @@ class ClassController extends Controller
             return back()->with('error', 'Isian File tidak sesuai dengan format yang ditentukan');
         }
 
-        $program_digital_quiz_id = $request->program_digital_quiz_id;
+        $quest_id = $request->quest_id;
 
         // return redirect()->route('internal.program_digital_quizzes.show', $program_digital_quiz_id)->with('message','Pertanyaan Quiz sukses di import!');
-        return back()->with('message', 'Pertanyaan Quiz sukses di import!');
+        return back()->with('message', 'Pertanyaan Quest sukses di import!');
     }
 
     public function download_template_question_import()

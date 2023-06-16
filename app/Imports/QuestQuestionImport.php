@@ -2,7 +2,8 @@
 
 namespace App\Imports;
 
-
+use App\Models\QuestAnswer;
+use App\Models\QuestQuestion;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -12,7 +13,7 @@ use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class QuizQuestionImport implements ToModel, WithHeadingRow, WithValidation, WithBatchInserts, WithChunkReading
+class QuestQuestionImport implements ToModel, WithHeadingRow, WithValidation, WithBatchInserts, WithChunkReading
 {
     use Importable;
 
@@ -27,9 +28,9 @@ class QuizQuestionImport implements ToModel, WithHeadingRow, WithValidation, Wit
 
     public function model(array $row)
     {
-        $question = ProgramDigitalQuizQuestion::create([
-            'program_digital_quiz_id' =>  $this->data['program_digital_quiz_id'],
-            'quiz_type' =>  $this->data['quiz_type'],
+        $question = QuestQuestion::create([
+            'quest_id' =>  $this->data['quest_id'],
+            'quest_type' =>  $this->data['quest_type'],
             'question' =>  $row['question'],
             'priority' =>  $row['priority'],
         ]);
@@ -39,8 +40,8 @@ class QuizQuestionImport implements ToModel, WithHeadingRow, WithValidation, Wit
 
         foreach ($answers as $correct => $answer) {
             if ($row[$answer]) {
-                ProgramDigitalQuizAnswer::create([
-                    'program_digital_quiz_question_id' => $question->id,
+                QuestAnswer::create([
+                    'quest_question_id' => $question->id,
                     'answer' => $row[$answer],
                     'is_correct' => $row['is_correct'] == ($correct + 1) ? 1 : 0,
                 ]);

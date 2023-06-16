@@ -18,7 +18,9 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-between container" id="navbarTogglerDemo01">
-                    <a class="navbar-brand" href="#">Logo</a>
+                    <a class="navbar-brand" href="{{ route('admin.pages.dashboard.index') }}">
+                        <img style="width:96px;height:40px;" src="{{ asset('/thumbnails/studo.png') }}" alt="">
+                    </a>
                     <ul class="navbar-nav mt-2 mt-lg-0">
                     @if (auth()->check())
                     <li class="nav-item">

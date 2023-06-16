@@ -9,6 +9,7 @@ use App\Http\Controllers\studo\QuestController;
 use App\Http\Controllers\studo\AuthController as StudoAuthController;
 
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\AuthController;
 
 use App\Http\Controllers\internal\AuthController as InternalTutorAuthController ;
 use App\Http\Controllers\internal\ClassController;
@@ -40,6 +41,8 @@ Route::namespace('studo')->group( function () {
             Route::get('/overview', [OverviewController::class, 'index'])->name('studo.overview');
 
             Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.pages.dashboard.index');
+            Route::get('/internal/admin', [AuthController::class, 'index'])->name('admin.pages.auth.signin');
+
 
             Route::get('/checkout', [CheckoutController::class, 'getCheckout'])->name('studo.checkout');
 

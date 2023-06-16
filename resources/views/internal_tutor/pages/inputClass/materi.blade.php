@@ -293,7 +293,7 @@ table.dataTable thead .sorting{
                             </div>
                         </form>
                         {{-- Edit --}}
-                        <form id="materiupdateForm" action="{{ route('internal_tutor.class.updateMateri', $class->slug) }}"
+                        <form id="materiupdateForm" 
                             method="POST">
                             @csrf
                             <!-- Modal -->
@@ -377,7 +377,7 @@ table.dataTable thead .sorting{
                                                                                     <td>{{ $chapter->priority }}</td>
                                                                                     <td>
                                                                                         <div data-bs-toggle="modal" data-bs-target="#updateChapterModal" class="btn-group" role="group" aria-label="Button group">
-                                                                                            <a href="#" style="color: #20A2EB;">Edit</a>
+                                                                                            <a id="updateChapterhref" data-id="{{ $chapter->id }}" data-slug="{{ $class->slug }}" href="#" style="color: #20A2EB;">Edit</a>
                                                                                         </div>
                                                                                     </td>
                                                                                 </tr>
@@ -474,7 +474,7 @@ table.dataTable thead .sorting{
             var updateChapterContentGroup = document.getElementById('updateChapterContentGroup');
 
             // Handle change event on chapterTypeSelect
-            updateChapterTypeSelect.updateEventListener('change', function() {
+            updateChapterTypeSelect.addEventListener('change', function() {
                 var selectedUpdateChapterType = updateChapterTypeSelect.value;
 
                 // Hide all form groups first
@@ -499,6 +499,22 @@ table.dataTable thead .sorting{
                     updateChapterContentGroup.style.display = 'block';
                 }
             });
+        });
+
+        $('a#updateChapterhref').on('click', function(event) {
+            event.preventDefault();
+
+            var chapterId = $(this).data('id');
+            var slug = $(this).data('slug');  // get the slug
+
+            // Replace :id in the action URL with the actual chapter ID
+            var actionUrl = "{{ route('internal_tutor.class.updateMateri', ['slug' => ':slug', 'id' => ':id']) }}"
+                .replace(':slug', slug)
+                .replace(':id', chapterId);
+            // Set the form action
+            $('#materiupdateForm').attr('action', actionUrl);
+
+            // ... rest of your code here ...
         });
     </script>
     <script>

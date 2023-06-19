@@ -45,6 +45,7 @@ Route::namespace('studo')->group( function () {
 
 
             Route::get('/checkout/{slug}', [CheckoutController::class, 'getCheckout'])->name('studo.checkout');
+            Route::get('/checkout/upload-pembayaran', [CheckoutController::class, 'getUpload'])->name('studo.checkout.upload');
 
 
             //  Post Data dari Popup Login

@@ -35,7 +35,7 @@
     }
 
 </style>
-<div class="container" style="padding-top:80px;padding-bottom:80px;">
+<div class="container" style="padding-top:80px;padding-bottom:80px;" id="kelasTersedia">
     <div>
         <center>
         @if (auth()->check())

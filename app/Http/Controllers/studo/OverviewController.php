@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class OverviewController extends Controller
 {
-    public function index($slug)
+    public function index($slug, $chapter = null)
     {
         $class = Classes::join('tutors', 'tutors.id', '=', 'classes.tutor_id')
         ->select([

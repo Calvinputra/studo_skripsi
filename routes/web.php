@@ -38,7 +38,7 @@ Route::namespace('studo')->group( function () {
 
             Route::get('/search-page', [SearchController::class, 'index'])->name('studo.search');
 
-            Route::get('/overview/{slug}', [OverviewController::class, 'index'])->name('studo.overview');
+            Route::get('/overview/{slug}/{chapter?}', [OverviewController::class, 'index'])->name('studo.overview');
 
             Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.pages.dashboard.index');
             Route::get('/internal/admin', [AuthController::class, 'index'])->name('admin.pages.auth.signin');

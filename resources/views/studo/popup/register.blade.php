@@ -27,6 +27,9 @@
                             <p class="title-text-login modal-title black">
                                 Daftar
                             </p>
+                            <p>
+                                Sudah memiliki akun? <a href="#" id="loginBtn">Masuk.</a>
+                            </p>
                         </div>
                         <div>
                             <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
@@ -40,7 +43,7 @@
                         </a>
                     </div>
                     <hr style="border-color:#20A2EB !important">
-                    <form action="{{ route('studo.post.regist') }}" method="post">
+                    <form action="{{ route('studo.post.regist') }}" method="post" id="registerForm">
                         @csrf
                         <div class="form-group">
                             <p class="desc-text-login">

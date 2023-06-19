@@ -35,7 +35,7 @@
                 <i id="toggle-password" class="fa fa-eye password-icon"></i>
             </div>
         </div> 
-        <input type="submit" name="" value="Register">
+        <input type="submit" name="" value="Daftar" style="background:#063852;">
     </form> 
 
     <div class="text-center">

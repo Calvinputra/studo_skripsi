@@ -1,3 +1,14 @@
+<style>
+    
+    .hover-img:hover .middle {
+        opacity: 1;
+    }
+
+    .hover-img:hover img {
+        opacity: 1;
+        filter: brightness(70%);
+    }
+</style>
 <div class="row tab-pane active" id="kelasAktif" role="tabpanel">
     @if($count_classes != 0)
         @php

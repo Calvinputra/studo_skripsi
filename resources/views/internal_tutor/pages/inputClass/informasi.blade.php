@@ -270,8 +270,12 @@
                                                 <p id="finalPrice" ></p>
                                                 <input type="hidden" id="finalPriceInput" name="price">
                                                 <input type="hidden" name="tutor_id" value="{{ $tutor->id }}">
-                                                @if($edit->status == 'active')
-                                                    <input type="hidden" name="status" value="active">
+                                                @if($edit)
+                                                    @if($edit->status == 'active')
+                                                        <input type="hidden" name="status" value="active">
+                                                    @else
+                                                        <input type="hidden" name="status" value="deactive">
+                                                    @endif
                                                 @else
                                                     <input type="hidden" name="status" value="deactive">
                                                 @endif

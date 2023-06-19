@@ -13,8 +13,13 @@ class QuestQuestion extends Model
         'quest_id', 'quest_type', 'priority', 'question'
     ];
 
+    public function quest()
+    {
+        return $this->belongsTo(Quest::class);
+    }
+
     public function answers()
     {
-        return $this->hasMany('App\Models\QuestAnswer', 'quiz_question_id');
+        return $this->hasMany(QuestAnswer::class);
     }
 }

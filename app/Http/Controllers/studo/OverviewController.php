@@ -32,6 +32,8 @@ class OverviewController extends Controller
             $project = null;
         }
 
+        
+
         $points = preg_split("/\r?\n/", $class->competency_unit);
         $total_duration = Chapter::where('class_id', $class->id)
         ->sum('duration');

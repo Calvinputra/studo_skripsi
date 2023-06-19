@@ -5,22 +5,23 @@
     {{-- now : FFC100 --}}
     {{-- bukan now : FFFFFF --}}
     <!-- pre test -->
-    <div class="d-flex align-items-center justify-content-between" style="padding: 10px 16px;border: 1px solid #FFC100;border-radius: 5px 5px 0px 0px;background: #FFC100;">
-        <div class="d-flex align-items-center">
-            <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3.66634 14H10.333V12.3333H3.66634V14ZM3.66634 10.6667H10.333V8.99999H3.66634V10.6667ZM1.99967 17.3333C1.54134 17.3333 1.14898 17.1701 0.822591 16.8437C0.496202 16.5174 0.333008 16.125 0.333008 15.6667V2.33332C0.333008 1.87499 0.496202 1.48263 0.822591 1.15624C1.14898 0.829851 1.54134 0.666656 1.99967 0.666656H8.66634L13.6663 5.66666V15.6667C13.6663 16.125 13.5031 16.5174 13.1768 16.8437C12.8504 17.1701 12.458 17.3333 11.9997 17.3333H1.99967ZM7.83301 6.49999H11.9997L7.83301 2.33332V6.49999Z" fill="#063852"/>
-            </svg>
-            <p class="text-materi m-0">
-            &nbsp;&nbsp; Pre-test
-            </p>
+    <a href="{{ route('studo.pages.quest.pre-test', $class->slug) }}">
+        <div class="d-flex align-items-center justify-content-between" style="padding: 10px 16px;border: 1px solid #FFC100;border-radius: 5px 5px 0px 0px;background: #FFC100;">
+            <div class="d-flex align-items-center">
+                <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.66634 14H10.333V12.3333H3.66634V14ZM3.66634 10.6667H10.333V8.99999H3.66634V10.6667ZM1.99967 17.3333C1.54134 17.3333 1.14898 17.1701 0.822591 16.8437C0.496202 16.5174 0.333008 16.125 0.333008 15.6667V2.33332C0.333008 1.87499 0.496202 1.48263 0.822591 1.15624C1.14898 0.829851 1.54134 0.666656 1.99967 0.666656H8.66634L13.6663 5.66666V15.6667C13.6663 16.125 13.5031 16.5174 13.1768 16.8437C12.8504 17.1701 12.458 17.3333 11.9997 17.3333H1.99967ZM7.83301 6.49999H11.9997L7.83301 2.33332V6.49999Z" fill="#063852"/>
+                </svg>
+                <p class="text-materi m-0">
+                &nbsp;&nbsp; Pre-test
+                </p>
+            </div>
+            <div>
+                <svg width="18" height="13" viewBox="0 0 18 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.54961 13L0.849609 7.30001L2.27461 5.87501L6.54961 10.15L15.7246 0.975006L17.1496 2.40001L6.54961 13Z" fill="#063852"/>
+                </svg>
+            </div>
         </div>
-        <div>
-            <svg width="18" height="13" viewBox="0 0 18 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6.54961 13L0.849609 7.30001L2.27461 5.87501L6.54961 10.15L15.7246 0.975006L17.1496 2.40001L6.54961 13Z" fill="#063852"/>
-            </svg>
-
-        </div>
-    </div>
+    </a>
     <!-- materi -->
     <!-- Video -->
     <div class="d-flex align-items-center justify-content-between" style="padding: 10px 16px;border: 1px solid #FFC100;border-radius: 0px 0px 0px 0px;background: #FFFFFF;">

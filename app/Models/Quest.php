@@ -10,8 +10,13 @@ class Quest extends Model
 {
     protected $table = 'quest';
 
-    public function question()
+     public function questions()
     {
-        return $this->hasMany('App\Models\QuestQuestion', 'quiz_id');
+        return $this->hasMany(QuestQuestion::class);
+    }
+
+    public function class()
+    {
+        return $this->belongsTo(Classes::class);
     }
 }

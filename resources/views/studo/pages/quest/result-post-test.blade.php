@@ -36,26 +36,35 @@
         line-height: 39px;
     }
 </style>
-<div class="container mt-4 d-grid align-items-center" style="height:450px; ">
+<div class="container mt-4 d-grid align-items-center" style="height:450px;" >
     <div class="row">
         <div class="col-sm-3">
         </div>
         <div class="col-sm-6">
             <center>
                 <h2 style="font-weight: 700;font-size: 32px;line-height: 39px;color: #222222;">
-                    Quest: Pre-Test
+                    Quest: Post-Test
                 </h2>
                 <p>
                     Nama Kelas
                 </p>
                 <p>
-                    Kamu telah menyelesaikan Quest: Pre-Test. Ayo lanjutkan pembelajaran untuk mendapatkan sertifikat!
+                    Berikut adalah hasil Quest: Post-Test yang kamu dapat
                 </p>
-
+                <p class="title-text-login" style="margin:8px 0px;">
+                    <span class="text-true">70</span>/100
+                </p>
+                <p>
+                    Good Job! Silahkan ambil sertifkat kamu
+                    <br>
+                    <a href="#">
+                        di sini.
+                    </a>
+                </p>
                 <div style="margin-top:24px;">
                     <button class="btn my-2 my-sm-0" style="color:white;background:#063852;width:352px;" type="button">
                         <b>
-                            Lanjutkan Kelas
+                            Ulangi Quest
                         </b>
                     </button>
                 </div>

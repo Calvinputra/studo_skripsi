@@ -103,15 +103,8 @@ class QuestController extends Controller
 
     public function resultPreTest()
     {
-        if (auth()->check()) {
-            $user = User::find(auth()->user()->id);
-        } else {
-            $user = NULL;
-        }
 
-        return view('studo.pages.quest.post-test', [
-            'user' => $user,
-        ]);
+        return view('studo.pages.quest.result-pre-test');
     }
 
     public function indexPostTest()
@@ -128,4 +121,10 @@ class QuestController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function resultPostTest()
+    {
+        return view('studo.pages.quest.result-post-test');
+    }
+
 }

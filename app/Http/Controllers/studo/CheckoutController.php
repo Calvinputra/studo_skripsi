@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
 {
+    public function getUpload()
+    {
+        return view('studo.pages.checkout.uploadPembayaran');
+    }
     public function getCheckout($slug)
     {
         $class = Classes::join('tutors', 'tutors.id', '=', 'classes.tutor_id')

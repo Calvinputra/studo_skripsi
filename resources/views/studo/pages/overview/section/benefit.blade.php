@@ -3,20 +3,12 @@
             Benefit beli kelas ini
         </p>
         <div class="row">
-            <div class="col-sm-4">
-                <p style="font-weight: 400;font-size: 18px;line-height: 22px;">
-                    At elementum arcu vestibulum iaculis non lectus metus fringilla.
-                </p>
-            </div>
-            <div class="col-sm-4">
-                <p style="font-weight: 400;font-size: 18px;line-height: 22px;">
-                    At elementum arcu vestibulum iaculis non lectus metus fringilla.
-                </p>
-            </div>
-            <div class="col-sm-4">
-                <p style="font-weight: 400;font-size: 18px;line-height: 22px;">
-                    At elementum arcu vestibulum iaculis non lectus metus fringilla.
-                </p>
-            </div>
+            @foreach($points as $point)
+                <div class="col-sm-4">
+                    <p style="font-weight: 400;font-size: 18px;line-height: 22px;">
+                    {{ $point }}
+                    </p>
+                </div>
+            @endforeach
         </div>
     </div>

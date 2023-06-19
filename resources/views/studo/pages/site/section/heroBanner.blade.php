@@ -38,7 +38,7 @@
                 Augue purus nisi morbi quam. Tempus varius sed a dictumst pretium cras ornare.
             </p>
 
-            <a  href="{{ route('studo.overview') }}">
+            <a href="#">
                 <button class="btn btn-outline-success my-2 my-sm-0" style="color:white;background:#063852;" type="submit">
                     <b>
                         Lihat Kelas

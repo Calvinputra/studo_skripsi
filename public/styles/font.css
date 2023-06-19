@@ -115,6 +115,8 @@
         line-height: 19px;
         color: #636466;
         text-decoration: line-through;
+        margin-bottom: 0px;
+        margin-left: 2%;
     }
 
     .hover-text-card{

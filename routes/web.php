@@ -38,13 +38,13 @@ Route::namespace('studo')->group( function () {
 
             Route::get('/search-page', [SearchController::class, 'index'])->name('studo.search');
 
-            Route::get('/overview', [OverviewController::class, 'index'])->name('studo.overview');
+            Route::get('/overview/{slug}', [OverviewController::class, 'index'])->name('studo.overview');
 
             Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.pages.dashboard.index');
             Route::get('/internal/admin', [AuthController::class, 'index'])->name('admin.pages.auth.signin');
 
 
-            Route::get('/checkout', [CheckoutController::class, 'getCheckout'])->name('studo.checkout');
+            Route::get('/checkout/{slug}', [CheckoutController::class, 'getCheckout'])->name('studo.checkout');
 
 
             //  Post Data dari Popup Login
@@ -106,11 +106,24 @@ Route::namespace('internal')->group(function () {
         Route::post('/internal/class/storeInformasi/{slug?}', [ClassController::class, 'storeInformasi'])->name('internal_tutor.class.storeInformasi');
         //  Input Class Materi
         Route::post('/internal/class/storeMateri/{slug}', [ClassController::class, 'storeMateri'])->name('internal_tutor.class.storeMateri');
+        //  Input Class Quest
+        Route::post('/internal/class/storeQuest/{slug?}', [ClassController::class, 'storeQuest'])->name('internal_tutor.class.storeQuest');
+        //  Input Class Project
+        Route::post('/internal/class/storeProject/{slug?}', [ClassController::class, 'storeProject'])->name('internal_tutor.class.storeProject');
+
 
         //  edit Class Informasi
         Route::post('/internal/class/updateInformasi/{slug}', [ClassController::class, 'updateInformasi'])->name('internal_tutor.class.updateInformasi');
         //  edit Class Materi
         Route::post('/internal/class/{slug}/updateMateri/{id}', [ClassController::class, 'updateMateri'])->name('internal_tutor.class.updateMateri');
+        //  edit Class Quest
+        Route::post('/internal/class/{slug}/updateQuest/{id}', [ClassController::class, 'updateQuest'])->name('internal_tutor.class.updateQuest');
+        //  edit Class Project
+        Route::post('/internal/class/{slug}/updateProject/{id}', [ClassController::class, 'updateProject'])->name('internal_tutor.class.updateProject');
+
+        //  Change status deactive class -> Active
+        Route::post('/internal/class/{slug}/actived/class', [ClassController::class, 'activedClass'])->name('internal_tutor.class.actived');
+
 
         // Input Quest
         Route::post('internal/class/quest/question/import', [ClassController::class, 'import_quiz_question'])->name('internal.quest.question.import');

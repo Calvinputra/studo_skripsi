@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMateriLog extends Migration
+class CreateProject extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateMateriLog extends Migration
      */
     public function up()
     {
-        Schema::create('materi_log', function (Blueprint $table) {
+        Schema::create('project', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('classes_id');
-            $table->string('status');
+            $table->unsignedInteger('class_id');
+            $table->string('description');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateMateriLog extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('materi_log');
+        Schema::dropIfExists('project');
     }
 }

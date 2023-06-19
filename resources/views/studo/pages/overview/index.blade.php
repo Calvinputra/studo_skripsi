@@ -26,7 +26,7 @@
                             @include('studo.pages.overview.section.namaMentor')
                             @include('studo.pages.overview.section.tentangKelas')
                             @include('studo.pages.overview.section.benefit')
-                            @include('studo.pages.overview.section.review')
+                            {{-- @include('studo.pages.overview.section.review') --}}
                         @endif
                     </div>
                 </div>

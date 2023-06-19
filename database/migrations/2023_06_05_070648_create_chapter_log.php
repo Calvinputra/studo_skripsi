@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProject extends Migration
+class CreateChapterLog extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateProject extends Migration
      */
     public function up()
     {
-        Schema::create('project', function (Blueprint $table) {
+        Schema::create('chapter_log', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('user_id');
             $table->unsignedInteger('class_id');
-            $table->string('name');
-            $table->string('photo');
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateProject extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project');
+        Schema::dropIfExists('chapter_log');
     }
 }

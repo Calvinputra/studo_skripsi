@@ -72,27 +72,70 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="form-group">
-                                        <p class="text-kelas-baru">
-                                            Soal Project<span style="color: #EB2020">*</span>
-                                        </p>
-                                        <input type="" value="" placeholder="Digital Marketing" name="name" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <p class="text-kelas-baru">
-                                            Upload Foto
-                                        </p>
-                                        <input type="" value="" placeholder="Digital Marketing" name="name" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
-                                    </div>
-
-                                    <div style="float:right;">
-                                        <button class="btn my-2 my-sm-0" style="color:white;background:#063852" type="button">
-                                            <b>
-                                                Simpan
-                                            </b>
-                                        </button>
-                                    </div>
+                                    @if(!$check_project)
+                                        <form action="{{ route('internal_tutor.class.storeProject', $class->slug) }}"method="POST"
+                                            enctype="multipart/form-data" id="form-image">
+                                            @csrf
+                                            <div class="form-group">
+                                                <p class="text-kelas-baru">
+                                                    Soal Project<span style="color: #EB2020">*</span>
+                                                </p>
+                                                <input type="text" placeholder="Description Project" name="description" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
+                                            </div>
+                                            <div class="form-group">
+                                                <p class="text-kelas-baru">
+                                                    Upload Foto
+                                                </p>
+                                                <input type="file" name="photo" style="border: 1px solid black;border-radius:5px;" class="form-control">
+                                            </div>
+                                            <input type="hidden" name="class_id" value="{{ $class->id }}">
+                                            <div style="float:left;" class="pt-3">
+                                                <a class="btn my-2 my-sm-0" href="{{ route('internal_tutor.class.quest', $class->slug) }}"
+                                                    style="color:#063852; border-color:#063852;background:white;font-weight: bold">
+                                                    Sebelumnya
+                                                </a>
+                                            </div>
+                                            <div style="float:right;">
+                                                <button class="btn my-2 my-sm-0" style="color:white;background:#063852" type="submit">
+                                                    <b>
+                                                        Simpan
+                                                    </b>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('internal_tutor.class.updateProject', ['slug' => $class->slug, 'id' => $check_project->id]) }}" 
+                                            method="POST" enctype="multipart/form-data" id="form-image">
+                                            @csrf
+                                            <div class="form-group">
+                                                <p class="text-kelas-baru">
+                                                    Soal Project<span style="color: #EB2020">*</span>
+                                                </p>
+                                                <input type="text" value="{{ $check_project->description }}" placeholder="Description Project" name="description" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
+                                            </div>
+                                            <div class="form-group">
+                                                <p class="text-kelas-baru">
+                                                    Upload Foto
+                                                </p>
+                                                <input type="file" name="photo" style="border: 1px solid black;border-radius:5px;" class="form-control">
+                                            </div>
+                                            <input type="hidden" name="class_id" value="{{ $class->id }}">
+                                            <input type="hidden" name="id" value="{{ $check_project->id }}">
+                                            <div style="float:left;" class="pt-3">
+                                                <a class="btn my-2 my-sm-0" href="{{ route('internal_tutor.class.quest', $class->slug) }}"
+                                                    style="color:#063852; border-color:#063852;background:white;font-weight: bold">
+                                                    Sebelumnya
+                                                </a>
+                                            </div>
+                                            <div style="float:right;">
+                                                <button class="btn my-2 my-sm-0" style="color:white;background:#063852" type="submit">
+                                                    <b>
+                                                        Update
+                                                    </b>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    @endif
                                 </div>
                             </div>
                         </div>

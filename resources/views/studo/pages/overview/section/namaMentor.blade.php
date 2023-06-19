@@ -23,14 +23,14 @@
 <div style="margin-top:40px;">
     <div>
         <p style="font-weight: 400;font-size: 18px;line-height: 22px;">
-            Kategori 1
+            {{ $class->category }}
         </p>
         <h2 style="font-weight: 700;font-size: 32px;line-height: 39px;">
-            Pharetra ut morbi tristique sed consectetur neque.
+            {{ $class->name }}
         </h2>
         <div class="d-flex align-items-center">
             <p>
-                Nama Mentor
+                {{ $class->tutor_name }}
             </p>
         </div>
         <div>
@@ -55,14 +55,13 @@
                             </b>
                         </a>
                     </div>
-                    <div class="nav-item">
+                    {{-- <div class="nav-item">
                         <a  id="nav-review-tab" data-bs-toggle="tab" href="#review" class="btn-overview">
                             <b>
                                 Review
                             </b>
                         </a>
-                    </div>
-
+                    </div> --}}
                 </ul>
             </div>
         @else

@@ -270,7 +270,11 @@
                                                 <p id="finalPrice" ></p>
                                                 <input type="hidden" id="finalPriceInput" name="price">
                                                 <input type="hidden" name="tutor_id" value="{{ $tutor->id }}">
-                                                <input type="hidden" name="status" value="deactive">
+                                                @if($edit->status == 'active')
+                                                    <input type="hidden" name="status" value="active">
+                                                @else
+                                                    <input type="hidden" name="status" value="deactive">
+                                                @endif
                                                 @if($slug)
                                                     <input type="hidden" name="name" value="{{ old('name', isset($edit) ? $edit->name : '') }}">
                                                     <input type="hidden" name="category" value="{{ old('category', isset($edit) ? $edit->category : '') }}">

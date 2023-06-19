@@ -85,7 +85,7 @@ class AuthController extends Controller
         return back()->with('success', 'Login Berhasil');
     }
 
-    public function postSignup(Request $request, $slug){
+    public function postSignup(Request $request, $slug = null){
         $request->validate([
             'email' => 'required|email|unique:users,email',
             'name' => 'required',

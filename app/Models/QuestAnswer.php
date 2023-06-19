@@ -13,4 +13,8 @@ class QuestAnswer extends Model
         'quest_question_id', 'answer', 'is_correct'
     ];
 
+    public function question()
+    {
+        return $this->belongsTo(QuestQuestion::class);
+    }
 }

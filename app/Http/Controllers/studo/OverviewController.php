@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class OverviewController extends Controller
 {
-    public function index($slug)
+    public function index($slug, $chapter = null)
     {
         $class = Classes::join('tutors', 'tutors.id', '=', 'classes.tutor_id')
         ->select([
@@ -31,6 +31,8 @@ class OverviewController extends Controller
             $subscription = null;
             $project = null;
         }
+
+        
 
         $points = preg_split("/\r?\n/", $class->competency_unit);
         $total_duration = Chapter::where('class_id', $class->id)

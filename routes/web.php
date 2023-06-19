@@ -38,7 +38,7 @@ Route::namespace('studo')->group( function () {
 
             Route::get('/search-page', [SearchController::class, 'index'])->name('studo.search');
 
-            Route::get('/overview/{slug}', [OverviewController::class, 'index'])->name('studo.overview');
+            Route::get('/overview/{slug}/{chapter?}', [OverviewController::class, 'index'])->name('studo.overview');
 
             Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.pages.dashboard.index');
             Route::get('/internal/admin', [AuthController::class, 'index'])->name('admin.pages.auth.signin');
@@ -64,9 +64,13 @@ Route::namespace('studo')->group( function () {
             Route::post('/setting/user/profile/photo/update/{id}', [SettingController::class, 'updateProfilePhoto'])->name('studo.user.profile.update_photo');
             Route::post('/setting/user/profile/updatePassword/{id}', [SettingController::class, 'updatePassword'])->name('studo.post.updatePassword');
             
-            Route::get('/quest/pretest/', [QuestController::class, 'indexPreTest'])->name('studo.pages.quest.pre-test');
-            Route::get('/quest/posttest/', [QuestController::class, 'indexPostTest'])->name('studo.pages.quest.post-test');
+            Route::get('/quest/pretest/{slug}', [QuestController::class, 'indexPreTest'])->name('studo.pages.quest.pre-test');
+            Route::post('/quest/pretest/{slug}/submit',  [QuestController::class, 'postPreTest'])->name('studo.pages.quest.pre-test.submit');
+            Route::get('/quest/pretest/{slug}/result', [QuestController::class, 'resultPreTest'])->name('studo.pages.quest.pre-test.result');
+
+            Route::get('/quest/posttest/{slug}', [QuestController::class, 'indexPostTest'])->name('studo.pages.quest.post-test');
             
+
             Route::get('/signout', [App\Http\Controllers\studo\AuthController::class, 'getSignout'])->name('studo.post.signout');
 
         });

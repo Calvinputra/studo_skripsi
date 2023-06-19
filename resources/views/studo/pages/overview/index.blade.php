@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-sm-8">
                     <div class="tab-content">
-                        @if (auth()->check())
+                        @if (auth()->check() && $subscription)
                             @include('studo.pages.overview.section.namaMentor')
                             @include('studo.pages.overview.section.tentangKelas')
                             @include('studo.pages.overview.section.forum')
@@ -31,10 +31,10 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    @if (!auth()->check())
-                        @include('studo.pages.overview.section.floatingHarga')
-                    @else
+                    @if (auth()->check() && $subscription)
                         @include('studo.pages.overview.section.floatingMateri')
+                    @else
+                        @include('studo.pages.overview.section.floatingHarga')
                     @endif
                 </div>
             </div>

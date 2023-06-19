@@ -11,13 +11,21 @@
             <span style="text-decoration: line-through; font-size: 14px; color: grey">Rp.{{ $normal_price_formatted }}</span>
         @endif
     </div>
-    <a href="{{route('studo.checkout', $class->slug)}}">
-        <button class="btn my-2 my-sm-0" style="color:white;background:#063852;width:100%;margin:24px 0px !important;" type="submit">
+    @if(auth()->check())
+        <a href="{{route('studo.checkout', $class->slug)}}">
+            <button class="btn my-2 my-sm-0" style="color:white;background:#063852;width:100%;margin:24px 0px !important;" type="submit">
+                <b>
+                    Beli kelas
+                </b>
+            </button>
+        </a>
+    @else
+        <button class="btn my-2 my-sm-0"  data-bs-toggle="modal" data-bs-target="#loginModal" style="color:white;background:#063852;width:100%;margin:24px 0px !important;" type="button">
             <b>
                 Beli kelas
             </b>
         </button>
-    </a>
+    @endif
     <div>
         <div>
             <span>

@@ -46,6 +46,7 @@ class AuthController extends Controller
             Auth::login($newUser);
 
             return redirect()->route('studo.index')->with('success', 'Berhasil Login');
+            
         }
     }
 
@@ -55,7 +56,7 @@ class AuthController extends Controller
         return redirect()->route('studo.index')->with('success', 'Berhasil Logout');
     }
 
-    public function postLogin(Request $request)
+    public function postLogin(Request $request, $slug = null)
     {
         $request->validate([
             'email' => 'required|email',
@@ -81,11 +82,10 @@ class AuthController extends Controller
                 return back()->with('error', 'Oops, email atau password yang kamu masukkan salah. Silakan coba lagi ');
             }
         }
-
-        return redirect()->route('studo.index')->with('success', 'Login Berhasil');
+        return back()->with('success', 'Login Berhasil');
     }
 
-    public function postSignup(Request $request){
+    public function postSignup(Request $request, $slug){
         $request->validate([
             'email' => 'required|email|unique:users,email',
             'name' => 'required',
@@ -100,7 +100,6 @@ class AuthController extends Controller
                 $user->password = bcrypt($request->password);
                 $user->save();
             });
-            
             return back()->with('success', 'Daftar Berhasil. Silahkan Login');
         } catch (Exception $e) {
             return back()->with('error', 'Internal Server Error');

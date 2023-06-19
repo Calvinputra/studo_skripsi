@@ -48,10 +48,10 @@ Route::namespace('studo')->group( function () {
 
 
             //  Post Data dari Popup Login
-            Route::post('/login', [App\Http\Controllers\studo\AuthController::class, 'postLogin'])->name('studo.post.login');
+            Route::post('/login/{slug?}', [App\Http\Controllers\studo\AuthController::class, 'postLogin'])->name('studo.post.login');
             
             // Post Data dari Popup Daftar
-            Route::post('/regist', [App\Http\Controllers\studo\AuthController::class, 'postSignup'])->name('studo.post.regist');
+            Route::post('/regist/{slug?}', [App\Http\Controllers\studo\AuthController::class, 'postSignup'])->name('studo.post.regist');
 
 
         Route::middleware('auth')->group(function () {

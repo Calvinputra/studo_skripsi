@@ -37,7 +37,42 @@
             <img style="width:100%;" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw0NDw0NDQ0NDQ0NDQ0NDQ0NDQ8IDQ0NFREWFhURExMYHSggGBolGxMTITEhJSkrOi4uFx8zODMsNygtLisBCgoKDQ0NDw0NDisZFRkrLSsrKzctKysrLSsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIALcBEwMBIgACEQEDEQH/xAAYAAEBAQEBAAAAAAAAAAAAAAABAAIDBf/EABoQAQEBAQEBAQAAAAAAAAAAAAABEQISAyH/xAAXAQEBAQEAAAAAAAAAAAAAAAAAAQMC/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAMAwEAAhEDEQA/APDkJh8tHLJxqcnBGYfJxqQGZFjc5OAzjWEgzhw4YgzhkNhAYMaVijHkyNLACxoYDOCxtWAxikawgxixrEDFgx0xSA5eVHSQXn9BnqsWunXLN5Bzoa8s2CrUZEAkbi5jfkQSHDzGsBmcnG8ZkBRY1EAkWNIgzCUQFSIJEYosSQFUxAMFaVBmKwxAEcWAFhQMYsaSAsYrdZsBis1uxnAUSQDh0jny6SAWoDAIhQAwnFAjgBJIEqgBkUUIANAFCoYCCQJBAUlgIEAEkgqy1aADGNs0GcSQDiNs8NQGoRDAKWrFDKQtAhaQSSAIiAisQKJRAoRFQSSBJIEqiASVBkYUAxGioM1lqs0GaQgPDTHzbgNQggiiASKiSpBRJAkQCSUBGpAEUCRABEYCSQFAgxSkArNaCDFDdjOA56RhBfNuOfDpAajUZMAkJRNRlqAkkCMEpBBoADiQJGCgiydA6NBAhAEkYCSQMqpAEkDNZrbHSDKWIGOHTGeW9AtRmVqAUkoiCCIIKERAkkBSQKJKgkIQSIBUYUAKQIEAEQASSAZ6aooOaSActMctwGoRKYgSCoCGgIWpQoGAgqoBlLJApIAQQIQAggEQgILIJVIAiKArHVNrHVQSCBct4xy3ATUBAkICWdIIhKE4DaCCWgUNQNRCEBhQAoEAoEBo0gChqBFlaCtCCArFjdYtBamdQLl0jny3Aa0swgSEBSAFaCBiSUWpJBGDUo0NCBpMnQIWi0GhrKQatTKKNKDQBAANCgAmejaxQCBFXNa1z5rWiNynXONSg3p1g6DRZQNRM6NB01axq0G1WbVoHTrGkGkzq0GtWs6NBrVRo0GhRo6oNaZWJTKg2GdWqHVaxp0COgtACpmgNSoFXJSBStSpAZTqQi0pAFpQFaEA9HUgWmBAdWhAdGpANOpAhpQBFIHQkozp1IANKBmpIVm0JA//2Q==" alt="">
 
         </div>
-        @if (!auth()->check())
+        @if (auth()->check() && $subscription)
+            <!-- login -->
+            <div style="margin-top:40px;">
+                <ul class="nav">
+                    <div class="nav-item">
+                        <a class="btn-overview active" id="nav-benefit-tab" data-bs-toggle="tab" href="#kelas">
+                            <b>
+                                Detail Kelas
+                            </b>
+                        </a>
+                    </div>
+                    <div class="nav-item" style="margin:0px 16px;">
+                        <a class="btn-overview" id="nav-benefit-tab" data-bs-toggle="tab" href="#forum">
+                            <b>
+                                Forum
+                            </b>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="btn-overview" id="nav-review-tab" data-bs-toggle="tab" href="#project">
+                            <b>
+                                Project
+                            </b>
+                        </a>
+                    </div>
+                    <div class="nav-item" style="margin:0px 16px;">
+                        <a class="btn-overview" id="nav-review-tab" data-bs-toggle="tab" href="#leaderboard">
+                            <b>
+                                Leaderboard
+                            </b>
+                        </a>
+                    </div>
+
+                </ul>
+            </div>
+        @else
             <!-- not login  -->
             <div style="margin-top:40px;">
                 <ul class="nav">
@@ -64,41 +99,6 @@
                     </div> --}}
                 </ul>
             </div>
-        @else
-        <!-- login -->
-        <div style="margin-top:40px;">
-            <ul class="nav">
-                <div class="nav-item">
-                    <a class="btn-overview active" id="nav-benefit-tab" data-bs-toggle="tab" href="#kelas">
-                        <b>
-                            Detail Kelas
-                        </b>
-                    </a>
-                </div>
-                <div class="nav-item" style="margin:0px 16px;">
-                    <a class="btn-overview" id="nav-benefit-tab" data-bs-toggle="tab" href="#forum">
-                        <b>
-                            Forum
-                        </b>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a class="btn-overview" id="nav-review-tab" data-bs-toggle="tab" href="#project">
-                        <b>
-                            Project
-                        </b>
-                    </a>
-                </div>
-                <div class="nav-item" style="margin:0px 16px;">
-                    <a class="btn-overview" id="nav-review-tab" data-bs-toggle="tab" href="#leaderboard">
-                        <b>
-                            Leaderboard
-                        </b>
-                    </a>
-                </div>
-
-            </ul>
-        </div>
         @endif
     </div>
 </div>

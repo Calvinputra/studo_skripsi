@@ -5,6 +5,7 @@ namespace App\Http\Controllers\studo;
 use App\Http\Controllers\Controller;
 use App\Models\Chapter;
 use App\Models\Classes;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 
 class OverviewController extends Controller
@@ -21,7 +22,14 @@ class OverviewController extends Controller
         if (!$class) {
             return redirect()->route('studo.index')->with('error', 'Kelas ini tidak ditemukan !');
         }
-        
+        if(auth()->check())
+        {
+            $subscription = Subscription::where('class_id', $class->id)->where('user_id', auth()->user()->id)->first();
+
+        }else{
+             $subscription = null;
+        }
+
         $points = preg_split("/\r?\n/", $class->competency_unit);
         $total_duration = Chapter::where('class_id', $class->id)
         ->sum('duration');
@@ -38,7 +46,8 @@ class OverviewController extends Controller
             'chapters' => $chapters,
             'count_video' => $count_video,
             'count_reading' => $count_reading,
-            'count_chapter' => $count_chapter
+            'count_chapter' => $count_chapter,
+            'subscription' => $subscription
         ]);
 
     }

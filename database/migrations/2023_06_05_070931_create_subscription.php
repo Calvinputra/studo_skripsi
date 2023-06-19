@@ -15,7 +15,7 @@ class CreateSubscription extends Migration
     {
         Schema::create('subscription', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('classes_id');
+            $table->unsignedInteger('class_id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('status');
             $table->timestamps();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\studo;
 use App\Http\Controllers\Controller;
 use App\Models\Chapter;
 use App\Models\Classes;
+use App\Models\Project;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 
@@ -25,9 +26,10 @@ class OverviewController extends Controller
         if(auth()->check())
         {
             $subscription = Subscription::where('class_id', $class->id)->where('user_id', auth()->user()->id)->first();
-
+            $project = Project::where('class_id', $class->id)->first();
         }else{
-             $subscription = null;
+            $subscription = null;
+            $project = null;
         }
 
         $points = preg_split("/\r?\n/", $class->competency_unit);
@@ -47,7 +49,8 @@ class OverviewController extends Controller
             'count_video' => $count_video,
             'count_reading' => $count_reading,
             'count_chapter' => $count_chapter,
-            'subscription' => $subscription
+            'subscription' => $subscription,
+            'project' => $project,
         ]);
 
     }

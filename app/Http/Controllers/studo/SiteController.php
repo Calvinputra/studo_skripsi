@@ -37,6 +37,7 @@ class SiteController extends Controller
                         ->groupBy('class_id');
                 })
                 ->get();
+
         
         $classes_subs = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->join('subscription', 'subscription.class_id', '=', 'classes.id')
@@ -48,9 +49,8 @@ class SiteController extends Controller
         ->orderBy('classes.created_at', 'desc')
         ->where('subscription.status', 'paid')->get();
 
-
         $arr_pd_id = [];
-            foreach ($classes_subs as $class) {
+            foreach ($subscriptions as $class) {
                 // $enrolled_thumbnail = Storage::disk('s3')->url(env('KELAS_AWS_BUCKET_ROOT') . '/program_digital/upload/files/img/thumbnail/' . $class->thumbnail);
                 // $arr_class['enrolled_thumbnail'][] = $enrolled_thumbnail;
                 $arr_pd_id[] = $class->id;

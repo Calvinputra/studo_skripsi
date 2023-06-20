@@ -22,9 +22,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        @foreach ($list_tarik_saldo as $saldo)
-                                            <td style="text-align:center;">1</td>
+                                   @foreach ($list_tarik_saldo as $key => $saldo)
+                                            <tr>
+                                            <td style="text-align:center;">{{ $key + 1 }}</td>
                                             <td style="text-align:left;">{{ $saldo->name }}</td>
                                             <td style="text-align:center;">{{ $saldo->email }}</td>
                                             <td style="text-align:center;">{{ $saldo->phone_number }}</td>
@@ -60,8 +60,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        @endforeach
-                                    </tr>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

@@ -22,6 +22,97 @@
             </a>
         </div>
     </div>
+    <div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div style="background: rgba(32, 162, 235, 0.1);border-radius: 5px;padding: 24px;margin-top:8px;">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <p class="fw-bold">
+                                Kelas Programming
+                            </p>
+                            <p class="m-0">
+                                Aku ingin menyelesaikan kelas ini untuk menambah ilmu
+                            </p>
+                        </div>
+                        <div class="col-sm-5">
+                            <center>
+
+                                <p class="m-0">
+                                    01/08/2023
+                                </p>
+                                -
+                                <p class="m-0">
+                                    <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0 17V0H9L9.4 2H15V12H8L7.6 10H2V17H0Z" fill="#FFC100"/>
+                                    </svg>
+                                    01/09/2023  
+                                </p>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div style="background: rgba(32, 162, 235, 0.1);border-radius: 5px;padding: 24px;margin-top:8px;">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <p class="fw-bold">
+                                Kelas Programming
+                            </p>
+                            <p class="m-0">
+                                Aku ingin menyelesaikan kelas ini untuk menambah ilmu
+                            </p>
+                        </div>
+                        <div class="col-sm-5">
+                            <center>
+
+                                <p class="m-0">
+                                    01/08/2023
+                                </p>
+                                -
+                                <p class="m-0">
+                                    <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0 17V0H9L9.4 2H15V12H8L7.6 10H2V17H0Z" fill="#FFC100"/>
+                                    </svg>
+                                    01/09/2023  
+                                </p>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div style="background: rgba(32, 162, 235, 0.1);border-radius: 5px;padding: 24px;margin-top:8px;">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <p class="fw-bold">
+                                Kelas Programming
+                            </p>
+                            <p class="m-0">
+                                Aku ingin menyelesaikan kelas ini untuk menambah ilmu
+                            </p>
+                        </div>
+                        <div class="col-sm-5">
+                            <center>
+
+                                <p class="m-0">
+                                    01/08/2023
+                                </p>
+                                -
+                                <p class="m-0">
+                                    <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0 17V0H9L9.4 2H15V12H8L7.6 10H2V17H0Z" fill="#FFC100"/>
+                                    </svg>
+                                    01/09/2023  
+                                </p>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     @else
     <div class="row">
         <div class="col-sm-4">

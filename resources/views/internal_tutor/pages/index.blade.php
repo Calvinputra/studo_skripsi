@@ -20,14 +20,7 @@
         border-radius: 5px;
     }
     .middle {
-        transition: .5s ease;
-        opacity: 0;
-        position: absolute;
-        top: 75px;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        text-align: center;
+        top: 70px !important;
     }
 
     a{

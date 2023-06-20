@@ -27,7 +27,7 @@ class OverviewController extends Controller
         }
         if(auth()->check())
         {
-            $subscription = Subscription::where('class_id', $class->id)->where('user_id', auth()->user()->id)->first();
+            $subscription = Subscription::where('class_id', $class->id)->where('user_id', auth()->user()->id)->where('status','paid')->first();
             $project = Project::where('class_id', $class->id)->first();
             $check_pretest = QuestCompletion::join('quest', 'quest.id', '=', 'quest_completion.quest_id')
             ->join('classes', 'classes.id', '=', 'quest.class_id')
@@ -42,10 +42,10 @@ class OverviewController extends Controller
             ->where('score', '>=', 70)
             ->where('quest_completion.user_id', Auth()->user()->id)->first();
 
-            if(!$chapter_id){
+            if (!$chapter_id) {
                 $chapter = null;
                 $embedUrl = null;
-            }else{
+            } else {
                 $chapter = Chapter::where('class_id', $class->id)->where('id', $chapter_id)->first();
 
                 if (!$chapter) {

@@ -40,12 +40,9 @@ Route::namespace('studo')->group( function () {
 
             Route::get('/overview/{slug}/{chapter_id?}', [OverviewController::class, 'index'])->name('studo.overview');
 
-            Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.pages.dashboard.index');
-            Route::get('/internal/admin', [AuthController::class, 'index'])->name('admin.pages.auth.signin');
-
-
             Route::get('/checkout/{slug}', [CheckoutController::class, 'getCheckout'])->name('studo.checkout');
             Route::get('/checkout/upload-pembayaran/{slug}', [CheckoutController::class, 'getUpload'])->name('studo.checkout.upload');
+            Route::post('/checkout/upload-pembayaran/{slug}/post', [CheckoutController::class, 'PostUpload'])->name('studo.checkout.upload.post');
 
 
             //  Post Data dari Popup Login
@@ -141,6 +138,15 @@ Route::namespace('internal')->group(function () {
 
 
     });
+
+    // Admin
+    Route::get('/internal/admin', [AuthController::class, 'index'])->name('admin.pages.auth.signin');
+    Route::post('/internal/admin/regist', [AuthController::class, 'regist'])->name('admin.pages.auth.regist');
+    
+});
+Route::middleware('auth.admin')->group(function () {
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.pages.dashboard.index');
+    Route::post('/admin/dashboard/confirm/subscription/{id}', [DashboardController::class, 'confirmSubscription'])->name('studo.subscription.confirm');
 });
 
 

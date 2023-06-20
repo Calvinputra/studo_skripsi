@@ -16,4 +16,13 @@ class Classes extends Model
         'status','duration','category',
         'price', 'discount'
     ];
+
+    public function chapters()
+    {
+        return $this->hasMany(Chapter::class, 'class_id');
+    }
+    public function subscription()
+    {
+        return $this->belongsTo(Subscription::class);
+    }
 }

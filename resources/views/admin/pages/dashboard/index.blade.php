@@ -47,10 +47,17 @@ th{
                         </b>
                     </a>
                 </div>
-                <div class="nav-item">
+                <div class="nav-item" style="margin:0px 16px;">
                     <a class="btn-overview" id="nav-review-tab" data-bs-toggle="tab" href="#tarikSaldo">
                         <b>
                             List Pengajuan Tarik Saldo
+                        </b>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="btn-overview" id="nav-review-tab" data-bs-toggle="tab" href="#accSubscription">
+                        <b>
+                            List Beli Kelas
                         </b>
                     </a>
                 </div>
@@ -58,10 +65,10 @@ th{
     </div>
     <div>
         <div class="tab-content">
-
             @include('admin.pages.dashboard.section.listKelas')
             @include('admin.pages.dashboard.section.listPengguna')
             @include('admin.pages.dashboard.section.tarikSaldo')
+            @include('admin.pages.dashboard.section.accSubscription')
         </div>
 
     </div>

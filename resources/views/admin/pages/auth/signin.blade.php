@@ -25,7 +25,7 @@
 @section('content')
 <div class="loginBox">
     <h3>Masuk Akun Admin</h3>
-    <form  >
+    <form  action="{{ route('admin.pages.auth.regist') }}" method="post">
         @csrf
         <div class="inputBox" style="margin-bottom:16px;"> 
             <input id="email" type="email" name="email" placeholder="email" style="height:40px;padding:20px;">  

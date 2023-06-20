@@ -23,5 +23,9 @@ class Subscription extends Authenticatable
         'user_id',
         'status',
     ];
+      public function class()
+    {
+        return $this->belongsTo(Classes::class);
+    }
 
 }

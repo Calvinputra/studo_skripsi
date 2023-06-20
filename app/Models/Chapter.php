@@ -14,4 +14,8 @@ class Chapter extends Model
     protected $fillable = [
         'name', 'type', 'duration', 'priority'
     ];
+        public function class()
+    {
+         return $this->belongsTo(Classes::class, 'class_id');
+    }
 }

@@ -7,6 +7,7 @@ use App\Models\Classes;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class SiteController extends Controller
 {
@@ -14,15 +15,28 @@ class SiteController extends Controller
     {
     if (auth()->check()){
         $user = User::find(auth()->user()->id);
-        $subscriptions = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
-        ->join('users', 'users.id', '=', 'subscription.user_id')
-        ->select([
-            'classes.*',
-            'users.id as user_id',
-            'users.name as tutor_name',
-            'users.email as tutor_email',
-            ])
-        ->where('users.id', $user->id)->get();
+            $subscriptions = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
+            ->join('users', 'users.id', '=', 'subscription.user_id')
+            ->leftJoin('chapters', function ($join) {
+                $join->on('chapters.class_id', '=', 'classes.id')
+                ->whereRaw('chapters.id = (SELECT MIN(id) FROM chapters WHERE class_id = classes.id)');
+            })
+                ->select([
+                    'classes.*',
+                    'users.id as user_id',
+                    'users.name as tutor_name',
+                    'users.email as tutor_email',
+                    'chapters.id as chapter_id',
+                    'chapters.name as chapter_name',
+                ])
+                ->whereIn('subscription.id', function ($query) use ($user) {
+                    $query->select(DB::raw('MAX(id)'))
+                        ->from('subscription')
+                        ->where('user_id', $user->id)
+                        ->where('status', 'paid')
+                        ->groupBy('class_id');
+                })
+                ->get();
         
         $classes_subs = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->join('subscription', 'subscription.class_id', '=', 'classes.id')
@@ -32,7 +46,8 @@ class SiteController extends Controller
             'users.email as tutor_email',
         ])
         ->orderBy('classes.created_at', 'desc')
-        ->get();
+        ->where('subscription.status', 'paid')->get();
+
 
         $arr_pd_id = [];
             foreach ($classes_subs as $class) {

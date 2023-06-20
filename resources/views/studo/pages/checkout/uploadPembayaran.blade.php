@@ -88,21 +88,28 @@
 
                     <div id="notificationJumlah" class="notificationJumlah"></div>
                 </div>
-                <div style="margin-top:24px;" >
-                    <a href="" class="hover-img">
-                        <img class="" style="height: 198px;width:100%;" src="https://cdn.discordapp.com/attachments/722800563489865779/1120295169170874389/Frame_1939.png" alt="">
-                        <div class="middle">
-                            <div class="text hover-text-card">Upload Bukti Pembayaran</div>
-                        </div>
-                    </a>
-                    <div style="margin-top:24px;">
-                        <button class="btn my-2 my-sm-0" style="color:white;background:#063852;width:100%;" type="button">
+                <form action="{{ route('studo.checkout.upload.post', $class->slug) }}" method="POST" enctype="multipart/form-data" id="form-image">
+                    @csrf
+                    <div style="margin-top: 24px;">
+                        <label for="paymentProof" class="hover-img" style="display: block;">
+                            <img class="preview-image" style="height: 198px; width: 100%;" src="https://cdn.discordapp.com/attachments/722800563489865779/1120295169170874389/Frame_1939.png" alt="">
+                            <div class="middle">
+                                <div class="text hover-text-card">Upload Bukti Pembayaran</div>
+                            </div>
+                        </label>
+                        <input type="file" id="paymentProof" name="photo" style="display: none;" accept=".jpg, .jpeg, .png" onchange="previewImage(event)">
+                    </div>
+                    <input type="hidden" name="class_id" value="{{ $class->id }}">
+                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                    <input type="hidden" name="status" value="deactive">
+                    <div style="margin-top: 24px;">
+                        <button class="btn my-2 my-sm-0" style="color: white; background: #063852; width: 100%;" type="submit">
                             <b>
                                 Saya Sudah Transfer
                             </b>
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         <div class="col-sm-2"></div>
@@ -150,6 +157,17 @@
         setTimeout(function () {
             notification.style.display = 'none';
         }, 3000);
+    }
+</script>
+<script>
+    function previewImage(event) {
+        var input = event.target;
+        var reader = new FileReader();
+        reader.onload = function(){
+            var imgElement = document.querySelector('.preview-image');
+            imgElement.src = reader.result;
+        };
+        reader.readAsDataURL(input.files[0]);
     }
 </script>
 @endsection

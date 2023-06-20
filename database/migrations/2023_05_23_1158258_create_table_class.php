@@ -15,7 +15,7 @@ class CreateTableClass extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('tutor_id');
+            $table->unsignedInteger('user_id');
             $table->string('name');
             $table->string('description');
             $table->string('competency_unit');

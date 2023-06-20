@@ -13,13 +13,13 @@ use Illuminate\Http\Request;
 
 class OverviewController extends Controller
 {
-    public function index($slug, $chapter = null)
+    public function index($slug, $chapter_id = null)
     {
-        $class = Classes::join('tutors', 'tutors.id', '=', 'classes.tutor_id')
+        $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->select([
             'classes.*',
-            'tutors.name as tutor_name',
-            'tutors.email as tutor_email',
+            'users.name as tutor_name',
+            'users.email as tutor_email',
         ])->where('slug', $slug)->where('status', 'active')->first();
 
         if (!$class) {
@@ -29,9 +29,53 @@ class OverviewController extends Controller
         {
             $subscription = Subscription::where('class_id', $class->id)->where('user_id', auth()->user()->id)->first();
             $project = Project::where('class_id', $class->id)->first();
+            $check_pretest = QuestCompletion::join('quest', 'quest.id', '=', 'quest_completion.quest_id')
+            ->join('classes', 'classes.id', '=', 'quest.class_id')
+            ->where('slug', $slug)
+            ->where('quest_type', 'pretest')
+            ->where('quest_completion.user_id', Auth()->user()->id)->first();
+
+            $check_posttest = QuestCompletion::join('quest', 'quest.id', '=', 'quest_completion.quest_id')
+            ->join('classes', 'classes.id', '=', 'quest.class_id')
+            ->where('slug', $slug)
+            ->where('quest_type', 'posttest')
+            ->where('score', '>=', 70)
+            ->where('quest_completion.user_id', Auth()->user()->id)->first();
+
+            if(!$chapter_id){
+                $chapter = null;
+                $embedUrl = null;
+            }else{
+                $chapter = Chapter::where('class_id', $class->id)->where('id', $chapter_id)->first();
+
+                if (!$chapter) {
+                    return redirect()->route('studo.index')->with('error', 'Chapter ini tidak ditemukan!');
+                }
+
+                $url = $chapter->url;
+
+                // Mengambil query string dari URL
+                $queryString = parse_url($url, PHP_URL_QUERY);
+
+                // Memecah query string menjadi array
+                parse_str($queryString, $params);
+
+                // Mendapatkan video ID dari parameter 'v'
+                $videoId = isset($params['v']) ? $params['v'] : '';
+
+                // if (empty($videoId)) {
+                //     return redirect()->route('studo.index')->with('error', 'Video tidak valid');
+                // }
+
+                $embedUrl = "https://www.youtube.com/embed/{$videoId}";
+            }
         }else{
             $subscription = null;
             $project = null;
+            $check_pretest = null;
+            $check_posttest = null;
+            $chapter = null;
+            $embedUrl = null;
         }
 
         $points = preg_split("/\r?\n/", $class->competency_unit);
@@ -49,18 +93,6 @@ class OverviewController extends Controller
         $chapter_log = ChapterLog::join('chapters', 'chapters.id', '=', 'chapter_log.chapter_id')
         ->join('classes', 'classes.id', '=', 'chapters.class_id')->get();
 
-        $check_pretest = QuestCompletion::join('quest', 'quest.id', '=', 'quest_completion.quest_id')
-        ->join('classes', 'classes.id', '=', 'quest.class_id')
-        ->where('slug', $slug)
-        ->where('quest_type', 'pretest')
-        ->where('user_id', Auth()->user()->id)->first();
-
-        $check_posttest = QuestCompletion::join('quest', 'quest.id', '=', 'quest_completion.quest_id')
-        ->join('classes', 'classes.id', '=', 'quest.class_id')
-        ->where('slug', $slug)
-        ->where('quest_type', 'posttest')
-        ->where('score', '>=', 70)
-        ->where('user_id', Auth()->user()->id)->first();
 
         return view('studo.pages.overview.index', [
             'class' => $class,
@@ -76,6 +108,8 @@ class OverviewController extends Controller
             'check_pretest' => $check_pretest,
             'check_posttest' => $check_posttest,
             'chapter_log' => $chapter_log,
+            'chapter' => $chapter,
+            'embedUrl' => $embedUrl
         ]);
 
     }

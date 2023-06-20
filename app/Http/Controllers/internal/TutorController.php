@@ -16,11 +16,11 @@ class TutorController extends Controller
         if(!auth()->check()){
             return redirect()->route('internal_tutor.index')->with('error','Harus Login terlebih dahulu');
         }
-        $tutor = Tutor::find(auth()->user()->id);
+        $tutor = User::find(auth()->user()->id);
         $avatar = auth()->user()->avatar;
         
-        $classes = Classes::where('tutor_id', $tutor->id)->get();
-        $count_classes = Classes::where('tutor_id', '=', $tutor->id)->count();
+        $classes = Classes::where('user_id', $tutor->id)->get();
+        $count_classes = Classes::where('user_id', '=', $tutor->id)->count();
 
         return view('internal_tutor.pages.index', [
             'tutor' => $tutor,
@@ -34,7 +34,7 @@ class TutorController extends Controller
         if(!auth()->check()){
             return redirect()->route('internal_tutor.index')->with('error','Harus Login terlebih dahulu');
         }
-        $tutor = Tutor::find(auth()->user()->id);
+        $tutor = User::find(auth()->user()->id);
         $avatar = auth()->user()->avatar;
 
         return view('internal_tutor.pages.profileTutor', [
@@ -48,7 +48,7 @@ class TutorController extends Controller
             'phone_number' => 'nullable',
         ]);
 
-        $tutor = Tutor::find(auth()->user()->id);
+        $tutor = User::find(auth()->user()->id);
 
         $tutor->name = $request->name ? $request->name : null;
         $tutor->phone_number = $request->phone_number ? $request->phone_number : null;
@@ -67,7 +67,7 @@ class TutorController extends Controller
         ]);
     
         // Mendapatkan user yang sedang login
-        $tutor = Tutor::find(auth()->user()->id);
+        $tutor = User::find(auth()->user()->id);
     
         // Memeriksa apakah password lama sesuai dengan yang ada di database
         if (Hash::check($request->password_lama, $tutor->password)) {

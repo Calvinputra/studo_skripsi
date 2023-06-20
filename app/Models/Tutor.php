@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Tutor extends Authenticatable
 {
     use HasFactory;
-    protected $table = 'tutors';
+    protected $table = 'users';
 
     protected $fillable = [
         'name',

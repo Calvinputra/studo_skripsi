@@ -20,7 +20,7 @@ class CreateTableMateri extends Migration
             $table->string('type');
             $table->string('description')->nullable();
             $table->string('link')->nullable();
-            $table->string('reading')->nullable();
+            $table->longtext('reading')->nullable();
             $table->string('duration')->nullable();
             $table->timestamps();
         });

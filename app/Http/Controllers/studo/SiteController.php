@@ -16,20 +16,20 @@ class SiteController extends Controller
         $user = User::find(auth()->user()->id);
         $subscriptions = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
         ->join('users', 'users.id', '=', 'subscription.user_id')
-        ->join('tutors', 'tutors.id', '=', 'classes.tutor_id')
         ->select([
             'classes.*',
-            'tutors.name as tutor_name',
-            'tutors.email as tutor_email',
+            'users.id as user_id',
+            'users.name as tutor_name',
+            'users.email as tutor_email',
             ])
-        ->where('user_id', $user->id)->get();
+        ->where('users.id', $user->id)->get();
         
-        $classes_subs = Classes::join('tutors', 'tutors.id', '=', 'classes.tutor_id')
+        $classes_subs = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->join('subscription', 'subscription.class_id', '=', 'classes.id')
         ->select([
             'classes.*',
-            'tutors.name as tutor_name',
-            'tutors.email as tutor_email',
+            'users.name as tutor_name',
+            'users.email as tutor_email',
         ])
         ->orderBy('classes.created_at', 'desc')
         ->get();
@@ -47,11 +47,11 @@ class SiteController extends Controller
         $subscriptions = NULL;
         $classes_subs = null;
 
-        $classes = Classes::join('tutors', 'tutors.id', '=', 'classes.tutor_id')
+        $classes = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->select([
             'classes.*',
-            'tutors.name as tutor_name',
-            'tutors.email as tutor_email',
+            'users.name as tutor_name',
+            'users.email as tutor_email',
         ])
         ->orderBy('classes.created_at', 'desc')
         ->get();

@@ -40,9 +40,9 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'tutors' => [
+        'users' => [
             'driver' => 'session',
-            'provider' => 'tutors',
+            'provider' => 'users',
         ],
     ],
 
@@ -68,7 +68,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'tutors' => [
+        'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\Tutor::class,
         ],

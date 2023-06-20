@@ -229,7 +229,7 @@
                                             id="exampleFormControlTextarea1" rows="3">{{ old('description', isset($edit) ? $edit->description : '') }}</textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleFormControlTextarea1">Benefit mengikuti kelas ini<span
+                                        <label for="exampleFormControlTextarea1">Benefit mengikuti kelas ini (Enter untuk membuat per point)<span
                                                 style="color: #EB2020">*</span></label>
                                         <textarea class="form-control" name="competency_unit" style="border-color:black;" placeholder="Benefit"
                                             id="exampleFormControlTextarea1" rows="3">{{ old('competency_unit', isset($edit) ? $edit->competency_unit : '') }}</textarea>
@@ -269,7 +269,7 @@
                                                 <p style="color:#636466;margin-right:16px;width:150px;">Harga Akhir</p>
                                                 <p id="finalPrice" ></p>
                                                 <input type="hidden" id="finalPriceInput" name="price">
-                                                <input type="hidden" name="tutor_id" value="{{ $tutor->id }}">
+                                                <input type="hidden" name="user_id" value="{{ $tutor->id }}">
                                                 @if($edit)
                                                     @if($edit->status == 'active')
                                                         <input type="hidden" name="status" value="active">

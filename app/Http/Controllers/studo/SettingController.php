@@ -41,18 +41,15 @@ class SettingController extends Controller
             'avatar' => $avatar
         ]);
     }
-
     public function updateProfile(Request $request, $id)
     {
         $request->validate([
-            'email' => 'nullable|email',
-            'name' => 'nullable',
+            'name' => 'required',
             'phone_number' => 'nullable',
         ]);
 
-        $user = User::find(auth()->user()->id);
+        $user = User::find($id);
 
-        $user->email = $request->email ?? null;
         $user->name = $request->name ?? null;
         $user->phone_number = $request->phone_number ?? null;
 
@@ -103,7 +100,7 @@ class SettingController extends Controller
         // Validasi input
         $request->validate([
             'password_lama' => 'required',
-            'password_baru' => 'required|min:8',
+            'password_baru' => 'required',
             'konfirmasi_password' => 'required|same:password_baru',
         ]);
     

@@ -29,7 +29,7 @@ class ClassController extends Controller
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
 
-        $tutor = Tutor::find(auth()->user()->id);
+        $tutor = User::find(auth()->user()->id);
 
         $edit = null;
 
@@ -44,12 +44,12 @@ class ClassController extends Controller
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
-        $edit = Classes::where('slug', $slug)->where('tutor_id', auth()->user()->id)->first();
+        $edit = Classes::where('slug', $slug)->where('user_id', auth()->user()->id)->first();
 
         if (!$edit) {
             return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
         }
-        $tutor = Tutor::find(auth()->user()->id);
+        $tutor = User::find(auth()->user()->id);
 
         $total_duration = Chapter::where('class_id', $edit->id)
         ->sum('duration');
@@ -68,7 +68,7 @@ class ClassController extends Controller
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
         
-        $tutor = Tutor::find(auth()->user()->id);
+        $tutor = User::find(auth()->user()->id);
         // $class = Classes::where('slug', $request->slug)->first();
         
         // if (!$class) {
@@ -77,10 +77,11 @@ class ClassController extends Controller
             
             $validatedData = $request->validate([
                 'name' => 'required|unique:classes,name', // menambahkan validasi unik pada field name
-                'tutor_id' => 'required',
+                'user_id' => 'required',
                 'description' => 'required',
                 'competency_unit' => 'required',
                 'category' => 'required',
+                'slug' => 'required',
                 'price' => 'required',
                 'status' => 'required',
                 'discount' => 'required',
@@ -91,7 +92,7 @@ class ClassController extends Controller
         // $slug = Str::slug($request->name, '-');
         $class = new Classes;
         $class->name = $request->name;
-        $class->tutor_id = $request->tutor_id;
+        $class->user_id = $request->user_id;
         $class->description = $request->description;
         $class->competency_unit = $request->competency_unit;
         $class->slug = $request->slug;
@@ -117,11 +118,11 @@ class ClassController extends Controller
         
         $class->save();
         
-        $check_project = Quest::where('class_id', $class->id)->where('tutor_id', $tutor->id)->first();
+        $check_project = Quest::where('class_id', $class->id)->where('user_id', $tutor->id)->first();
         if(!$check_project){
             $project = new Quest;
             $project->class_id = $class->id;
-            $project->tutor_id = $tutor->id;
+            $project->user_id = $tutor->id;
             $project->save();
         }
         return redirect()->route('internal_tutor.class.materi', ['slug' => $request->slug ])->with('success', 'Kelas berhasil diinput');
@@ -133,8 +134,8 @@ class ClassController extends Controller
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
 
-        $tutor = Tutor::find(auth()->user()->id);
-        $classes = Classes::where('slug', $slug)->where('tutor_id', auth()->user()->id)->first();
+        $tutor = User::find(auth()->user()->id);
+        $classes = Classes::where('slug', $slug)->where('user_id', auth()->user()->id)->first();
 
         if (!$classes) {
             return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
@@ -142,7 +143,7 @@ class ClassController extends Controller
         // $slug = Str::slug($request->name, '-');
         $class = Classes::find($classes->id);
         $class->name = $request->name;
-        $class->tutor_id = $request->tutor_id;
+        $class->user_id = $request->user_id;
         $class->description = $request->description;
         $class->competency_unit = $request->competency_unit;
         $class->slug = $request->slug;
@@ -170,11 +171,11 @@ class ClassController extends Controller
 
         $class->save();
 
-        $check_project = Quest::where('class_id', $class->id)->where('tutor_id', $tutor->id)->first();
+        $check_project = Quest::where('class_id', $class->id)->where('user_id', $tutor->id)->first();
         if (!$check_project) {
             $project = new Quest;
             $project->class_id = $class->id;
-            $project->tutor_id = $tutor->id;
+            $project->user_id = $tutor->id;
             $project->save();
         }
         return redirect()->route('internal_tutor.class.materi', ['slug' => $slug])->with('success', 'Kelas berhasil di Edit');
@@ -186,7 +187,7 @@ class ClassController extends Controller
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
 
-        $class = Classes::where('slug', $slug)->where('tutor_id', auth()->user()->id)->first();
+        $class = Classes::where('slug', $slug)->where('user_id', auth()->user()->id)->first();
         
         if(!$class){
             return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
@@ -197,7 +198,7 @@ class ClassController extends Controller
         $count_reading = Chapter::where('type', 'reading')->where('class_id', $class->id)->count();
         $count_chapter = Chapter::where('class_id', $class->id)->count();
         
-        $tutor = Tutor::find(auth()->user()->id);
+        $tutor = User::find(auth()->user()->id);
 
         return view('internal_tutor.pages.inputClass.materi', [
             'slug' => $slug, 
@@ -213,12 +214,12 @@ class ClassController extends Controller
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
-        $class = Classes::where('slug', $slug)->where('tutor_id', auth()->user()->id)->first();
+        $class = Classes::where('slug', $slug)->where('user_id', auth()->user()->id)->first();
 
         if (!$class) {
             return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
         }
-        $tutor = Tutor::find(auth()->user()->id);
+        $tutor = User::find(auth()->user()->id);
 
         $validatedData = $request->validate([
             'name' => 'required',
@@ -246,12 +247,12 @@ class ClassController extends Controller
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
-        $class = Classes::where('slug', $slug)->where('tutor_id', auth()->user()->id)->first();
+        $class = Classes::where('slug', $slug)->where('user_id', auth()->user()->id)->first();
 
         if (!$class) {
             return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
         }
-        $tutor = Tutor::find(auth()->user()->id);
+        $tutor = User::find(auth()->user()->id);
 
         $validatedData = $request->validate([
             'name' => 'required',
@@ -282,7 +283,7 @@ class ClassController extends Controller
 
         $class = Classes::where('slug', $slug)->first();
         
-        if($class->tutor_id != auth()->user()->id){
+        if($class->user_id != auth()->user()->id){
             return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
         }
         
@@ -290,33 +291,33 @@ class ClassController extends Controller
         $count_video = Chapter::where('type', 'video')->where('class_id', $class->id)->count();
         $count_reading = Chapter::where('type', 'reading')->where('class_id', $class->id)->count();
 
-        $quest = Quest::where('class_id', $class->id)->where('tutor_id', auth()->user()->id)->first();
+        $quest = Quest::where('class_id', $class->id)->where('user_id', auth()->user()->id)->first();
         $check_pretest = Quest::join('quest_question', 'quest_question.quest_id', '=', 'quest.id')
         ->where('class_id', $class->id)
-        ->where('tutor_id', auth()->user()->id)
+        ->where('user_id', auth()->user()->id)
         ->where('quest_type', 'pretest')->first();
 
         $count_pretest = Quest::join('quest_question', 'quest_question.quest_id', '=', 'quest.id')
         ->where('class_id', $class->id)
-        ->where('tutor_id', auth()->user()->id)
+        ->where('user_id', auth()->user()->id)
         ->where('quest_type', 'pretest')->count();
 
         $check_posttest = Quest::join('quest_question', 'quest_question.quest_id', '=', 'quest.id')
         ->where('class_id', $class->id)
-        ->where('tutor_id', auth()->user()->id)
+        ->where('user_id', auth()->user()->id)
         ->where('quest_type', 'posttest')->first();
 
         $count_posttest = Quest::join('quest_question', 'quest_question.quest_id', '=', 'quest.id')
         ->where('class_id', $class->id)
-        ->where('tutor_id', auth()->user()->id)
+        ->where('user_id', auth()->user()->id)
         ->where('quest_type', 'posttest')->count();
 
 
         $all_quest = Quest::join('quest_question', 'quest_question.quest_id', '=', 'quest.id')
         ->where('class_id', $class->id)
-        ->where('tutor_id', auth()->user()->id)->get();
+        ->where('user_id', auth()->user()->id)->get();
 
-        $tutor = Tutor::find(auth()->user()->id);
+        $tutor = User::find(auth()->user()->id);
 
         return view('internal_tutor.pages.inputClass.quest', [
             'slug' => $slug, 
@@ -384,7 +385,7 @@ class ClassController extends Controller
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
-        // $quest = QuestQuestion::where('quest_id', $request->quest_id)->where('tutor_id', auth()->user()->id)->first();
+        // $quest = QuestQuestion::where('quest_id', $request->quest_id)->where('user_id', auth()->user()->id)->first();
         $validatedData = $request->validate([
             'quest_type' => 'required',
             'question' => 'required',
@@ -454,7 +455,7 @@ class ClassController extends Controller
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
 
-        $tutor = Tutor::find(auth()->user()->id);
+        $tutor = User::find(auth()->user()->id);
 
         $validatedData = $request->validate([
             'class_id' => 'required',
@@ -492,7 +493,7 @@ class ClassController extends Controller
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
 
-        $tutor = Tutor::find(auth()->user()->id);
+        $tutor = User::find(auth()->user()->id);
 
         $validatedData = $request->validate([
             'class_id' => 'required',
@@ -556,7 +557,7 @@ class ClassController extends Controller
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
-        $class = Classes::where('slug', $request->slug)->where('tutor_id', auth()->user()->id)->first();
+        $class = Classes::where('slug', $request->slug)->where('user_id', auth()->user()->id)->first();
 
         $status = Classes::find($class->id);
         $status->status = 'active';

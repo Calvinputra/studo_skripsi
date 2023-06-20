@@ -193,19 +193,15 @@ table.dataTable.no-footer{
                         </div>
                     </div>
                     <div class="container">
-                        {{-- Input --}}
-                        <form id="materiForm" action="{{ route('internal_tutor.class.storeMateri', $class->slug) }}"
-                            method="POST">
+                        <form id="materiForm" action="{{ route('internal_tutor.class.storeMateri', $class->slug) }}" method="POST">
                             @csrf
                             <!-- Modal -->
-                            <div class="modal fade" id="addChapterModal" tabindex="-1"
-                                aria-labelledby="addChapterModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="addChapterModal" tabindex="-1" aria-labelledby="addChapterModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="addChapterModalLabel">Add Chapter</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <div class="mb-3">
@@ -216,32 +212,29 @@ table.dataTable.no-footer{
                                                 </select>
                                             </div>
                                             <div class="mb-3" id="addChapterTitleGroup" style="display: none;">
-                                                <input type="text" class="form-control" id="chapterTitle"
-                                                    name="name" placeholder="Enter title">
+                                                <input type="text" class="form-control" id="chapterTitle" name="name" placeholder="Enter title">
                                             </div>
                                             <div class="mb-3" id="addChapterDescriptionGroup" style="display: none;">
                                                 <textarea class="form-control" id="chapterDescription" name="description" placeholder="Enter description"></textarea>
                                             </div>
                                             <div class="mb-3" id="addChapterUrlGroup" style="display: none;">
-                                                <input type="text" class="form-control" id="chapterUrl"
-                                                    name="url" placeholder="Enter video link">
+                                                <label for="">Link Url Dari Youtube</label>
+                                                <input type="url" class="form-control" id="chapterUrl" name="url" placeholder="Enter video link" pattern="^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$" required>
+                                                <small class="text-danger">Please enter a valid YouTube link.</small>
                                             </div>
                                             <div class="mb-3" id="addChapterContentGroup" style="display: none;">
                                                 <textarea class="form-control" id="chapterContent" name="reading" placeholder="Enter reading material"></textarea>
                                             </div>
                                             <div class="mb-3" id="addChapterDurationGroup" style="display: none;">
-                                                <input type="number" class="form-control" id="chapterDuration"
-                                                    name="duration" placeholder="Minute">
+                                                <input type="number" class="form-control" id="chapterDuration" name="duration" placeholder="Minute">
                                             </div>
                                             <div class="mb-3" id="addChapterPriorityGroup" style="display: none;">
-                                                <input type="number" class="form-control" id="chapterPriority"
-                                                    name="priority" placeholder="Priority">
+                                                <input type="number" class="form-control" id="chapterPriority" name="priority" placeholder="Priority">
                                             </div>
                                         </div>
                                         <input type="hidden" name="class_id" value="{{ $class->id }}">
                                         <div class="modal-footer">
-                                            <button type="button" class="btn" style="color:#063852; border-color:#063852;background:white"
-                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn" style="color:#063852; border-color:#063852;background:white" data-bs-dismiss="modal">Close</button>
                                             <button type="submit" class="btn" style="color:white;background:#063852;">Save</button>
                                         </div>
                                     </div>
@@ -249,18 +242,15 @@ table.dataTable.no-footer{
                             </div>
                         </form>
                         {{-- Edit --}}
-                        <form id="materiupdateForm" 
-                            method="POST">
+                        <form id="materiupdateForm" method="POST">
                             @csrf
                             <!-- Modal -->
-                            <div class="modal fade" id="updateChapterModal" tabindex="-1"
-                                aria-labelledby="updateChapterModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="updateChapterModal" tabindex="-1" aria-labelledby="updateChapterModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="updateChapterModalLabel">Update Chapter</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <div class="mb-3">
@@ -271,32 +261,27 @@ table.dataTable.no-footer{
                                                 </select>
                                             </div>
                                             <div class="mb-3" id="updateChapterTitleGroup" style="display: none;">
-                                                <input type="text" class="form-control" id="chapterTitle"
-                                                    name="name" placeholder="Enter title">
+                                                <input type="text" class="form-control" id="chapterTitle" name="name" placeholder="Enter title">
                                             </div>
                                             <div class="mb-3" id="updateChapterDescriptionGroup" style="display: none;">
                                                 <textarea class="form-control" id="chapterDescription" name="description" placeholder="Enter description"></textarea>
                                             </div>
                                             <div class="mb-3" id="updateChapterUrlGroup" style="display: none;">
-                                                <input type="text" class="form-control" id="chapterUrl"
-                                                    name="url" placeholder="Enter video link">
+                                                <input type="url" class="form-control" id="chapterUrl" name="url" placeholder="Enter video link" pattern="^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$" required>
                                             </div>
                                             <div class="mb-3" id="updateChapterContentGroup" style="display: none;">
                                                 <textarea class="form-control" id="chapterContent" name="reading" placeholder="Enter reading material"></textarea>
                                             </div>
                                             <div class="mb-3" id="updateChapterDurationGroup" style="display: none;">
-                                                <input type="number" class="form-control" id="chapterDuration"
-                                                    name="duration" placeholder="Minute">
+                                                <input type="number" class="form-control" id="chapterDuration" name="duration" placeholder="Minute">
                                             </div>
                                             <div class="mb-3" id="updateChapterPriorityGroup" style="display: none;">
-                                                <input type="number" class="form-control" id="chapterPriority"
-                                                    name="priority" placeholder="Priority">
+                                                <input type="number" class="form-control" id="chapterPriority" name="priority" placeholder="Priority">
                                             </div>
                                         </div>
                                         <input type="hidden" name="class_id" value="{{ $class->id }}">
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-primary">Save</button>
                                         </div>
                                     </div>

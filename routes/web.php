@@ -38,14 +38,14 @@ Route::namespace('studo')->group( function () {
 
             Route::get('/search-page', [SearchController::class, 'index'])->name('studo.search');
 
-            Route::get('/overview/{slug}/{chapter?}', [OverviewController::class, 'index'])->name('studo.overview');
+            Route::get('/overview/{slug}/{chapter_id?}', [OverviewController::class, 'index'])->name('studo.overview');
 
             Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.pages.dashboard.index');
             Route::get('/internal/admin', [AuthController::class, 'index'])->name('admin.pages.auth.signin');
 
 
             Route::get('/checkout/{slug}', [CheckoutController::class, 'getCheckout'])->name('studo.checkout');
-            Route::get('/checkout/upload-pembayaran', [CheckoutController::class, 'getUpload'])->name('studo.checkout.upload');
+            Route::get('/checkout/upload-pembayaran/{slug}', [CheckoutController::class, 'getUpload'])->name('studo.checkout.upload');
 
 
             //  Post Data dari Popup Login
@@ -81,14 +81,14 @@ Route::namespace('studo')->group( function () {
 Route::namespace('internal')->group(function () {
 
     // Sebelum Login
-    // Route::middleware('guest:tutors')->group(function () {
+    // Route::middleware('guest:users')->group(function () {
         Route::get('/internal', [App\Http\Controllers\internal\AuthController::class, 'getSignin'])->name('internal_tutor.signin');
         Route::post('/internal/post_signin', [App\Http\Controllers\internal\AuthController::class, 'postSignin'])->name('internal_tutor.post.signin');
         Route::get('/internal/signup', [App\Http\Controllers\internal\AuthController::class, 'getSignup'])->name('internal_tutor.signup');
         Route::post('/internal/post/signup', [App\Http\Controllers\internal\AuthController::class, 'postSignup'])->name('internal_tutor.post.signup');
     // });
     // Setelah Login
-    Route::middleware('auth:tutors')->group(function () {
+    Route::middleware('auth.users')->group(function () {
 
         Route::get('/internal/signout', [App\Http\Controllers\internal\AuthController::class, 'getSignout'])->name('internal_tutor.post.signout');
 

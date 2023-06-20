@@ -61,7 +61,7 @@
                             Diskon
                         </p>
                         <p class="m-0"style="color:#20A2EB">
-                           -Rp.{{ $normal_price_formatted - number_format($class->price, 0, ',', '.') }}
+                           -Rp.{{ $normal_price_formatted - number_format($class->price, 0, ',', '.') }}.000
                         </p>
                     </div>
                 @endif
@@ -81,7 +81,7 @@
                 </div>
     
                 <div style="margin-top:24px;">
-                    <a  href="{{route('studo.checkout.upload')}}">
+                    <a  href="{{route('studo.checkout.upload', $class->slug)}}">
                         <button class="btn btn-outline-success my-2 my-sm-0" style="width:100%;color:white;background:#063852;height: 51px;" type="submit">
                             <b>
                                 Beli Kelas

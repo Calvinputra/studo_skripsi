@@ -33,13 +33,13 @@ class AuthController extends Controller
         $finduser = User::where('google_id', $user->id)->first();
         if($finduser){
             Auth::login($finduser);
-
             return redirect()->route('studo.index')->with('success', 'Berhasil Login');
         } else {
             $newUser = User::create([
                 'name' => $user->name,
                 'email' => $user->email,
                 'google_id'=>  $user->id,
+                'role_id' =>  1,
                 'password' => encrypt('123456dummy')
             ]);
 
@@ -97,6 +97,7 @@ class AuthController extends Controller
                 $user = new User;
                 $user->name = $request->name;
                 $user->email = $request->email;
+                $user->role_id = 1;
                 $user->password = bcrypt($request->password);
                 $user->save();
             });

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableQuest extends Migration
+class CreateSubscription extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateTableQuest extends Migration
      */
     public function up()
     {
-        Schema::create('quest', function (Blueprint $table) {
+        Schema::create('subscription', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('class_id');
-            $table->unsignedInteger('tutor_id');
+            $table->unsignedInteger('user_id');
+            $table->string('status');
+            $table->string('photo');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateTableQuest extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quest');
+        Schema::dropIfExists('subscription');
     }
 }

@@ -15,11 +15,11 @@ class QuestController extends Controller
 {
     public function indexPreTest($slug)
     {
-        $class = Classes::join('tutors', 'tutors.id', '=', 'classes.tutor_id')
+        $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->select([
             'classes.*',
-            'tutors.name as tutor_name',
-            'tutors.email as tutor_email',
+            'users.name as tutor_name',
+            'users.email as tutor_email',
         ])->where('slug', $slug)->where('status', 'active')->first();
 
         if (!$class) {
@@ -49,7 +49,7 @@ class QuestController extends Controller
         ->join('classes', 'classes.id', '=', 'quest.class_id')
         ->where('slug', $slug)
         ->where('quest_type', 'pretest')
-        ->where('user_id', Auth()->user()->id)->first();
+        ->where('quest_completion.user_id', Auth()->user()->id)->first();
 
         if (!$check_pretest) {
             return view('studo.pages.quest.pre-test', [
@@ -62,11 +62,11 @@ class QuestController extends Controller
     }
     public function postPreTest(Request $request, $slug)
     {
-        $class = Classes::join('tutors', 'tutors.id', '=', 'classes.tutor_id')
+        $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->select([
             'classes.*',
-            'tutors.name as tutor_name',
-            'tutors.email as tutor_email',
+            'users.name as tutor_name',
+            'users.email as tutor_email',
         ])->where('slug', $slug)->where('status', 'active')->first();
 
         if (!$class) {
@@ -110,11 +110,11 @@ class QuestController extends Controller
 
     public function resultPreTest($slug)
     {
-        $class = Classes::join('tutors', 'tutors.id', '=', 'classes.tutor_id')
+        $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->select([
             'classes.*',
-            'tutors.name as tutor_name',
-            'tutors.email as tutor_email',
+            'users.name as tutor_name',
+            'users.email as tutor_email',
         ])->where('slug', $slug)->where('status', 'active')->first();
 
         if (!$class) {
@@ -125,7 +125,7 @@ class QuestController extends Controller
         ->join('classes', 'classes.id', '=', 'quest.class_id')
         ->where('slug', $slug)
         ->where('quest_type', 'pretest')
-        ->where('user_id',Auth()->user()->id)->first();
+        ->where('quest_completion.user_id',Auth()->user()->id)->first();
 
         return view('studo.pages.quest.result-pre-test', [
             'class' => $class,
@@ -135,11 +135,11 @@ class QuestController extends Controller
 
     public function indexPostTest($slug)
     {
-        $class = Classes::join('tutors', 'tutors.id', '=', 'classes.tutor_id')
+        $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->select([
             'classes.*',
-            'tutors.name as tutor_name',
-            'tutors.email as tutor_email',
+            'users.name as tutor_name',
+            'users.email as tutor_email',
         ])->where('slug', $slug)->where('status', 'active')->first();
 
         if (!$class) {
@@ -157,7 +157,7 @@ class QuestController extends Controller
         ->where('slug', $slug)
         ->where('quest_type', 'posttest')
         ->where('score', '>=', 70)
-        ->where('user_id', Auth()->user()->id)->first();
+        ->where('quest_completion.user_id', Auth()->user()->id)->first();
 
         if (!$check_posttest) {
             return view('studo.pages.quest.post-test', [
@@ -171,11 +171,11 @@ class QuestController extends Controller
 
     public function postPostTest(Request $request, $slug)
     {
-        $class = Classes::join('tutors', 'tutors.id', '=', 'classes.tutor_id')
+        $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->select([
             'classes.*',
-            'tutors.name as tutor_name',
-            'tutors.email as tutor_email',
+            'users.name as tutor_name',
+            'users.email as tutor_email',
         ])->where('slug', $slug)->where('status', 'active')->first();
 
         if (!$class) {
@@ -219,11 +219,11 @@ class QuestController extends Controller
 
     public function resultPostTest($slug)
     {
-        $class = Classes::join('tutors', 'tutors.id', '=', 'classes.tutor_id')
+        $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->select([
             'classes.*',
-            'tutors.name as tutor_name',
-            'tutors.email as tutor_email',
+            'users.name as tutor_name',
+            'users.email as tutor_email',
         ])->where('slug', $slug)->where('status', 'active')->first();
 
         if (!$class) {
@@ -234,7 +234,7 @@ class QuestController extends Controller
         ->join('classes', 'classes.id', '=', 'quest.class_id')
         ->where('slug', $slug)
             ->where('quest_type', 'posttest')
-            ->where('user_id', Auth()->user()->id)->first();
+            ->where('quest_completion.user_id', Auth()->user()->id)->first();
 
         return view('studo.pages.quest.result-post-test', [
             'class' => $class,

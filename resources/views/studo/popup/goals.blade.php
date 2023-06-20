@@ -31,7 +31,7 @@
                     <div style="display:flex; justify-content:space-between;align-items:center;width:100%;">
                         <div>
                             <p class="title-text-login modal-title black">
-                                Goals
+                                Atur Pengingat Belajar Kamu.
                             </p>
                         </div>
                         <div>

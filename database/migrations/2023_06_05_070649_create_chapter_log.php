@@ -16,7 +16,7 @@ class CreateChapterLog extends Migration
         Schema::create('chapter_log', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('class_id');
+            $table->unsignedInteger('chapter_id');
             $table->string('status');
             $table->timestamps();
         });

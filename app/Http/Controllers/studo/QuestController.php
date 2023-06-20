@@ -45,11 +45,20 @@ class QuestController extends Controller
         ->where('class_id', $class->id)
         ->get();
 
+        $check_pretest = QuestCompletion::join('quest', 'quest.id', '=', 'quest_completion.quest_id')
+        ->join('classes', 'classes.id', '=', 'quest.class_id')
+        ->where('slug', $slug)
+        ->where('quest_type', 'pretest')
+        ->where('user_id', Auth()->user()->id)->first();
 
-        return view('studo.pages.quest.pre-test', [
-            'class' => $class,
-            'pretests' => $pretests,
-        ]);
+        if (!$check_pretest) {
+            return view('studo.pages.quest.pre-test', [
+                'class' => $class,
+                'pretests' => $pretests,
+            ]);
+        }else{
+            return redirect()->route('studo.pages.quest.pre-test.result', ['slug' => $slug])->with('success', 'Kamu sudah menyelesaikan Pre-Test !');
+        }
     }
     public function postPreTest(Request $request, $slug)
     {
@@ -74,7 +83,7 @@ class QuestController extends Controller
         foreach ($answers as $key => $answer) {
             if ($answer) {
                 $correct = optional(QuestAnswer::where([
-                    'id'                => $answer,
+                    'answer'                => $answer,
                     'quest_question_id'  => $key,
                 ])->first());
 
@@ -96,35 +105,141 @@ class QuestController extends Controller
             'score'         => number_format($score, 1),
         ]);
 
+        return redirect()->route('studo.pages.quest.pre-test.result',['slug' => $slug]);
+    }
+
+    public function resultPreTest($slug)
+    {
+        $class = Classes::join('tutors', 'tutors.id', '=', 'classes.tutor_id')
+        ->select([
+            'classes.*',
+            'tutors.name as tutor_name',
+            'tutors.email as tutor_email',
+        ])->where('slug', $slug)->where('status', 'active')->first();
+
+        if (!$class) {
+            return redirect()->route('studo.index')->with('error', 'Quest ini tidak ditemukan !');
+        }
+
+        $score = QuestCompletion::join('quest', 'quest.id', '=', 'quest_completion.quest_id')
+        ->join('classes', 'classes.id', '=', 'quest.class_id')
+        ->where('slug', $slug)
+        ->where('quest_type', 'pretest')
+        ->where('user_id',Auth()->user()->id)->first();
+
         return view('studo.pages.quest.result-pre-test', [
             'class' => $class,
+            'score' => $score
         ]);
     }
 
-    public function resultPreTest()
+    public function indexPostTest($slug)
     {
+        $class = Classes::join('tutors', 'tutors.id', '=', 'classes.tutor_id')
+        ->select([
+            'classes.*',
+            'tutors.name as tutor_name',
+            'tutors.email as tutor_email',
+        ])->where('slug', $slug)->where('status', 'active')->first();
 
-        return view('studo.pages.quest.result-pre-test');
+        if (!$class) {
+            return redirect()->route('studo.index')->with('error', 'Quest ini tidak ditemukan !');
+        }
+
+        $posttests = Quest::with(['class', 'questions' => function ($query) {
+            $query->where('quest_type', 'posttest');
+        }, 'questions.answers'])
+        ->where('class_id', $class->id)
+        ->get();
+
+        $check_posttest = QuestCompletion::join('quest', 'quest.id', '=', 'quest_completion.quest_id')
+        ->join('classes', 'classes.id', '=', 'quest.class_id')
+        ->where('slug', $slug)
+        ->where('quest_type', 'posttest')
+        ->where('score', '>=', 70)
+        ->where('user_id', Auth()->user()->id)->first();
+
+        if (!$check_posttest) {
+            return view('studo.pages.quest.post-test', [
+                'class' => $class,
+                'posttests' => $posttests,
+            ]);
+        } else {
+            return redirect()->route('studo.pages.quest.post-test.result', ['slug' => $slug])->with('success', 'Kamu sudah menyelesaikan Post-Test !');
+        }
     }
 
-    public function indexPostTest()
+    public function postPostTest(Request $request, $slug)
     {
-        if (auth()->check()){
-            $user = User::find(auth()->user()->id);
-        }
-        
-        else{
-            $user = NULL;
+        $class = Classes::join('tutors', 'tutors.id', '=', 'classes.tutor_id')
+        ->select([
+            'classes.*',
+            'tutors.name as tutor_name',
+            'tutors.email as tutor_email',
+        ])->where('slug', $slug)->where('status', 'active')->first();
+
+        if (!$class) {
+            return redirect()->route('studo.index')->with('error', 'Quest ini tidak ditemukan !');
         }
 
-        return view('studo.pages.quest.post-test', [
-            'user' => $user,
+        $quest = Quest::where('class_id', $class->id)->first();
+
+        // Count answers
+        $answers    = $request->answers;
+        $score      = 0;
+        $answeredCount = 0;
+
+        foreach ($answers as $key => $answer) {
+            if ($answer) {
+                $correct = optional(QuestAnswer::where([
+                    'answer'                => $answer,
+                    'quest_question_id'  => $key,
+                ])->first());
+
+                if ($correct->is_correct) {
+                    $score++;
+                }
+
+                $answeredCount++;
+            }
+        }
+
+        $score = $answeredCount > 0 ? ($score / $answeredCount) * 100 : 0;
+
+        $quiz_completion = QuestCompletion::updateOrCreate([
+            'quest_id'       => $quest->id,
+            'user_id'       => Auth()->user()->id,
+            'quest_type'     => "posttest",
+        ], [
+            'score'         => number_format($score, 1),
         ]);
+
+        return redirect()->route('studo.pages.quest.post-test.result', ['slug' => $slug]);
     }
 
-    public function resultPostTest()
+    public function resultPostTest($slug)
     {
-        return view('studo.pages.quest.result-post-test');
+        $class = Classes::join('tutors', 'tutors.id', '=', 'classes.tutor_id')
+        ->select([
+            'classes.*',
+            'tutors.name as tutor_name',
+            'tutors.email as tutor_email',
+        ])->where('slug', $slug)->where('status', 'active')->first();
+
+        if (!$class) {
+            return redirect()->route('studo.index')->with('error', 'Quest ini tidak ditemukan !');
+        }
+
+        $score = QuestCompletion::join('quest', 'quest.id', '=', 'quest_completion.quest_id')
+        ->join('classes', 'classes.id', '=', 'quest.class_id')
+        ->where('slug', $slug)
+            ->where('quest_type', 'posttest')
+            ->where('user_id', Auth()->user()->id)->first();
+
+        return view('studo.pages.quest.result-post-test', [
+            'class' => $class,
+            'score' => $score
+        ]);
     }
 
 }

@@ -46,28 +46,41 @@
                     Quest: Post-Test
                 </h2>
                 <p>
-                    Nama Kelas
+                    {{ $class->name }}
                 </p>
                 <p>
                     Berikut adalah hasil Quest: Post-Test yang kamu dapat
                 </p>
-                <p class="title-text-login" style="margin:8px 0px;">
-                    <span class="text-true">70</span>/100
-                </p>
-                <p>
-                    Good Job! Silahkan ambil sertifkat kamu
-                    <br>
-                    <a href="#">
-                        di sini.
-                    </a>
-                </p>
-                <div style="margin-top:24px;">
-                    <button class="btn my-2 my-sm-0" style="color:white;background:#063852;width:352px;" type="button">
+                @if($score->score < 70)
+                    <p>
+                        <strong>Note*</strong> Score Post-test Minimal 70
+                    </p>
+                    <p class="title-text-login" style="margin:8px 0px;">
+                        <span class="text-false">{{ $score->score }}</span>/100
+                    </p>
+                    <div style="margin-top:24px;">
+                        <a href="{{ route('studo.pages.quest.post-test', $class->slug) }}">
+                            <button class="btn my-2 my-sm-0" style="color:white;background:#063852;width:352px;" type="button">
+                                <b>
+                                    Ulangi Quest
+                                </b>
+                            </button>
+                        </a>
+                    </div>
+                @else
+                    <p class="title-text-login" style="margin:8px 0px;">
+                        <span class="text-true">{{ $score->score }}</span>/100
+                    </p>
+                    <p>
                         <b>
-                            Ulangi Quest
+                            Good Job! Silahkan ambil sertifkat kamu
                         </b>
-                    </button>
-                </div>
+                        <br>
+                        <a href="#">
+                            di sini.
+                        </a>
+                    </p>
+                @endif
             </center>
         </div>
         <div class="col-sm-3">

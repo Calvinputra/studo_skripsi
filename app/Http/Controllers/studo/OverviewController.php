@@ -4,8 +4,10 @@ namespace App\Http\Controllers\studo;
 
 use App\Http\Controllers\Controller;
 use App\Models\Chapter;
+use App\Models\ChapterLog;
 use App\Models\Classes;
 use App\Models\Project;
+use App\Models\QuestCompletion;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 
@@ -32,8 +34,6 @@ class OverviewController extends Controller
             $project = null;
         }
 
-        
-
         $points = preg_split("/\r?\n/", $class->competency_unit);
         $total_duration = Chapter::where('class_id', $class->id)
         ->sum('duration');
@@ -42,6 +42,25 @@ class OverviewController extends Controller
         $count_video = Chapter::where('type', 'video')->where('class_id', $class->id)->count();
         $count_reading = Chapter::where('type', 'reading')->where('class_id', $class->id)->count();
         $count_chapter = Chapter::where('class_id', $class->id)->count();
+
+        $all_chapter = Chapter::where('class_id', $class->id)
+        ->orderBy('priority', 'ASC')->get();
+
+        $chapter_log = ChapterLog::join('chapters', 'chapters.id', '=', 'chapter_log.chapter_id')
+        ->join('classes', 'classes.id', '=', 'chapters.class_id')->get();
+
+        $check_pretest = QuestCompletion::join('quest', 'quest.id', '=', 'quest_completion.quest_id')
+        ->join('classes', 'classes.id', '=', 'quest.class_id')
+        ->where('slug', $slug)
+        ->where('quest_type', 'pretest')
+        ->where('user_id', Auth()->user()->id)->first();
+
+        $check_posttest = QuestCompletion::join('quest', 'quest.id', '=', 'quest_completion.quest_id')
+        ->join('classes', 'classes.id', '=', 'quest.class_id')
+        ->where('slug', $slug)
+        ->where('quest_type', 'posttest')
+        ->where('score', '>=', 70)
+        ->where('user_id', Auth()->user()->id)->first();
 
         return view('studo.pages.overview.index', [
             'class' => $class,
@@ -53,6 +72,10 @@ class OverviewController extends Controller
             'count_chapter' => $count_chapter,
             'subscription' => $subscription,
             'project' => $project,
+            'all_chapter' => $all_chapter,
+            'check_pretest' => $check_pretest,
+            'check_posttest' => $check_posttest,
+            'chapter_log' => $chapter_log,
         ]);
 
     }

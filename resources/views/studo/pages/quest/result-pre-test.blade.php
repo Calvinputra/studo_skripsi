@@ -46,18 +46,22 @@
                     Quest: Pre-Test
                 </h2>
                 <p>
-                    Nama Kelas
+                    {{ $class->name }}
                 </p>
                 <p>
-                    Kamu telah menyelesaikan Quest: Pre-Test. Ayo lanjutkan pembelajaran untuk mendapatkan sertifikat!
+                    Kamu telah menyelesaikan Quest: Pre-Test. <br>Ayo lanjutkan pembelajaran untuk mendapatkan sertifikat!
                 </p>
-
+                <p class="title-text-login" style="margin:8px 0px;">
+                    <span class="text-true">{{ $score->score }}</span>/100
+                </p>
                 <div style="margin-top:24px;">
-                    <button class="btn my-2 my-sm-0" style="color:white;background:#063852;width:352px;" type="button">
-                        <b>
-                            Lanjutkan Kelas
-                        </b>
-                    </button>
+                    <a href="{{ route('studo.overview', $class->slug) }}">
+                        <button class="btn my-2 my-sm-0" style="color:white;background:#063852;width:352px;" type="button">
+                            <b>
+                                Lanjutkan Kelas
+                            </b>
+                        </button>
+                    </a>
                 </div>
             </center>
         </div>

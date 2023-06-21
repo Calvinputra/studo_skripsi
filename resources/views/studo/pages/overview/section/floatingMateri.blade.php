@@ -25,7 +25,7 @@
     @php
         $chapter_id = $chapter->id; // Ganti dengan nilai chapter id yang sesuai
         $current_page = $chapter_id;
-        $completed_chapters = $chapter_log->pluck('chapter_id')->toArray(); // Ambil semua chapter yang sudah selesai
+        $completed_chapters = $chapter_log->pluck('chapter_id')->toArray(); 
     @endphp
     @foreach ($all_chapter as $chapter)
         <a href="{{ route('studo.overview', [$class->slug, $chapter->id]) }}">

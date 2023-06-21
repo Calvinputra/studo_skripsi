@@ -108,7 +108,7 @@
                 </p>
             </div>
             <div class="col-sm-3 d-grid align-items-center">
-                <a class="nav-link text-right" href="{{ route('internal_tutor.signin')}}">
+                <a class="nav-link text-right" href="{{ route('internal_tutor.signup')}}">
                     <button class="btn my-2 my-sm-0 " style="color:white;background:#063852;" type="button">
                         <b>
                             Daftar Sebagai Tutor

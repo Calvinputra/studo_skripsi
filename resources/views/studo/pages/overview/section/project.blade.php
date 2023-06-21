@@ -43,7 +43,10 @@
                 </p>
             </div>
         </div>
-        <form action="{{ route('studo.pages.project.submit', $class->slug) }}" method="POST" 
+        @php
+            $chapterId = request()->segment(3);
+        @endphp
+        <form action="{{ route('studo.pages.project.submit', [$class->slug, $chapterId]) }}" method="POST" 
             enctype="multipart/form-data" id="form-image">
             @csrf
             <div>

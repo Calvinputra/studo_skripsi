@@ -21,8 +21,8 @@
         <div class="modal-dialog" style="width: 400px;">
             <!-- Modal content-->
             <div class="modal-content">
-                <div class="modal-header" style="border-top-left-radius: 30% !important;border-top-right-radius:30%;">
-                    <div style="display:flex; justify-content:space-between;align-items:center;width:100%;">
+                <div class="modal-header" style="padding-bottom:0px;border-bottom:0px;border-top-left-radius: 30% !important;border-top-right-radius:30%;">
+                    <div style="display:flex; justify-content:space-between;width:100%;">
                         <div>
                             <p class="title-text-login modal-title black">
                                 Daftar
@@ -37,9 +37,11 @@
                     </div>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
+                    <div class="form-group"style="margin-top:0px">
                         <a href="{{ route('studo.auth.google.redirect') }}" class="btn-google btn-block effect8" style="border: 1px solid #636466;border-radius:5px;padding: 10px 16px;text-decoration:none;">
-                            <center><span class="google-text-login">Buat dengan Google</span></center>
+                            <center><span class="google-text-login">
+                                <img src="{{ asset('google/google.png') }}" style="width: 24px;height: 24px;margin-bottom: 2px;" width="23" height="30" alt="">
+                            Buat dengan Google</span></center>
                         </a>
                     </div>
                     <hr style="border-color:#20A2EB !important">

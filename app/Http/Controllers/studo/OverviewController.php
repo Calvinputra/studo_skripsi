@@ -6,10 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Chapter;
 use App\Models\ChapterLog;
 use App\Models\Classes;
+use App\Models\Forum;
+use App\Models\Leaderboard;
 use App\Models\Project;
 use App\Models\ProjectLog;
 use App\Models\QuestCompletion;
+use App\Models\ReplyForum;
 use App\Models\Subscription;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OverviewController extends Controller
@@ -28,6 +32,7 @@ class OverviewController extends Controller
         }
         if(auth()->check())
         {
+            $user = User::find(Auth()->user()->id);
             $subscription = Subscription::where('class_id', $class->id)->where('user_id', auth()->user()->id)->where('status','paid')->first();
             $project = Project::where('class_id', $class->id)->first();
             $check_pretest = QuestCompletion::join('quest', 'quest.id', '=', 'quest_completion.quest_id')
@@ -46,6 +51,8 @@ class OverviewController extends Controller
             if (!$chapter_id) {
                 $chapter = null;
                 $embedUrl = null;
+                $list_forum = null;
+                $reply_forum = null;
             } else {
                 $chapter = Chapter::where('class_id', $class->id)->where('id', $chapter_id)->first();
 
@@ -83,6 +90,35 @@ class OverviewController extends Controller
                         'status' => "completed",
                     ]);
                 }
+
+                // Forum
+                $list_forum = Forum::join('classes', 'classes.id', '=', 'forum.class_id')
+                ->join('users', 'users.id', '=', 'forum.user_id')
+                ->select([
+                    'forum.*',
+                    'users.name as name',
+                ])
+                ->where('class_id', $class->id)->get();
+
+                $reply_forum = ReplyForum::join('forum', 'forum.id', '=', 'reply_forum.forum_id')
+                ->join('users', 'users.id', '=', 'reply_forum.user_id')
+                ->select([
+                    'reply_forum.*',
+                    'users.name as name',
+                ])
+                ->where('class_id', $class->id)
+                ->get();
+
+                // Leaderboards
+                $list_leaderboard = Leaderboard::join('classes', 'classes.id', '=', 'leaderboard.class_id')
+                ->join('users', 'users.id', '=', 'leaderboard.user_id')
+                ->join('chapters', 'chapters.id', '=', 'classes.chapter_id')
+                ->select([
+                    'leaderboard.*',
+                    'users.name as name',
+                ])
+                ->where('class_id', $class->id)->get();
+
             }
         }else{
             $subscription = null;
@@ -91,6 +127,9 @@ class OverviewController extends Controller
             $check_posttest = null;
             $chapter = null;
             $embedUrl = null;
+            $list_forum = null;
+            $reply_forum = null;
+            $user = null;
         }
 
         $points = preg_split("/\r?\n/", $class->competency_unit);
@@ -106,8 +145,10 @@ class OverviewController extends Controller
         ->orderBy('priority', 'ASC')->get();
 
         $chapter_log = ChapterLog::join('chapters', 'chapters.id', '=', 'chapter_log.chapter_id')
-        ->join('classes', 'classes.id', '=', 'chapters.class_id')->get();
-
+        ->join('classes', 'classes.id', '=', 'chapters.class_id')
+        ->where('chapter_log.user_id', auth()->user()->id)
+        ->where('classes.id', '=', $class->id)
+        ->get();
 
         return view('studo.pages.overview.index', [
             'class' => $class,
@@ -124,12 +165,15 @@ class OverviewController extends Controller
             'check_posttest' => $check_posttest,
             'chapter_log' => $chapter_log,
             'chapter' => $chapter,
-            'embedUrl' => $embedUrl
+            'embedUrl' => $embedUrl,
+            'list_forum' => $list_forum,
+            'reply_forum' => $reply_forum,
+            'user' => $user,
         ]);
 
     }
 
-    public function postProject(Request $request, $slug)
+    public function postProject(Request $request, $slug, $chapter_id = null)
     {
         $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->select([
@@ -149,9 +193,55 @@ class OverviewController extends Controller
             'photo'     => $request->photo,
         ]);
 
+        return redirect()->route('studo.overview', ['slug' => $slug, 'chapter_id' => $chapter_id])->with('success', 'Project berhasil diinput');
 
-        return view('studo.overview', [
-            'class' => $class,
+    }
+
+    public function postForum(Request $request,$slug, $chapter_id = null)
+    {
+        $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
+        ->select([
+            'classes.*',
+            'users.name as tutor_name',
+            'users.email as tutor_email',
+        ])->where('slug', $slug)->where('status', 'active')->first();
+
+        if (!$class) {
+            return redirect()->route('studo.index')->with('error', 'Quest ini tidak ditemukan !');
+        }
+
+
+        $forum = Forum::updateOrCreate([
+            'class_id'       => $class->id,
+            'user_id'       => Auth()->user()->id,
+            'description'     => $request->description,
         ]);
+
+
+        return redirect()->route('studo.overview', ['slug' => $slug, 'chapter_id' => $chapter_id])->with('success','Forum behasil diinput');
+    }
+
+    public function postReplyForum(Request $request, $slug, $chapter_id = null)
+    {
+        $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
+        ->select([
+            'classes.*',
+            'users.name as tutor_name',
+            'users.email as tutor_email',
+        ])->where('slug', $slug)->where('status', 'active')->first();
+
+        if (!$class) {
+            return redirect()->route('studo.index')->with('error', 'Quest ini tidak ditemukan !');
+        }
+
+
+        $reply_forum = ReplyForum::updateOrCreate([
+            'forum_id'=> $request->forum_id,
+            'user_id'       => Auth()->user()->id,
+            'description'     => $request->description,
+        ]);
+
+
+        return redirect()->route('studo.overview', ['slug' => $slug, 'chapter_id' => $chapter_id])->with('success', 'Reply behasil diinput');
     }
 }

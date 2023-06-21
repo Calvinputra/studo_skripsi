@@ -8,18 +8,6 @@
             <h2 class="title-text-login">
                 Hi, {{$user->name}}
             </h2>
-            <p>
-            Lanjutkan pembelajaran kamu untuk kelas <b>BLACBLABCL - Chapter 9/11.</b>
-            </p>
-        </div>
-        <div class="col-sm-3 d-grid align-items-center">
-            <a class="nav-link text-right" href="#">
-                <button class="btn my-2 my-sm-0 " style="color:white;background:#063852;" type="button">
-                    <b>
-                        Lanjut Belajar
-                    </b>
-                </button>
-            </a>
         </div>
     </div>
     <div>

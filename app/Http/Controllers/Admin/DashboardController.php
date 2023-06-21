@@ -36,4 +36,17 @@ class DashboardController extends Controller
 
         return redirect()->route('admin.pages.dashboard.index')->with('success', 'Status konfirmasi berhasil diperbarui');
     }
+
+    public function rejectSubscription($id)
+    {
+
+        $subscription = Subscription::find($id);
+
+        if ($subscription) {
+            $subscription->delete();
+        }
+
+        return redirect()->route('admin.pages.dashboard.index')->with('success', 'Data berhasil ditolak dan dihapus');
+    }
+    
 }

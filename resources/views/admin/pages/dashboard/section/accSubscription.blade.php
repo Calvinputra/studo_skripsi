@@ -43,7 +43,10 @@
                                                         @csrf
                                                         <button type="submit" style="color: #20A2EB; background: none; border: none; padding: 0; font: inherit; cursor: pointer; text-decoration: underline;">Konfirmasi</button>
                                                     </form>
-                                                    &nbsp;&nbsp;<a href="#" style="color: #20A2EB;">Tolak</a>
+                                                    <form id="tolakForm-{{ $saldo->id }}" action="{{ route('studo.subscription.reject', $saldo->id) }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit" style="color: #20A2EB; background: none; border: none; padding: 0; font: inherit; cursor: pointer; text-decoration: underline;">Tolak</button>
+                                                    </form>
                                                 @endif
                                             </td>
                                             <!-- Modal Bukti Pembayaran -->

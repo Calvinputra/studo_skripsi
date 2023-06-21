@@ -41,7 +41,7 @@
                     Remember Me
                 </label>
             </div>
-            <a href="" style="color:#063852; margin-left:20px; font-size:14px;">Forgot Password?</a>
+            {{-- <a href="" style="color:#063852; margin-left:20px; font-size:14px;">Forgot Password?</a> --}}
         </div>
         <input type="submit" name="" value="Masuk" style="background:#063852">
     </form> 

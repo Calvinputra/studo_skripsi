@@ -37,6 +37,15 @@ class AuthController extends Controller
     }
     public function getsignup()
     {
+        if (auth()->check()) {
+            $user = User::find(auth()->user()->id);
+            $check_user = User::where('id', $user->id)->where('role_id', 2)->first();
+            if ($check_user) {
+                return view('internal_tutor.pages.auth.signin', []);
+            } else {
+                return redirect()->route('studo.index')->with('error', 'Kamu harus Logout dari akun User Terlebih dahulu');
+            }
+        }
         return view('internal_tutor.pages.auth.signup', []);
     }
 
@@ -91,9 +100,12 @@ class AuthController extends Controller
                 $tutor->role_id = 2;
                 $tutor->password = bcrypt($request->password);
                 $tutor->save();
+
+                // Lakukan login otomatis setelah pendaftaran
+                Auth::login($tutor);
             });
 
-            return back()->with('success', 'Daftar Berhasil. Silahkan Login');
+            return redirect()->route('internal_tutor.index')->with('success', 'Berhasil Logout dari Akun Tutor');
         } catch (Exception $e) {
             return back()->with('error', 'Internal Server Error: ' . $e->getMessage());
         }

@@ -219,7 +219,7 @@ table.dataTable.no-footer{
                                             </div>
                                             <div class="mb-3" id="addChapterUrlGroup" style="display: none;">
                                                 <label for="">Link Url Dari Youtube</label>
-                                                <input type="url" class="form-control" id="chapterUrl" name="url" placeholder="Enter video link" pattern="^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$" required>
+                                                <input type="url" class="form-control" id="chapterUrl" name="url" placeholder="Enter video link" pattern="^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$">
                                                 <small class="text-danger">Please enter a valid YouTube link.</small>
                                             </div>
                                             <div class="mb-3" id="addChapterContentGroup" style="display: none;">

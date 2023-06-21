@@ -42,3 +42,8 @@
         </div>
     </div>
 </div>
+    <script>
+        $(document).ready( function () {
+            $('#myTableMateri').DataTable();
+        } );
+    </script>

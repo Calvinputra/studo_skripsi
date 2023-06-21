@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateForum extends Migration
+class CreateLeaderboard extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateForum extends Migration
      */
     public function up()
     {
-        Schema::create('forum', function (Blueprint $table) {
+        Schema::create('leaderboard', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('class_id');
-            $table->string('description');
+            $table->unsignedInteger('user_id');
+            $table->string('total_chapter')->nullable();
+            $table->string('duration')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateForum extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('forum');
+        Schema::dropIfExists('leaderboard');
     }
 }

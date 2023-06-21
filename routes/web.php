@@ -46,10 +46,10 @@ Route::namespace('studo')->group( function () {
 
 
             //  Post Data dari Popup Login
-            Route::post('/login/{slug?}', [App\Http\Controllers\studo\AuthController::class, 'postLogin'])->name('studo.post.login');
+            Route::post('/login/{slug?}/{chapter_id?}', [App\Http\Controllers\studo\AuthController::class, 'postLogin'])->name('studo.post.login');
             
             // Post Data dari Popup Daftar
-            Route::post('/regist/{slug?}', [App\Http\Controllers\studo\AuthController::class, 'postSignup'])->name('studo.post.regist');
+            Route::post('/regist/{slug?}/{chapter_id?}', [App\Http\Controllers\studo\AuthController::class, 'postSignup'])->name('studo.post.regist');
 
 
         Route::middleware('auth')->group(function () {
@@ -69,7 +69,10 @@ Route::namespace('studo')->group( function () {
             Route::post('/quest/posttest/{slug}/submit',  [QuestController::class, 'postPostTest'])->name('studo.pages.quest.post-test.submit');
             Route::get('/quest/posttest/{slug}/result', [QuestController::class, 'resultPostTest'])->name('studo.pages.quest.post-test.result');
 
-            Route::post('/project/{slug}/submit',  [OverviewController::class, 'postProject'])->name('studo.pages.project.submit');
+            Route::post('/project/{slug}/{chapter_id?}/submit',  [OverviewController::class, 'postProject'])->name('studo.pages.project.submit');
+
+            Route::post('/forum/{slug}/{chapter_id?}/submit',  [OverviewController::class, 'postForum'])->name('studo.pages.forum.submit');
+            Route::post('/reply/forum/{slug}/{chapter_id?}/submit',  [OverviewController::class, 'postReplyForum'])->name('studo.pages.reply.forum.submit');
 
 
             Route::get('/signout', [App\Http\Controllers\studo\AuthController::class, 'getSignout'])->name('studo.post.signout');
@@ -149,6 +152,7 @@ Route::namespace('internal')->group(function () {
 Route::middleware('auth.admin')->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.pages.dashboard.index');
     Route::post('/admin/dashboard/confirm/subscription/{id}', [DashboardController::class, 'confirmSubscription'])->name('studo.subscription.confirm');
+    Route::post('/admin/dashboard/confirm/subscription/reject/{id}', [DashboardController::class, 'rejectSubscription'])->name('studo.subscription.reject');
 });
 
 

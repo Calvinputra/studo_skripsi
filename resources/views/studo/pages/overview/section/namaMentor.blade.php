@@ -19,6 +19,11 @@
 .active span{
     color:white !important;
 }
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(220px, 1fr));
+    grid-gap: 32px;
+}
 </style>
 <div style="margin-top:40px;">
     <div>
@@ -81,32 +86,33 @@
                 </ul>
             </div>
         @else
-            <!-- not login  -->
-            <div style="margin-top:40px;">
-                <ul class="nav">
-                    <div class="nav-item">
-                        <a  id="nav-benefit-tab" data-bs-toggle="tab" href="#kelas" class="btn-overview active">
-                            <b>
-                                Tentang Kelas
-                            </b>
-                        </a>
-                    </div>
-                    <div class="nav-item" style="margin:0px 16px;" >
-                        <a  id="nav-benefit-tab" data-bs-toggle="tab" href="#benefit" class="btn-overview">
-                            <b>
-                                Benefit
-                            </b>
-                        </a>
-                    </div>
-                    {{-- <div class="nav-item">
-                        <a  id="nav-review-tab" data-bs-toggle="tab" href="#review" class="btn-overview">
-                            <b>
-                                Review
-                            </b>
-                        </a>
-                    </div> --}}
-                </ul>
+            <div style="margin-top:24px;" class="tab-pane active" id="kelas" role="tabpanel">
+                <div>
+                    <p style="font-weight: 700;font-size: 18px;line-height: 22px;">
+                        Tentang Kelas
+                    </p>
+                    <p style="font-weight: 400;font-size: 18px;line-height: 22px;">
+                        {{ $class->description }}
+                    </p>
+                </div>
             </div>
+            <div style="margin-top:24px;" class="tab-pane active" id="kelas" role="tabpanel">
+                <div>
+                    <p style="font-weight: 700;font-size: 18px;line-height: 22px;">
+                        Benefit mengikuti kelas ini
+                    </p>
+                    <div class="grid-container">
+                        @foreach($points as $point)
+                            <div style="height: 120px;width: 224px;border-radius: 5px;padding: 16px;border: 1px solid rgba(34, 34, 34, 1)">
+                                <p style="font-weight: 400; font-size: 18px; line-height: 22px;">
+                                    {{ $point }}
+                                </p>
+                            </div>
+                        @endforeach 
+                    </div>
+                </div>
+            </div>
+
         @endif
     </div>
 </div>

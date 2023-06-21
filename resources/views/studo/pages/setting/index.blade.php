@@ -56,6 +56,16 @@
                                 </span>
                             </div>
                         </a>
+                        <a class="hover-dashboard"  id="nav-sertifProyek-tab" data-bs-toggle="tab" href="#sertifProyek" style="text-decoration:none;">
+                            <div style="padding: 16px;height: 56px;border-radius: 5px;">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10.725 16.5L13 15.125L15.275 16.5L14.675 13.9L16.675 12.175L14.05 11.95L13 9.5L11.95 11.95L9.325 12.175L11.325 13.9L10.725 16.5ZM4 12V14H2C1.45 14 0.979167 13.8042 0.5875 13.4125C0.195833 13.0208 0 12.55 0 12V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H12C12.55 0 13.0208 0.195833 13.4125 0.5875C13.8042 0.979167 14 1.45 14 2V4H12V2H2V12H4ZM8 20C7.45 20 6.97917 19.8042 6.5875 19.4125C6.19583 19.0208 6 18.55 6 18V8C6 7.45 6.19583 6.97917 6.5875 6.5875C6.97917 6.19583 7.45 6 8 6H18C18.55 6 19.0208 6.19583 19.4125 6.5875C19.8042 6.97917 20 7.45 20 8V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H8Z" fill="#063852"/>
+                                </svg>                                    
+                                <span style="color:black;font-weight:700;">
+                                    &nbsp;Sertifikasi & Proyek
+                                </span>
+                            </div>
+                        </a>
                         <a class="hover-dashboard"  id="nav-goals-tab" data-bs-toggle="tab" href="#goals" style="text-decoration:none;">
                             <div style="padding: 16px;height: 56px;border-radius: 5px;">
                                 <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -74,6 +84,7 @@
                         @include('studo.pages.setting.section.password')
                         @include('studo.pages.setting.section.goals')
                         @include('studo.pages.setting.section.kelasSaya')
+                        @include('studo.pages.setting.section.sertifikasiProyek')
                     </div>
                 </div>
             </div>

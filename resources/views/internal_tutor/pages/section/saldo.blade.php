@@ -19,12 +19,7 @@
     <form>
         <div style="">
         <label class="form-label semibold">E-wallet</label>
-            <select class="custom-select" id="inputGroupSelect02" style="border-color:black;">
-                <option selected>OVO</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
+            <input type="saldo" value="OVO" disabled placeholder="" name="no_hp" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
         </div>
         <div class="form-group">
             <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;margin-top:24px;">

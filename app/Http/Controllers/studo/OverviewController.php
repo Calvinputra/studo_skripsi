@@ -7,6 +7,7 @@ use App\Models\Chapter;
 use App\Models\ChapterLog;
 use App\Models\Classes;
 use App\Models\Project;
+use App\Models\ProjectLog;
 use App\Models\QuestCompletion;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
@@ -68,6 +69,20 @@ class OverviewController extends Controller
                 // }
 
                 $embedUrl = "https://www.youtube.com/embed/{$videoId}";
+
+                // Cek apakah chapter log sudah ada
+                $existingChapterLog = ChapterLog::where('user_id', auth()->user()->id)
+                ->where('chapter_id', $chapter_id)
+                ->first();
+
+                // Jika belum ada, buat entri baru
+                if (!$existingChapterLog) {
+                    ChapterLog::create([
+                        'user_id' => auth()->user()->id,
+                        'chapter_id' => $chapter_id,
+                        'status' => "completed",
+                    ]);
+                }
             }
         }else{
             $subscription = null;
@@ -112,5 +127,31 @@ class OverviewController extends Controller
             'embedUrl' => $embedUrl
         ]);
 
+    }
+
+    public function postProject(Request $request, $slug)
+    {
+        $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
+        ->select([
+            'classes.*',
+            'users.name as tutor_name',
+            'users.email as tutor_email',
+        ])->where('slug', $slug)->where('status', 'active')->first();
+
+        if (!$class) {
+            return redirect()->route('studo.index')->with('error', 'Quest ini tidak ditemukan !');
+        }
+
+
+        $quiz_completion = ProjectLog::updateOrCreate([
+            'class_id'       => $class->id,
+            'user_id'       => Auth()->user()->id,
+            'photo'     => $request->photo,
+        ]);
+
+
+        return view('studo.overview', [
+            'class' => $class,
+        ]);
     }
 }

@@ -55,7 +55,7 @@
                     <span class="text-true">{{ $score->score }}</span>/100
                 </p>
                 <div style="margin-top:24px;">
-                    <a href="{{ route('studo.overview', $class->slug) }}">
+                    <a href="{{ route('studo.overview', [$class->slug, $class->chapter_id]) }}">
                         <button class="btn my-2 my-sm-0" style="color:white;background:#063852;width:352px;" type="button">
                             <b>
                                 Lanjutkan Kelas

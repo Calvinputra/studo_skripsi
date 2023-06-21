@@ -43,12 +43,15 @@
                 </p>
             </div>
         </div>
-        <div>
-            <button class="btn my-2 my-sm-0 "style="color:white;background:#063852;" type="button">
-                <b>
-                    Upload
-                </b>
-            </button>
-        </div>
+        <form action="{{ route('studo.pages.project.submit', $class->slug) }}" method="POST" 
+            enctype="multipart/form-data" id="form-image">
+            @csrf
+            <div>
+                <label for="file-upload" class="btn my-2 my-sm-0" style="color:white;background:#063852;">
+                    <b>Upload</b>
+                </label>
+                <input id="file-upload" type="file" name="photo" style="display: none;" onchange="document.getElementById('form-image').submit();">
+            </div>
+        </form>
     </div>
 </div>

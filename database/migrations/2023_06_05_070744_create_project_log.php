@@ -17,8 +17,8 @@ class CreateProjectLog extends Migration
             $table->id();
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('class_id');
-            $table->string('description')->nullable();
-            $table->string('status');
+            $table->string('photo');
+            $table->string('status')->default('review');
             $table->timestamps();
         });
     }

@@ -57,7 +57,7 @@
                             <p class="mentor-name-text-card"style="margin: 8px 0px;">
                                 {{ $subscription->tutor_name }}
                             </p>
-                            <div class="d-flex align-items-center justify-content-between">
+                            {{-- <div class="d-flex align-items-center justify-content-between">
                                 <div class="progress" style="padding: 4px;background: #E6EBED;border-radius: 10px;margin-top:8px;width:75%;">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="70"
                                         aria-valuemin="0" aria-valuemax="100" style="width:70%;background: #FFC100;border-radius: 100px;">
@@ -65,10 +65,10 @@
                                 </div>
                                 <div>
                                     <p class="m-0 text-progress">
-                                        Chapter 16/18
+                                        Chapter {{ $count_chapter }}/18
                                     </p>
                                 </div>
-                            </div> 
+                            </div>  --}}
                         </a>
                     </div>
                     <div style="margin-top:16px;">

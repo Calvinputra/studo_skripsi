@@ -6,12 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class ChapterLog extends Model
+class ProjectLog extends Model
 {
-    use HasFactory;
-    protected $table = 'chapter_log';
-
+    protected $table = 'project_log';
     protected $fillable = [
-        'user_id', 'chapter_id', 'status'
+        'class_id', 'user_id', 'photo', 'status'
     ];
 }

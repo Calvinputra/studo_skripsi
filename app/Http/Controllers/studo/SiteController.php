@@ -38,6 +38,31 @@ class SiteController extends Controller
                 })
                 ->get();
 
+            // $count_chapter = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
+            // ->join('users', 'users.id', '=', 'subscription.user_id')
+            // ->leftJoin('chapters', function ($join) {
+            //     $join->on('chapters.class_id', '=', 'classes.id')
+            //     ->whereRaw('chapters.id = (SELECT MIN(id) FROM chapters WHERE class_id = classes.id)');
+            // })
+            //     ->leftJoin('chapter_log', function ($join) use ($user) {
+            //         $join->on('chapter_log.chapter_id', '=', 'chapters.id')
+            //         ->where('chapter_log.user_id', '=', $user->id)
+            //             ->where('chapter_log.status', '=', 'completed');
+            //     })
+            //     ->select([
+            //         'classes.id as id',
+            //         'classes.name as name',
+            //         'classes.thumbnail as thumbnail',
+            //         'users.id as user_id',
+            //         DB::raw('(SELECT MAX(users.name) FROM users WHERE users.id = subscription.user_id) as tutor_name'),
+            //         DB::raw('(SELECT MAX(users.email) FROM users WHERE users.id = subscription.user_id) as tutor_email'),
+            //         'chapters.id as chapter_id',
+            //         'chapters.name as chapter_name',
+            //         DB::raw('(SELECT COUNT(*) FROM chapter_log WHERE chapter_log.chapter_id IN (SELECT id FROM chapters WHERE class_id = classes.id) AND chapter_log.user_id = ' . $user->id . ' AND chapter_log.status = "completed") as completed_chapters_count'),
+            //     ])
+            //     ->get();
+            //     dd($count_chapter);
+
         
         $classes_subs = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->join('subscription', 'subscription.class_id', '=', 'classes.id')
@@ -74,7 +99,8 @@ class SiteController extends Controller
         return view('studo.pages.site.index', [
             'user' => $user,
             'classes' => $classes,
-            'subscriptions' => $subscriptions
+            'subscriptions' => $subscriptions,
+            // 'count_chapter' => $count_chapter
         ]);
     }
 }

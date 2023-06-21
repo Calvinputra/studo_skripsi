@@ -111,11 +111,16 @@ class QuestController extends Controller
     public function resultPreTest($slug)
     {
         $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
+        ->leftJoin('chapters', 'chapters.class_id', '=', 'classes.id')
         ->select([
             'classes.*',
             'users.name as tutor_name',
             'users.email as tutor_email',
-        ])->where('slug', $slug)->where('status', 'active')->first();
+            'chapters.id as chapter_id',
+        ])
+            ->where('slug', $slug)
+            ->where('status', 'active')
+            ->first();
 
         if (!$class) {
             return redirect()->route('studo.index')->with('error', 'Quest ini tidak ditemukan !');
@@ -220,11 +225,16 @@ class QuestController extends Controller
     public function resultPostTest($slug)
     {
         $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
+        ->leftJoin('chapters', 'chapters.class_id', '=', 'classes.id')
         ->select([
             'classes.*',
             'users.name as tutor_name',
             'users.email as tutor_email',
-        ])->where('slug', $slug)->where('status', 'active')->first();
+            'chapters.id as chapter_id',
+        ])
+            ->where('slug', $slug)
+            ->where('status', 'active')
+            ->first();
 
         if (!$class) {
             return redirect()->route('studo.index')->with('error', 'Quest ini tidak ditemukan !');

@@ -92,7 +92,7 @@
                     @csrf
                     <div style="margin-top: 24px;">
                         <label for="paymentProof" class="hover-img" style="display: block;">
-                            <img class="preview-image" style="height: 198px; width: 100%;" src="https://cdn.discordapp.com/attachments/722800563489865779/1120295169170874389/Frame_1939.png" alt="">
+                            <img class="preview-image" style="height: 450px; width: 100%;" src="https://cdn.discordapp.com/attachments/722800563489865779/1120295169170874389/Frame_1939.png" alt="">
                             <div class="middle">
                                 <div class="text hover-text-card">Upload Bukti Pembayaran</div>
                             </div>

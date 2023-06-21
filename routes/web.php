@@ -68,7 +68,9 @@ Route::namespace('studo')->group( function () {
             Route::get('/quest/posttest/{slug}', [QuestController::class, 'indexPostTest'])->name('studo.pages.quest.post-test');
             Route::post('/quest/posttest/{slug}/submit',  [QuestController::class, 'postPostTest'])->name('studo.pages.quest.post-test.submit');
             Route::get('/quest/posttest/{slug}/result', [QuestController::class, 'resultPostTest'])->name('studo.pages.quest.post-test.result');
-            
+
+            Route::post('/project/{slug}/submit',  [OverviewController::class, 'postProject'])->name('studo.pages.project.submit');
+
 
             Route::get('/signout', [App\Http\Controllers\studo\AuthController::class, 'getSignout'])->name('studo.post.signout');
 

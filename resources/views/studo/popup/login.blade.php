@@ -61,15 +61,15 @@
                                 <input class="form-control" id="password-login1" type="password" name="password" placeholder="Password" style="border: 1px solid black;border-radius:5px;"> 
                                 <i id="toggle-password-login1" class="fas fa-eye password-icon"></i>
                             </div>
-                            <div class="clearfix d-flex align-items-center justify-content-between" style="margin-top:16px;padding:0px 20px;">
+                            {{-- <div class="clearfix d-flex align-items-center justify-content-between" style="margin-top:16px;padding:0px 20px;">
                                 <div>
                                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                                     <label class="form-check-label" for="defaultCheck1">
                                         Remember Me
                                     </label>
                                 </div>
-                                {{-- <a href="" style="color:#1C1B1F; margin-left:100px;"><small>Forgot Password?</small></a> --}}
-                            </div>
+                                <a href="" style="color:#1C1B1F; margin-left:100px;"><small>Forgot Password?</small></a>
+                            </div> --}}
                         </div>
                         <div class="form-group">
                             <button class="button-text-login btn-masuk" style="">Masuk</button>

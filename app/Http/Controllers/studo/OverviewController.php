@@ -15,6 +15,7 @@ use App\Models\ReplyForum;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OverviewController extends Controller
 {
@@ -53,6 +54,8 @@ class OverviewController extends Controller
                 $embedUrl = null;
                 $list_forum = null;
                 $reply_forum = null;
+                $list_leaderboard = null;
+                $count_chapter_leader_boards = null;
             } else {
                 $chapter = Chapter::where('class_id', $class->id)->where('id', $chapter_id)->first();
 
@@ -109,15 +112,34 @@ class OverviewController extends Controller
                 ->where('class_id', $class->id)
                 ->get();
 
-                // Leaderboards
-                $list_leaderboard = Leaderboard::join('classes', 'classes.id', '=', 'leaderboard.class_id')
-                ->join('users', 'users.id', '=', 'leaderboard.user_id')
-                ->join('chapters', 'chapters.id', '=', 'classes.chapter_id')
-                ->select([
-                    'leaderboard.*',
-                    'users.name as name',
-                ])
-                ->where('class_id', $class->id)->get();
+                $list_leaderboard = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
+                ->join('users', 'users.id', '=', 'subscription.user_id')
+                ->join('chapters', 'chapters.class_id', '=', 'classes.id')
+                ->leftJoin('chapter_log', function ($join) {
+                    $join->on('chapter_log.chapter_id', '=', 'chapters.id')
+                    ->on('chapter_log.user_id', '=', 'users.id');
+                })
+                    ->select([
+                        'users.name as user_name',
+                        DB::raw('COUNT(DISTINCT chapter_log.chapter_id) as total_chapters_watched'),
+                        DB::raw('SUM(chapters.duration) as total_duration'),
+                        DB::raw('TIMESTAMPDIFF(HOUR, MAX(subscription.created_at), MAX(chapter_log.created_at)) %24 as total_completion_hours'),
+                        DB::raw('SEC_TO_TIME(SUM(chapters.duration) * 60) as total_duration_formatted'),
+                        DB::raw('TIMESTAMPDIFF(MINUTE, MAX(subscription.created_at), MAX(chapter_log.created_at)) %60 as total_completion_minutes'),
+                        DB::raw('TIMESTAMPDIFF(DAY, MAX(subscription.created_at), MAX(chapter_log.created_at)) as total_completion_days')
+                    ])
+                    ->whereIn('subscription.id', function ($query) use ($class) {
+                        $query->select(DB::raw('MAX(id)'))
+                        ->from('subscription')
+                        ->where('class_id', $class->id)
+                            ->groupBy('user_id');
+                    })
+                    ->groupBy('user_name')
+                    ->orderBy('total_chapters_watched', 'DESC')
+                    ->orderBy('total_completion_hours', 'ASC')
+                    ->get();
+
+                $count_chapter_leader_boards = Chapter::where('class_id', $class->id)->count();
 
             }
         }else{
@@ -129,6 +151,8 @@ class OverviewController extends Controller
             $embedUrl = null;
             $list_forum = null;
             $reply_forum = null;
+            $list_leaderboard = null;
+            $count_chapter_leader_boards = null;
             $user = null;
         }
 
@@ -168,6 +192,8 @@ class OverviewController extends Controller
             'embedUrl' => $embedUrl,
             'list_forum' => $list_forum,
             'reply_forum' => $reply_forum,
+            'list_leaderboard' => $list_leaderboard,
+            'count_chapter_leader_boards' => $count_chapter_leader_boards,
             'user' => $user,
         ]);
 

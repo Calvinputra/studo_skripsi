@@ -112,6 +112,7 @@ class OverviewController extends Controller
                 // Leaderboards
                 $list_leaderboard = Leaderboard::join('classes', 'classes.id', '=', 'leaderboard.class_id')
                 ->join('users', 'users.id', '=', 'leaderboard.user_id')
+                ->join('chapters', 'chapters.id', '=', 'classes.chapter_id')
                 ->select([
                     'leaderboard.*',
                     'users.name as name',

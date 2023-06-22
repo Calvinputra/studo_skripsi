@@ -17,7 +17,7 @@ class CreateTableClass extends Migration
             $table->id();
             $table->unsignedInteger('user_id');
             $table->string('name');
-            $table->string('description');
+            $table->longText('description');
             $table->string('competency_unit');
             $table->string('slug');
             $table->string('thumbnail');

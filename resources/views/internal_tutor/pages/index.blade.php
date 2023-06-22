@@ -44,13 +44,103 @@
         padding: 10px 16px;
         width:150px;
     }
+      table td,
+    table th {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .card {
+        border-radius: .5rem;
+    }
+table.dataTable thead th, table.dataTable thead td{
+    border-bottom: none !important;
+    text-align:center;
+}
+
+table.dataTable.no-footer{
+    border-bottom:1px solid #E6EBED !important;
+}
+
+    .table-scroll {
+        border-radius: .5rem;
+    }
+
+    thead {
+        top: 0;
+        position: sticky;
+    }
+
+    .active[aria-selected="true"] {
+        background: #20A2EB;
+        border-radius: 5px;
+        fill: white;
+        color: white
+    }
+
+    .active[aria-selected="true"]:hover {
+        background: #20A2EB;
+    }
+
+    .active path {
+        fill: white !important;
+    }
+
+    .active span {
+        color: white !important;
+    }
+
+    .hover-dashboard:hover {
+        background: rgba(32, 162, 235, 0.1);
+        border-radius: 5px;
+    }
+
+    [value=Video] {
+        display: none;
+    }
+
+
+    .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link.active {
+        color: #063852;
+        font-weight: 700;
+        border-bottom: 3px #063852 solid !important;
+
+    }
+
+    .nav-tabs .nav-link {
+        color: #063852;
+        font-weight: 400;
+        border-radius: 0px !important;
+        border: none;
+    }
+
+    .nav-tabs .nav-link:focus,
+    .nav-tabs .nav-link:hover {
+        border-bottom: 1px #063852 solid;
+        cursor: pointer;
+    }
+    .table-scroll{
+        border-radius: 0px !important;
+    }
+
+    .nav-link {
+        color: #063852 !important;
+    }
+    th{
+        text-align:center;
+    }
+    table.dataTable, table.dataTable th, table.dataTable td{
+        text-align:center;
+    }
 </style>
 @section('content')
     <div class="container" style="margin-bottom:40px;margin-top:40px;">        
         <div class="row">
             <div class="col-sm-4">
                 <div class="d-flex" style="background: rgba(32, 162, 235, 0.1);border-radius: 5px; padding:16px;">
-                    <img style="width: 60px;height:60px;margin:0px;" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw0NDw0NDQ0NDQ0NDQ0NDQ0NDQ8IDQ0NFREWFhURExMYHSggGBolGxMTITEhJSkrOi4uFx8zODMsNygtLisBCgoKDQ0NDw0NDisZFRkrLSsrKzctKysrLSsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIALcBEwMBIgACEQEDEQH/xAAYAAEBAQEBAAAAAAAAAAAAAAABAAIDBf/EABoQAQEBAQEBAQAAAAAAAAAAAAABEQISAyH/xAAXAQEBAQEAAAAAAAAAAAAAAAAAAQMC/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAMAwEAAhEDEQA/APDkJh8tHLJxqcnBGYfJxqQGZFjc5OAzjWEgzhw4YgzhkNhAYMaVijHkyNLACxoYDOCxtWAxikawgxixrEDFgx0xSA5eVHSQXn9BnqsWunXLN5Bzoa8s2CrUZEAkbi5jfkQSHDzGsBmcnG8ZkBRY1EAkWNIgzCUQFSIJEYosSQFUxAMFaVBmKwxAEcWAFhQMYsaSAsYrdZsBis1uxnAUSQDh0jny6SAWoDAIhQAwnFAjgBJIEqgBkUUIANAFCoYCCQJBAUlgIEAEkgqy1aADGNs0GcSQDiNs8NQGoRDAKWrFDKQtAhaQSSAIiAisQKJRAoRFQSSBJIEqiASVBkYUAxGioM1lqs0GaQgPDTHzbgNQggiiASKiSpBRJAkQCSUBGpAEUCRABEYCSQFAgxSkArNaCDFDdjOA56RhBfNuOfDpAajUZMAkJRNRlqAkkCMEpBBoADiQJGCgiydA6NBAhAEkYCSQMqpAEkDNZrbHSDKWIGOHTGeW9AtRmVqAUkoiCCIIKERAkkBSQKJKgkIQSIBUYUAKQIEAEQASSAZ6aooOaSActMctwGoRKYgSCoCGgIWpQoGAgqoBlLJApIAQQIQAggEQgILIJVIAiKArHVNrHVQSCBct4xy3ATUBAkICWdIIhKE4DaCCWgUNQNRCEBhQAoEAoEBo0gChqBFlaCtCCArFjdYtBamdQLl0jny3Aa0swgSEBSAFaCBiSUWpJBGDUo0NCBpMnQIWi0GhrKQatTKKNKDQBAANCgAmejaxQCBFXNa1z5rWiNynXONSg3p1g6DRZQNRM6NB01axq0G1WbVoHTrGkGkzq0GtWs6NBrVRo0GhRo6oNaZWJTKg2GdWqHVaxp0COgtACpmgNSoFXJSBStSpAZTqQi0pAFpQFaEA9HUgWmBAdWhAdGpANOpAhpQBFIHQkozp1IANKBmpIVm0JA//2Q==" alt="">
+                    <img style="width: 60px;height:60px;margin:0px;" src="{{ $tutor->avatar }}" alt="">
                     <div style="margin-left:16px;display:grid; align-items:center;">
                         <p class="desc-text-login m-0">
                             {{ $tutor->name }}
@@ -100,4 +190,10 @@
             </div>
         </div>
     </div>
+
+<script>
+    $(document).ready( function () {
+        $('#myTableNilaiProyek').DataTable();
+    } );
+</script>
 @endsection

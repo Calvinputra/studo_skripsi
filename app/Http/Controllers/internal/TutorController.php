@@ -4,6 +4,7 @@ namespace App\Http\Controllers\internal;
 
 use App\Http\Controllers\Controller;
 use App\Models\Classes;
+use App\Models\ProjectLog;
 use App\Models\Tutor;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -22,10 +23,26 @@ class TutorController extends Controller
         $classes = Classes::where('user_id', $tutor->id)->get();
         $count_classes = Classes::where('user_id', '=', $tutor->id)->count();
 
+        // $list_nilai_proyek = ProjectLog::join('users', 'users.id', '=', 'project_log.user_id')
+        // ->leftJoin('quest_completion', function ($join) {
+        //     $join->on('quest_completion.user_id', '=', 'project_log.user_id')
+        //     ->where('quest_completion.quest_type', '=', 'posttest'); 
+        // })
+        //     ->select([
+        //         'project_log.*',
+        //         'users.name as user_name',
+        //         'users.email as user_email',
+        //         'quest_completion.quest_type as quest_type',
+        //         'quest_completion.score as quest_score',
+        //     ])
+        //     ->whereIn('class_id', $classes->pluck('id')->toArray())
+        //     ->get();
+
         return view('internal_tutor.pages.index', [
             'tutor' => $tutor,
             'classes' => $classes,
-            'count_classes' => $count_classes
+            'count_classes' => $count_classes,
+            // 'list_nilai_proyek' => $list_nilai_proyek,
         ]);
     }
     

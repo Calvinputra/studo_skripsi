@@ -267,7 +267,7 @@ table.dataTable.no-footer{
                                                 <textarea class="form-control" id="chapterDescription" name="description" placeholder="Enter description"></textarea>
                                             </div>
                                             <div class="mb-3" id="updateChapterUrlGroup" style="display: none;">
-                                                <input type="url" class="form-control" id="chapterUrl" name="url" placeholder="Enter video link" pattern="^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$" required>
+                                                <input type="url" class="form-control" id="chapterUrl" name="url" placeholder="Enter video link" pattern="^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$">
                                             </div>
                                             <div class="mb-3" id="updateChapterContentGroup" style="display: none;">
                                                 <textarea class="form-control" id="chapterContent" name="reading" placeholder="Enter reading material"></textarea>
@@ -372,7 +372,6 @@ table.dataTable.no-footer{
             </div>
         </div>
     </body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()

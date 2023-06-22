@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\studo\CheckoutController;
 use App\Http\Controllers\studo\OverviewController;
-use App\Http\Controllers\studo\SearchController;
+use App\Http\Controllers\studo\AllController;
 use App\Http\Controllers\studo\SettingController;
 use App\Http\Controllers\studo\SiteController;
 use App\Http\Controllers\studo\QuestController;
@@ -36,7 +36,7 @@ Route::namespace('studo')->group( function () {
             // Home
             Route::get('/', [SiteController::class, 'index'])->name('studo.index');
 
-            Route::get('/search-page', [SearchController::class, 'index'])->name('studo.search');
+            Route::get('/all-class', [AllController::class, 'index'])->name('studo.all');
 
             Route::get('/overview/{slug}/{chapter_id?}', [OverviewController::class, 'index'])->name('studo.overview');
 
@@ -73,8 +73,6 @@ Route::namespace('studo')->group( function () {
 
             Route::post('/forum/{slug}/{chapter_id?}/submit',  [OverviewController::class, 'postForum'])->name('studo.pages.forum.submit');
             Route::post('/reply/forum/{slug}/{chapter_id?}/submit',  [OverviewController::class, 'postReplyForum'])->name('studo.pages.reply.forum.submit');
-
-
             Route::get('/signout', [App\Http\Controllers\studo\AuthController::class, 'getSignout'])->name('studo.post.signout');
 
         });
@@ -141,6 +139,7 @@ Route::namespace('internal')->group(function () {
         Route::post('/internal/tutor/profile/update/{id}', [TutorController::class, 'updateProfile'])->name('internal_tutor.post.updateProfile');
         Route::post('/internal/tutor/profile/updatePassword/{id}', [TutorController::class, 'updatePassword'])->name('internal_tutor.post.updatePassword');
 
+        Route::get('/internal/tutor/get-forum/{classId}', [TabPanesController::class, 'getForum']);
 
     });
 

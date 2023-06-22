@@ -21,18 +21,21 @@ class OverviewController extends Controller
 {
     public function index($slug, $chapter_id = null)
     {
-        $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
-        ->select([
-            'classes.*',
-            'users.name as tutor_name',
-            'users.email as tutor_email',
-        ])->where('slug', $slug)->where('status', 'active')->first();
-
-        if (!$class) {
-            return redirect()->route('studo.index')->with('error', 'Kelas ini tidak ditemukan !');
-        }
         if(auth()->check())
         {
+            $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
+            ->join('chapters', 'chapters.class_id', '=', 'classes.id')
+            ->select([
+                'classes.*',
+                'users.name as tutor_name',
+                'users.email as tutor_email',
+                'chapters.name as chapter_name',
+            ])->where('slug', $slug)->where('status', 'active')->first();
+
+            if (!$class) {
+                return redirect()->route('studo.index')->with('error', 'Kelas ini tidak ditemukan !');
+            }
+
             $user = User::find(Auth()->user()->id);
             $subscription = Subscription::where('class_id', $class->id)->where('user_id', auth()->user()->id)->where('status','paid')->first();
             $project = Project::where('class_id', $class->id)->first();
@@ -49,7 +52,25 @@ class OverviewController extends Controller
             ->where('score', '>=', 70)
             ->where('quest_completion.user_id', Auth()->user()->id)->first();
 
+            $chapter_log = ChapterLog::join('chapters', 'chapters.id', '=', 'chapter_log.chapter_id')
+            ->join('classes', 'classes.id', '=', 'chapters.class_id')
+            ->where('chapter_log.user_id', auth()->user()->id)
+            ->where('classes.id', '=', $class->id)
+            ->get();
+            
             if (!$chapter_id) {
+                $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
+                    ->join('chapters', 'chapters.class_id', '=', 'classes.id')
+                    ->select([
+                        'classes.*',
+                        'users.name as tutor_name',
+                        'users.email as tutor_email',
+                        'chapters.name as chapter_name',
+                    ])->where('slug', $slug)->where('status', 'active')->first();
+
+                if (!$class) {
+                    return redirect()->route('studo.index')->with('error', 'Kelas ini tidak ditemukan !');
+                }
                 $chapter = null;
                 $embedUrl = null;
                 $list_forum = null;
@@ -58,7 +79,19 @@ class OverviewController extends Controller
                 $count_chapter_leader_boards = null;
             } else {
                 $chapter = Chapter::where('class_id', $class->id)->where('id', $chapter_id)->first();
+                $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
+                ->join('chapters', 'chapters.class_id', '=', 'classes.id')
+                ->select([
+                    'classes.*',
+                    'users.name as tutor_name',
+                    'users.email as tutor_email',
+                    'chapters.id as chapter_id',
+                    'chapters.name as chapter_name',
+                ])->where('slug', $slug)->where('status', 'active')->where('chapters.id', $chapter_id)->first();
 
+                if (!$class) {
+                    return redirect()->route('studo.index')->with('error', 'Kelas ini tidak ditemukan !');
+                }
                 if (!$chapter) {
                     return redirect()->route('studo.index')->with('error', 'Chapter ini tidak ditemukan!');
                 }
@@ -154,6 +187,19 @@ class OverviewController extends Controller
             $list_leaderboard = null;
             $count_chapter_leader_boards = null;
             $user = null;
+            $chapter_log = null;
+            $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
+            ->join('chapters', 'chapters.class_id', '=', 'classes.id')
+                ->select([
+                    'classes.*',
+                    'users.name as tutor_name',
+                    'users.email as tutor_email',
+                    'chapters.name as chapter_name',
+                ])->where('slug', $slug)->where('status', 'active')->first();
+
+            if (!$class) {
+                return redirect()->route('studo.index')->with('error', 'Kelas ini tidak ditemukan !');
+            }
         }
 
         $points = preg_split("/\r?\n/", $class->competency_unit);
@@ -168,11 +214,7 @@ class OverviewController extends Controller
         $all_chapter = Chapter::where('class_id', $class->id)
         ->orderBy('priority', 'ASC')->get();
 
-        $chapter_log = ChapterLog::join('chapters', 'chapters.id', '=', 'chapter_log.chapter_id')
-        ->join('classes', 'classes.id', '=', 'chapters.class_id')
-        ->where('chapter_log.user_id', auth()->user()->id)
-        ->where('classes.id', '=', $class->id)
-        ->get();
+
 
         return view('studo.pages.overview.index', [
             'class' => $class,

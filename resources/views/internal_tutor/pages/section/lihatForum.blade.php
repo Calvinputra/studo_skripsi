@@ -1,4 +1,4 @@
-<div style="margin-top:24px;" class="tab-pane" id="lihatForum" role="tabpanel">
+<div style="margin-top:24px;" class="tab-pane" id="lihatForum{{ $ckey }}" role="tabpanel">
     <div>
         <p style="font-weight: 700;font-size: 18px;line-height: 22px;">
             Diskusi dengan teman-teman di Forum

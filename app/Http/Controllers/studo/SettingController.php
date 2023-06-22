@@ -67,27 +67,20 @@ class SettingController extends Controller
         $request->validate($rules);
 
         $user = auth()->user();
-        $avatar = $user->avatar;
 
-        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-            $file = Str::slug($user->name) . '-' . Str::random(4) . '-' . Str::random(10) . '.jpg';
-            $user->avatar = $file;
+        // handle file upload
+        if ($request->hasFile('avatar')) {
+            // get file
+            $file = $request->file('avatar');
 
-            // Ambil ekstensi file asli
-            $extension = $request->file('avatar')->getClientOriginalExtension();
+            // generate unique name for the file
+            $filename = time() . '.' . $file->getClientOriginalExtension();
 
-            // Anda bisa langsung menentukan direktori target sebagai 'upload/files/img/avatar/' tanpa menambahkan $file
-            $targetDir = 'upload/files/img/avatar/';
+            // save file to public/avatars directory
+            $path = $file->storeAs('avatarProject', $filename, 'public');
 
-            // Simpan file ke penyimpanan lokal (misalnya: folder public)
-            $request->file('avatar')->storeAs('public/' . $targetDir, $file);
-
-            // Hapus file avatar lama jika ada
-            $path = 'upload/files/img/avatar/' . $file;
-
-            if (Storage::disk('public')->exists($path)) {
-                Storage::disk('public')->delete($path);
-            }
+            // save file name to database
+            $user->avatar = $path;
         }
 
         $user->save();

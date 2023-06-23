@@ -9,7 +9,7 @@ use App\Http\Controllers\studo\QuestController;
 use App\Http\Controllers\studo\AuthController as StudoAuthController;
 
 use App\Http\Controllers\admin\DashboardController;
-use App\Http\Controllers\admin\AuthController;
+use App\Http\Controllers\admin\AuthController as InternalAdminAuthController;
 
 use App\Http\Controllers\internal\AuthController as InternalTutorAuthController ;
 use App\Http\Controllers\internal\ClassController;
@@ -148,8 +148,8 @@ Route::namespace('internal')->group(function () {
     });
 
     // Admin
-    Route::get('/internal/admin', [AuthController::class, 'index'])->name('admin.pages.auth.signin');
-    Route::post('/internal/admin/regist', [AuthController::class, 'regist'])->name('admin.pages.auth.regist');
+    Route::get('/internal/admin', [App\Http\Controllers\internal\AuthController::class, 'index'])->name('admin.pages.auth.signin');
+    Route::post('/internal/admin/regist', [App\Http\Controllers\internal\AuthController::class, 'regist'])->name('admin.pages.auth.regist');
     
 });
 Route::middleware('auth.admin')->group(function () {

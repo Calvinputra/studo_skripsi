@@ -19,6 +19,12 @@
     background: rgba(32, 162, 235, 0.1);
     border-radius: 5px;
 }
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
 </style>
 @section('content')
     <body class="antialiased">
@@ -36,7 +42,7 @@
                                     </span>
                             </div>
                         </a>
-                        <a class="hover-dashboard"  id="nav-goals-tab" data-bs-toggle="tab" href="#goals" style="text-decoration:none;">
+                        <a class="hover-dashboard"  id="nav-saldo-tab" data-bs-toggle="tab" href="#saldo" style="text-decoration:none;">
                             <div style="padding: 16px;height: 56px;border-radius: 5px;">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <mask id="mask0_172_683" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
@@ -74,6 +80,4 @@
         </div>
         
     </body>
-
-
 @endsection

@@ -2,21 +2,35 @@
     <h2 style="font-weight: 700;font-size: 32px;line-height: 39px;">
         Edit Profil
     </h2>
-
-    <form method="post"action=""
-        enctype="multipart/form-data" id="form-image">
+    <form id="photo_form" action="{{ route('internal_tutor.post.profile.update_photo', auth()->user()->id ) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div style="">
-            {{-- <input type="file" name="avatar" id="image_upload"
-            accept=".png, .jpg, .jpeg" /> --}}
-            <img style="margin-top:40px;" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw0NDw0NDQ0NDQ0NDQ0NDQ0NDQ8IDQ0NFREWFhURExMYHSggGBolGxMTITEhJSkrOi4uFx8zODMsNygtLisBCgoKDQ0NDw0NDisZFRkrLSsrKzctKysrLSsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIALcBEwMBIgACEQEDEQH/xAAYAAEBAQEBAAAAAAAAAAAAAAABAAIDBf/EABoQAQEBAQEBAQAAAAAAAAAAAAABEQISAyH/xAAXAQEBAQEAAAAAAAAAAAAAAAAAAQMC/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAMAwEAAhEDEQA/APDkJh8tHLJxqcnBGYfJxqQGZFjc5OAzjWEgzhw4YgzhkNhAYMaVijHkyNLACxoYDOCxtWAxikawgxixrEDFgx0xSA5eVHSQXn9BnqsWunXLN5Bzoa8s2CrUZEAkbi5jfkQSHDzGsBmcnG8ZkBRY1EAkWNIgzCUQFSIJEYosSQFUxAMFaVBmKwxAEcWAFhQMYsaSAsYrdZsBis1uxnAUSQDh0jny6SAWoDAIhQAwnFAjgBJIEqgBkUUIANAFCoYCCQJBAUlgIEAEkgqy1aADGNs0GcSQDiNs8NQGoRDAKWrFDKQtAhaQSSAIiAisQKJRAoRFQSSBJIEqiASVBkYUAxGioM1lqs0GaQgPDTHzbgNQggiiASKiSpBRJAkQCSUBGpAEUCRABEYCSQFAgxSkArNaCDFDdjOA56RhBfNuOfDpAajUZMAkJRNRlqAkkCMEpBBoADiQJGCgiydA6NBAhAEkYCSQMqpAEkDNZrbHSDKWIGOHTGeW9AtRmVqAUkoiCCIIKERAkkBSQKJKgkIQSIBUYUAKQIEAEQASSAZ6aooOaSActMctwGoRKYgSCoCGgIWpQoGAgqoBlLJApIAQQIQAggEQgILIJVIAiKArHVNrHVQSCBct4xy3ATUBAkICWdIIhKE4DaCCWgUNQNRCEBhQAoEAoEBo0gChqBFlaCtCCArFjdYtBamdQLl0jny3Aa0swgSEBSAFaCBiSUWpJBGDUo0NCBpMnQIWi0GhrKQatTKKNKDQBAANCgAmejaxQCBFXNa1z5rWiNynXONSg3p1g6DRZQNRM6NB01axq0G1WbVoHTrGkGkzq0GtWs6NBrVRo0GhRo6oNaZWJTKg2GdWqHVaxp0COgtACpmgNSoFXJSBStSpAZTqQi0pAFpQFaEA9HUgWmBAdWhAdGpANOpAhpQBFIHQkozp1IANKBmpIVm0JA//2Q==" alt="">
-            <button id="btnChoosePhotoProfileSetting" class="btn my-4 my-sm-0 mx-4" style="color:white;background:rgba(6, 56, 82, 0.1);" type="submit">
+            <label for="image_upload" style="cursor: pointer;">
+                <input type="file" name="avatar" id="image_upload" accept=".png, .jpg, .jpeg" style="display: none;" />
+                @if ($tutor->avatar)
+                    <img style="width: 100px;height: 100px;border-radius:100px;" src="{{ asset($tutor->avatar) }}" alt="">
+                @else
+                    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="50" fill="#D9D9D9"/>
+                    </svg>
+                @endif
+            </label>
+            <button class="btn my-4 my-sm-0 mx-4" style="color:white;background:rgba(6, 56, 82, 0.1);" type="button" onclick="selectImage()">
                 <b>
                     <p style="color:#063852;margin:0px;">
                         Ubah foto
                     </p>
                 </b>
             </button>
+            <script>
+                function selectImage() {
+                    document.getElementById('image_upload').click();
+                }
+
+                document.getElementById('image_upload').addEventListener('change', function() {
+                    document.getElementById('photo_form').submit();
+                });
+            </script>
         </div>
     </form>
     <form action="{{ route('internal_tutor.post.updateProfile', auth()->user()->id) }}" method="POST">

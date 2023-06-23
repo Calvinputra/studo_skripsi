@@ -5,6 +5,7 @@ namespace App\Http\Controllers\internal;
 use App\Http\Controllers\Controller;
 use App\Models\Tutor;
 use App\Models\User;
+use App\Models\Wallet;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -100,6 +101,11 @@ class AuthController extends Controller
                 $tutor->role_id = 2;
                 $tutor->password = bcrypt($request->password);
                 $tutor->save();
+
+                $wallet = new Wallet;
+                $wallet->user_id = $tutor->id;
+                $wallet->balance = 0;
+                $wallet->save();
 
                 // Lakukan login otomatis setelah pendaftaran
                 Auth::login($tutor);

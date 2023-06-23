@@ -11,7 +11,7 @@
                 <div class="col-sm-4">
                     <a class="hover-img" href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
                         <img style="width: 100%;height:144px;margin:0px;"
-                            src="/thumbnails/{{$class->thumbnail}}"
+                            src="{{ asset($class->thumbnail) }}"
                             alt="">                        
                         <div class="middle">
                             <div class="text hover-text-card" style="color: #063852">Edit Kelas</div>

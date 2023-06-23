@@ -21,17 +21,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td style="text-align:center;">1</td>
-                                        <td style="text-align:center;">1</td>
-                                        <td style="text-align:left;">Jason Renata</td>
-                                        <td style="text-align:center;">Pengguna</td>
-                                        <td style="text-align:left;">jasonjason@gmail.com</td>
-                                        <td style="text-align:center;">087773647282</td>
-                                        <td style="text-align:center;">
-                                            <a href="#" style="color: #20A2EB;">Hapus</a>
-                                        </td>
-                                    </tr>
+                                    @foreach ($list_pengguna as $pkey => $pengguna)
+                                        <tr>
+                                            <td style="text-align:center;">{{ $pkey+1 }}</td>
+                                            <td style="text-align:center;">{{ $pengguna->id }}</td>
+                                            <td style="text-align:left;">{{ $pengguna->name }}</td>
+                                            <td style="text-align:center;">{{ $pengguna->role_name }}</td>
+                                            <td style="text-align:left;">{{ $pengguna->email }}</td>
+                                            @if($pengguna->phone_number == null)
+                                                <td style="text-align:center;">-</td>
+                                            @else
+                                                <td style="text-align:center;">{{ $pengguna->phone_number }}</td>
+                                            @endif
+                                            <td style="text-align:center;">
+                                                <form action="{{ route('studo.deletePengguna', $pengguna->id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" style="color: #20A2EB; background: none; border: none; padding: 0; font: inherit; cursor: pointer; text-decoration: underline;">Hapus</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

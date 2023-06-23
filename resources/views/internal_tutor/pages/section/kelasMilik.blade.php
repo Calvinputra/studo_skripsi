@@ -1,3 +1,4 @@
+
 <style>
     
     .hover-img:hover .middle {
@@ -18,16 +19,35 @@
         @php
             $activeClassExists = false;
         @endphp
-        @foreach ($classes as $class)
+        @foreach ($classes as $ckey => $class)
             @if($class->status == 'active')
                 @php
-                    $activeClassExists = true;
+                $activeClassExists = true;
+                    $list_nilai_proyek = \App\Models\ProjectLog::join('users', 'users.id', '=', 'project_log.user_id')
+                    ->join('quest', 'quest.class_id', '=', 'project_log.class_id')
+                    ->leftJoin('quest_completion', function($join) {
+                        $join->on('quest_completion.user_id', '=', 'project_log.user_id')
+                            ->on('quest_completion.quest_id', '=', 'quest.id');
+                    })
+                    ->where('project_log.class_id', $class->id)
+                    ->select([
+                        'project_log.user_id as user_id',
+                        'project_log.class_id as class_id',
+                        'project_log.photo as photo',
+                        \DB::raw('MAX(project_log.id) as id'),
+                        \DB::raw('MAX(project_log.score) as score'),
+                        'users.name as user_name',
+                        'users.email as user_email',
+                        \DB::raw('MAX(CASE WHEN quest_completion.quest_type = \'posttest\' THEN quest_completion.score ELSE NULL END) as quest_score'),
+                    ])
+                    ->groupBy('project_log.user_id', 'project_log.class_id','project_log.photo', 'users.name', 'users.email')
+                    ->get();
                 @endphp
                 <div class="row" style="margin:24px 0px;">
                     <div class="col-sm-4">
                         <a class="hover-img" href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
                             <img style="width: 100%;height:144px;margin:0px;"
-                                src="/thumbnails/{{$class->thumbnail}}"
+                                src="{{ asset($class->thumbnail) }}"
                                 alt="">                        
                             <div class="middle">
                                 <div class="text hover-text-card" style="color: #063852">Edit Kelas</div>
@@ -56,7 +76,7 @@
                             </div>
                             <div class="col-sm-8">
                                 <p class="m-0">
-                                    : 20 User
+                                    : {{ count($list_nilai_proyek) }} User
                                 </p>
                             </div>
                         </div>
@@ -76,22 +96,23 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center" style="margin-top:18px;">
+                        <div class="nav-container pt-2">
                             <ul class="nav">
-                                <div class="nav-item">
-                                    <a class="btn-dashboard active-dashboard" id="nav-dashboard-tab" data-bs-toggle="tab" href="#lihatForum">
-                                        <b>
-                                            Lihat Forum
-                                        </b>
+                                <li class="nav-item">
+                                    <a class="btn-dashboard me-3" href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
+                                        <b>Edit Kelas</b>
                                     </a>
-                                </div>
-                                <div class="nav-item" style="margin:0px 16px;">
-                                    <a class="btn-dashboard active-dashboard" id="nav-dashboard-tab" data-bs-toggle="tab" href="#nilaiProyek">
-                                        <b>
-                                            Nilai Proyek
-                                        </b>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn-dashboard" id="nav-dashboard-tab-1" data-bs-toggle="tab" href="#lihatForum{{ $ckey }}">
+                                        <b>Lihat Forum</b>
                                     </a>
-                                </div>
+                                </li>
+                                <li class="nav-item ps-3">
+                                    <a class="btn-dashboard" id="nav-dashboard-tab-2" data-bs-toggle="tab" href="#nilaiProyek{{ $ckey }}">
+                                        <b>Nilai Proyek</b>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>

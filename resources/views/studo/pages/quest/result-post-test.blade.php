@@ -76,7 +76,7 @@
                             Good Job! Silahkan ambil sertifkat kamu
                         </b>
                         <br>
-                        <a href="#">
+                        <a href="{{ route('studo.setting') }}">
                             di sini.
                         </a>
                     </p>

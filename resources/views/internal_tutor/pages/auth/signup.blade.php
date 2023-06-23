@@ -23,7 +23,7 @@
 </style>
 
 @section('content')
-<div class="loginBox"> <img class="user" src="https://i.ibb.co/yVGxFPR/2.png" height="100px" width="100px">
+<div class="loginBox"> 
     <h3>Register here</h3>
     <form action="{{ route('internal_tutor.post.signup') }}" method="post">
         @csrf

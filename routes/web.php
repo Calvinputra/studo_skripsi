@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\studo\CheckoutController;
 use App\Http\Controllers\studo\OverviewController;
-use App\Http\Controllers\studo\SearchController;
+use App\Http\Controllers\studo\AllController;
 use App\Http\Controllers\studo\SettingController;
 use App\Http\Controllers\studo\SiteController;
 use App\Http\Controllers\studo\QuestController;
@@ -36,7 +36,7 @@ Route::namespace('studo')->group( function () {
             // Home
             Route::get('/', [SiteController::class, 'index'])->name('studo.index');
 
-            Route::get('/search-page', [SearchController::class, 'index'])->name('studo.search');
+            Route::get('/all-class', [AllController::class, 'index'])->name('studo.all');
 
             Route::get('/overview/{slug}/{chapter_id?}', [OverviewController::class, 'index'])->name('studo.overview');
 
@@ -73,8 +73,6 @@ Route::namespace('studo')->group( function () {
 
             Route::post('/forum/{slug}/{chapter_id?}/submit',  [OverviewController::class, 'postForum'])->name('studo.pages.forum.submit');
             Route::post('/reply/forum/{slug}/{chapter_id?}/submit',  [OverviewController::class, 'postReplyForum'])->name('studo.pages.reply.forum.submit');
-
-
             Route::get('/signout', [App\Http\Controllers\studo\AuthController::class, 'getSignout'])->name('studo.post.signout');
 
         });
@@ -133,14 +131,19 @@ Route::namespace('internal')->group(function () {
         //  Change status deactive class -> Active
         Route::post('/internal/class/{slug}/actived/class', [ClassController::class, 'activedClass'])->name('internal_tutor.class.actived');
 
+        Route::post('/internal/tutor/nilai/proyek/{id}', [TutorController::class, 'beriNilaiProyek'])->name('internal_tutor.post.beriNilaiProyek');
+
+        Route::post('/internal/profile/tarik/saldo/{id}', [TutorController::class, 'tarikSaldo'])->name('internal_tutor.post.tarikSaldo');
 
         // Input Quest
         Route::post('internal/class/quest/question/import', [ClassController::class, 'import_quiz_question'])->name('internal.quest.question.import');
 
         // Update Profile Tutor
         Route::post('/internal/tutor/profile/update/{id}', [TutorController::class, 'updateProfile'])->name('internal_tutor.post.updateProfile');
+        Route::post('/internal/tutor/profile/photo/update/{id}', [TutorController::class, 'updateProfilePhoto'])->name('internal_tutor.post.profile.update_photo');
         Route::post('/internal/tutor/profile/updatePassword/{id}', [TutorController::class, 'updatePassword'])->name('internal_tutor.post.updatePassword');
 
+        Route::get('/internal/tutor/get-forum/{classId}', [TabPanesController::class, 'getForum']);
 
     });
 
@@ -153,6 +156,15 @@ Route::middleware('auth.admin')->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.pages.dashboard.index');
     Route::post('/admin/dashboard/confirm/subscription/{id}', [DashboardController::class, 'confirmSubscription'])->name('studo.subscription.confirm');
     Route::post('/admin/dashboard/confirm/subscription/reject/{id}', [DashboardController::class, 'rejectSubscription'])->name('studo.subscription.reject');
+
+    Route::post('/admin/dashboard/confirm/tarik/saldo/{id}', [DashboardController::class, 'confirmTarikSaldo'])->name('studo.TarikSaldo.confirm');
+    Route::post('/admin/dashboard/confirm/tarik/saldo/reject/{id}', [DashboardController::class, 'rejectTarikSaldo'])->name('studo.tarik.saldo.reject');
+
+    Route::post('/admin/dashboard/hapus/pengguna/{id}', [DashboardController::class, 'deletePengguna'])->name('studo.deletePengguna');
+    Route::post('/admin/dashboard/hapus/kelas/{id}', [DashboardController::class, 'deleteKelas'])->name('studo.deleteKelas');
+
+
+
 });
 
 

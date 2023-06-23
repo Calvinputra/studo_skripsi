@@ -15,23 +15,29 @@ use App\Models\ReplyForum;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class OverviewController extends Controller
 {
     public function index($slug, $chapter_id = null)
     {
-        $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
-        ->select([
-            'classes.*',
-            'users.name as tutor_name',
-            'users.email as tutor_email',
-        ])->where('slug', $slug)->where('status', 'active')->first();
-
-        if (!$class) {
-            return redirect()->route('studo.index')->with('error', 'Kelas ini tidak ditemukan !');
-        }
         if(auth()->check())
         {
+            $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
+            ->join('chapters', 'chapters.class_id', '=', 'classes.id')
+            ->select([
+                'classes.*',
+                'users.name as tutor_name',
+                'users.email as tutor_email',
+                'chapters.name as chapter_name',
+            ])->where('slug', $slug)->where('status', 'active')->first();
+
+            if (!$class) {
+                return redirect()->route('studo.index')->with('error', 'Kelas ini tidak ditemukan !');
+            }
+
             $user = User::find(Auth()->user()->id);
             $subscription = Subscription::where('class_id', $class->id)->where('user_id', auth()->user()->id)->where('status','paid')->first();
             $project = Project::where('class_id', $class->id)->first();
@@ -48,14 +54,47 @@ class OverviewController extends Controller
             ->where('score', '>=', 70)
             ->where('quest_completion.user_id', Auth()->user()->id)->first();
 
+            $chapter_log = ChapterLog::join('chapters', 'chapters.id', '=', 'chapter_log.chapter_id')
+            ->join('classes', 'classes.id', '=', 'chapters.class_id')
+            ->where('chapter_log.user_id', auth()->user()->id)
+            ->where('classes.id', '=', $class->id)
+            ->get();
+            
             if (!$chapter_id) {
+                $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
+                    ->join('chapters', 'chapters.class_id', '=', 'classes.id')
+                    ->select([
+                        'classes.*',
+                        'users.name as tutor_name',
+                        'users.email as tutor_email',
+                        'chapters.name as chapter_name',
+                    ])->where('slug', $slug)->where('status', 'active')->first();
+
+                if (!$class) {
+                    return redirect()->route('studo.index')->with('error', 'Kelas ini tidak ditemukan !');
+                }
                 $chapter = null;
                 $embedUrl = null;
                 $list_forum = null;
                 $reply_forum = null;
+                $list_leaderboard = null;
+                $count_chapter_leader_boards = null;
+                $check_project = null;
             } else {
                 $chapter = Chapter::where('class_id', $class->id)->where('id', $chapter_id)->first();
+                $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
+                ->join('chapters', 'chapters.class_id', '=', 'classes.id')
+                ->select([
+                    'classes.*',
+                    'users.name as tutor_name',
+                    'users.email as tutor_email',
+                    'chapters.id as chapter_id',
+                    'chapters.name as chapter_name',
+                ])->where('slug', $slug)->where('status', 'active')->where('chapters.id', $chapter_id)->first();
 
+                if (!$class) {
+                    return redirect()->route('studo.index')->with('error', 'Kelas ini tidak ditemukan !');
+                }
                 if (!$chapter) {
                     return redirect()->route('studo.index')->with('error', 'Chapter ini tidak ditemukan!');
                 }
@@ -109,15 +148,37 @@ class OverviewController extends Controller
                 ->where('class_id', $class->id)
                 ->get();
 
-                // Leaderboards
-                $list_leaderboard = Leaderboard::join('classes', 'classes.id', '=', 'leaderboard.class_id')
-                ->join('users', 'users.id', '=', 'leaderboard.user_id')
-                ->join('chapters', 'chapters.id', '=', 'classes.chapter_id')
-                ->select([
-                    'leaderboard.*',
-                    'users.name as name',
-                ])
-                ->where('class_id', $class->id)->get();
+                $list_leaderboard = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
+                ->join('users', 'users.id', '=', 'subscription.user_id')
+                ->join('chapters', 'chapters.class_id', '=', 'classes.id')
+                ->leftJoin('chapter_log', function ($join) {
+                    $join->on('chapter_log.chapter_id', '=', 'chapters.id')
+                    ->on('chapter_log.user_id', '=', 'users.id');
+                })
+                    ->select([
+                        'users.name as user_name',
+                        DB::raw('COUNT(DISTINCT chapter_log.chapter_id) as total_chapters_watched'),
+                        DB::raw('SUM(chapters.duration) as total_duration'),
+                        DB::raw('TIMESTAMPDIFF(HOUR, MAX(subscription.created_at), MAX(chapter_log.created_at)) %24 as total_completion_hours'),
+                        DB::raw('SEC_TO_TIME(SUM(chapters.duration) * 60) as total_duration_formatted'),
+                        DB::raw('TIMESTAMPDIFF(MINUTE, MAX(subscription.created_at), MAX(chapter_log.created_at)) %60 as total_completion_minutes'),
+                        DB::raw('TIMESTAMPDIFF(DAY, MAX(subscription.created_at), MAX(chapter_log.created_at)) as total_completion_days')
+                    ])
+                    ->whereIn('subscription.id', function ($query) use ($class) {
+                        $query->select(DB::raw('MAX(id)'))
+                        ->from('subscription')
+                        ->where('class_id', $class->id)
+                            ->groupBy('user_id');
+                    })
+                    ->groupBy('user_name')
+                    ->orderBy('total_chapters_watched', 'DESC')
+                    ->orderBy('total_completion_hours', 'ASC')
+                    ->get();
+
+                $check_project = ProjectLog::where('user_id', $user->id)
+                ->where('class_id', $class->id)->first();
+
+                $count_chapter_leader_boards = Chapter::where('class_id', $class->id)->count();
 
             }
         }else{
@@ -129,7 +190,23 @@ class OverviewController extends Controller
             $embedUrl = null;
             $list_forum = null;
             $reply_forum = null;
+            $list_leaderboard = null;
+            $count_chapter_leader_boards = null;
             $user = null;
+            $chapter_log = null;
+            $check_project = null;
+            $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
+            ->join('chapters', 'chapters.class_id', '=', 'classes.id')
+                ->select([
+                    'classes.*',
+                    'users.name as tutor_name',
+                    'users.email as tutor_email',
+                    'chapters.name as chapter_name',
+                ])->where('slug', $slug)->where('status', 'active')->first();
+
+            if (!$class) {
+                return redirect()->route('studo.index')->with('error', 'Kelas ini tidak ditemukan !');
+            }
         }
 
         $points = preg_split("/\r?\n/", $class->competency_unit);
@@ -144,11 +221,7 @@ class OverviewController extends Controller
         $all_chapter = Chapter::where('class_id', $class->id)
         ->orderBy('priority', 'ASC')->get();
 
-        $chapter_log = ChapterLog::join('chapters', 'chapters.id', '=', 'chapter_log.chapter_id')
-        ->join('classes', 'classes.id', '=', 'chapters.class_id')
-        ->where('chapter_log.user_id', auth()->user()->id)
-        ->where('classes.id', '=', $class->id)
-        ->get();
+
 
         return view('studo.pages.overview.index', [
             'class' => $class,
@@ -168,6 +241,9 @@ class OverviewController extends Controller
             'embedUrl' => $embedUrl,
             'list_forum' => $list_forum,
             'reply_forum' => $reply_forum,
+            'list_leaderboard' => $list_leaderboard,
+            'check_project' => $check_project,
+            'count_chapter_leader_boards' => $count_chapter_leader_boards,
             'user' => $user,
         ]);
 
@@ -180,21 +256,49 @@ class OverviewController extends Controller
             'classes.*',
             'users.name as tutor_name',
             'users.email as tutor_email',
-        ])->where('slug', $slug)->where('status', 'active')->first();
+        ])
+            ->where('slug', $slug)
+            ->where('status', 'active')
+            ->first();
 
         if (!$class) {
-            return redirect()->route('studo.index')->with('error', 'Quest ini tidak ditemukan !');
+            return redirect()->route('studo.index')->with('error', 'Kelas tidak ditemukan!');
+        }
+        $user_id = Auth::user()->id;
+
+        $projectLog = ProjectLog::where('class_id', $class->id)->where('user_id', $user_id)->first();
+
+        if($projectLog){
+
+            $projectLog->class_id = $class->id;
+            $projectLog->user_id = $user_id;
+            $projectLog->status = 'review';
+
+            // Mengunggah dan menyimpan foto
+            if ($request->hasFile('photo')) {
+                $photo = $request->file('photo');
+                $photoPath = $photo->store('projects'); // Menyimpan foto ke direktori 'storage/app/projects'
+                $projectLog->photo = $photoPath;
+            }
+
+            $projectLog->save();
+        }else{
+            $project = new ProjectLog;
+            $project->class_id = $class->id;
+            $project->user_id = $user_id;
+            $project->status = 'review';
+
+            // Mengunggah dan menyimpan foto
+            if ($request->hasFile('photo')) {
+                $photo = $request->file('photo');
+                $photoPath = $photo->store('projects'); // Menyimpan foto ke direktori 'storage/app/photos'
+                $project->photo = $photoPath;
+            }
+            $project->save();
+
         }
 
-
-        $quiz_completion = ProjectLog::updateOrCreate([
-            'class_id'       => $class->id,
-            'user_id'       => Auth()->user()->id,
-            'photo'     => $request->photo,
-        ]);
-
-        return redirect()->route('studo.overview', ['slug' => $slug, 'chapter_id' => $chapter_id])->with('success', 'Project berhasil diinput');
-
+        return redirect()->route('studo.overview', ['slug' => $slug, 'chapter_id' => $chapter_id])->with('success', 'Proyek berhasil diunggah');
     }
 
     public function postForum(Request $request,$slug, $chapter_id = null)

@@ -5,12 +5,14 @@ namespace App\Http\Controllers\studo;
 use App\Http\Controllers\Controller;
 use App\Models\Classes;
 use App\Models\Subscription;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
 {
     public function getUpload( $slug)
     {
+        $user = User::find(auth()->user()->id);
         $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->select([
             'classes.*',
@@ -23,6 +25,7 @@ class CheckoutController extends Controller
         }
         return view('studo.pages.checkout.uploadPembayaran',[
             'class' => $class,
+            'user' => $user,
         ]);
     }
 
@@ -61,6 +64,7 @@ class CheckoutController extends Controller
 
     public function getCheckout($slug)
     {
+        $user = User::find(auth()->user()->id);
         $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->select([
             'classes.*',
@@ -75,6 +79,7 @@ class CheckoutController extends Controller
 
         return view('studo.pages.checkout.index', [
             'class' => $class,
+            'user' => $user,
         ]);
     }
 }

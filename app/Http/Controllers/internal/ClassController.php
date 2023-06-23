@@ -188,6 +188,7 @@ class ClassController extends Controller
         }
 
         $class = Classes::where('slug', $slug)->where('user_id', auth()->user()->id)->first();
+        $tutor = User::find(auth()->user()->id);
         
         if(!$class){
             return redirect()->route('internal_tutor.index')->with('error', 'Kamu tidak pernah membuat kelas ini');
@@ -206,7 +207,8 @@ class ClassController extends Controller
             'chapters' => $chapters,
             'count_video' => $count_video,
             'count_reading' => $count_reading,
-            'count_chapter' => $count_chapter
+            'count_chapter' => $count_chapter,
+            'tutor' => $tutor,
             ])->with('success', 'Kelas berhasil diinput');
     }
     public function storeMateri(Request $request,  $slug)
@@ -225,6 +227,8 @@ class ClassController extends Controller
             'name' => 'required',
             'class_id' => 'required',
             'type' => 'required',
+            'duration' => 'required',
+            'priority' => 'required',
         ]);
         // dd($request->all());
 
@@ -280,6 +284,7 @@ class ClassController extends Controller
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
+        $tutor = User::find(auth()->user()->id);
 
         $class = Classes::where('slug', $slug)->first();
         
@@ -330,7 +335,8 @@ class ClassController extends Controller
             'check_posttest' => $check_posttest,
             'count_pretest' => $count_pretest,
             'count_posttest' => $count_posttest,
-            'all_quest' => $all_quest
+            'all_quest' => $all_quest,
+            'tutor' => $tutor,
             ])->with('success', 'Kelas berhasil diinput');
     }
 
@@ -441,10 +447,12 @@ class ClassController extends Controller
         $class = Classes::where('slug', $request->slug)->first();
 
         $check_project = Project::where('class_id', $class->id)->first();
+        $tutor = User::find(auth()->user()->id);
 
         return view('internal_tutor.pages.inputClass.project', [
             'class' => $class,
             'check_project' => $check_project,
+            'tutor' => $tutor,
         ]);
     }
 
@@ -557,13 +565,23 @@ class ClassController extends Controller
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
+
+        
         $class = Classes::where('slug', $request->slug)->where('user_id', auth()->user()->id)->first();
 
-        $status = Classes::find($class->id);
-        $status->status = 'active';
-        $status->save();
+        $check_done_class = Classes::join('project', 'project.class_id', '=', 'classes.id')
+        ->where('class_id', $class->id)->first();
 
-        return redirect()->route('internal_tutor.index')->with('success', 'Kelas berhasil di Aktifkan');
+        
+        if($check_done_class){
+            $status = Classes::find($class->id);
+            $status->status = 'active';
+            $status->save();
+            return redirect()->route('internal_tutor.index')->with('success', 'Kelas berhasil di Aktifkan');
+        }else{
+            return redirect()->route('internal_tutor.index')->with('error', 'Lengkapi Kelas Terlebih dahulu!');
+        }
+
     }
 
     public function download_template_question_import()

@@ -18,9 +18,9 @@ class CreateChapters extends Migration
             $table->unsignedInteger('class_id');
             $table->string('type');
             $table->string('name');
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->string('url')->nullable();
-            $table->string('reading')->nullable();
+            $table->longText('reading')->nullable();
             $table->integer('duration');
             $table->integer('priority');
             $table->timestamps();

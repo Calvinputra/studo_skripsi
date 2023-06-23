@@ -23,7 +23,7 @@
 </style>
 
 @section('content')
-<div class="loginBox"> <img class="user" src="https://i.ibb.co/yVGxFPR/2.png" height="100px" width="100px">
+<div class="loginBox">
     <h3>Halo Tutor, <br>Silahkan Login disini</h3>
     <form action="{{ route('internal_tutor.post.signin') }}" method="post">
         @csrf
@@ -34,15 +34,15 @@
                 <i id="toggle-password" class="fa fa-eye password-icon"></i>
             </div>
         </div> 
-        <div class="clearfix d-flex align-items-center justify-content-between" style="margin-top:16px;padding:0px 0px 0px 20px;margin-bottom:32px;">
+        {{-- <div class="clearfix d-flex align-items-center justify-content-between" style="margin-top:16px;padding:0px 0px 0px 20px;margin-bottom:32px;">
             <div>
                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" style="width:16px;">
                 <label class="form-check-label" for="defaultCheck1" style="width:110px;">
                     Remember Me
                 </label>
             </div>
-            {{-- <a href="" style="color:#063852; margin-left:20px; font-size:14px;">Forgot Password?</a> --}}
-        </div>
+            <a href="" style="color:#063852; margin-left:20px; font-size:14px;">Forgot Password?</a>
+        </div> --}}
         <input type="submit" name="" value="Masuk" style="background:#063852">
     </form> 
 

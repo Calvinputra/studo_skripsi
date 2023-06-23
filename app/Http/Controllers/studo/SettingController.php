@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\studo;
 
 use App\Http\Controllers\Controller;
+use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -19,11 +21,90 @@ class SettingController extends Controller
         }
 
         $user = User::find(auth()->user()->id);
-        $avatar = auth()->user()->avatar;
+
+        $subscriptions = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
+        ->join('users', 'users.id', '=', 'classes.user_id')
+        ->leftJoin('chapters', function ($join) {
+            $join->on('chapters.class_id', '=', 'classes.id')
+            ->whereRaw('chapters.id = (SELECT MIN(id) FROM chapters WHERE class_id = classes.id)');
+        })
+            ->select([
+                'classes.*',
+                'users.id as user_id',
+                'users.name as tutor_name',
+                'users.email as tutor_email',
+                'chapters.id as chapter_id',
+                'chapters.name as chapter_name',
+            ])
+            ->whereIn('subscription.id', function ($query) use ($user) {
+                $query->select(DB::raw('MAX(id)'))
+                ->from('subscription')
+                ->where('user_id', $user->id)
+                    ->where('status', 'paid')
+                    ->groupBy('class_id');
+            })
+            ->get();
+
+        $check_done_class = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
+        ->join('quest', 'quest.class_id', '=', 'classes.id')
+        ->join('users', 'users.id', '=', 'classes.user_id')
+        ->join('quest_completion', 'quest_completion.quest_id', '=', 'quest.id')
+        ->join('project_log', 'project_log.class_id', '=', 'classes.id')
+        ->select([
+            'classes.*',
+            'subscription.user_id as user_id',
+            'project_log.score as project_score',
+            'users.name as user_name',
+            'quest_completion.id as quest_completion_id',
+            'quest_completion.quest_type as quest_completion_type',
+        ])
+            ->whereIn('subscription.id', function ($query) use ($user) {
+                $query->select(DB::raw('MAX(id)'))
+                ->from('subscription')
+                ->where('user_id', $user->id)
+                    ->where('status', 'paid')
+                    ->groupBy('class_id');
+            })
+            ->where('quest_completion.user_id', $user->id)
+            ->where('quest_completion.quest_type', 'posttest')
+            ->get();
+
+        $check_undone_class = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
+        ->join('quest', 'quest.class_id', '=', 'classes.id')
+        ->join('users', 'users.id', '=', 'classes.user_id')
+        ->leftJoin('quest_completion AS posttest_completion', function ($join) use ($user) {
+            $join->on('posttest_completion.quest_id', '=', 'quest.id')
+            ->where('posttest_completion.user_id', $user->id)
+                ->where('posttest_completion.quest_type', 'posttest');
+        })
+            ->join('quest_completion AS pretest_completion', function ($join) use ($user) {
+                $join->on('pretest_completion.quest_id', '=', 'quest.id')
+                ->where('pretest_completion.user_id', $user->id)
+                    ->where('pretest_completion.quest_type', 'pretest');
+            })
+            ->select([
+                'classes.*',
+                'subscription.user_id as user_id',
+                'users.name as user_name',
+                'pretest_completion.id as pretest_completion_id',
+                'pretest_completion.quest_type as pretest_completion_type',
+            ])
+            ->whereIn('subscription.id', function ($query) use ($user) {
+                $query->select(DB::raw('MAX(id)'))
+                ->from('subscription')
+                ->where('user_id', $user->id)
+                    ->where('status', 'paid')
+                    ->groupBy('class_id');
+            })
+            ->whereNull('posttest_completion.id')
+            ->get();
+            
 
         return view('studo.pages.setting.index', [
             'user' => $user,
-            'avatar' => $avatar
+            'subscriptions' => $subscriptions,
+            'check_done_class' => $check_done_class,
+            'check_undone_class' => $check_undone_class,
         ]);
     }
 
@@ -67,27 +148,20 @@ class SettingController extends Controller
         $request->validate($rules);
 
         $user = auth()->user();
-        $avatar = $user->avatar;
 
-        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-            $file = Str::slug($user->name) . '-' . Str::random(4) . '-' . Str::random(10) . '.jpg';
-            $user->avatar = $file;
+        // handle file upload
+        if ($request->hasFile('avatar')) {
+            // get file
+            $file = $request->file('avatar');
 
-            // Ambil ekstensi file asli
-            $extension = $request->file('avatar')->getClientOriginalExtension();
+            // generate unique name for the file
+            $filename = time() . '.' . $file->getClientOriginalExtension();
 
-            // Anda bisa langsung menentukan direktori target sebagai 'upload/files/img/avatar/' tanpa menambahkan $file
-            $targetDir = 'upload/files/img/avatar/';
+            // save file to public/avatars directory
+            $path = $file->storeAs('avatarProject', $filename, 'public');
 
-            // Simpan file ke penyimpanan lokal (misalnya: folder public)
-            $request->file('avatar')->storeAs('public/' . $targetDir, $file);
-
-            // Hapus file avatar lama jika ada
-            $path = 'upload/files/img/avatar/' . $file;
-
-            if (Storage::disk('public')->exists($path)) {
-                Storage::disk('public')->delete($path);
-            }
+            // save file name to database
+            $user->avatar = $path;
         }
 
         $user->save();

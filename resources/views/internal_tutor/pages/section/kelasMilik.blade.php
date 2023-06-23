@@ -29,13 +29,14 @@
                     ->select([
                         'project_log.user_id as user_id',
                         'project_log.class_id as class_id',
+                        'project_log.photo as photo',
                         \DB::raw('MAX(project_log.id) as id'),
                         \DB::raw('MAX(project_log.score) as score'),
                         'users.name as user_name',
                         'users.email as user_email',
                         \DB::raw('MAX(CASE WHEN quest_completion.quest_type = \'posttest\' THEN quest_completion.score ELSE NULL END) as quest_score'),
                     ])
-                    ->groupBy('project_log.user_id', 'project_log.class_id', 'users.name', 'users.email')
+                    ->groupBy('project_log.user_id', 'project_log.class_id','project_log.photo', 'users.name', 'users.email')
                     ->get();
                 @endphp
                 <div class="row" style="margin:24px 0px;">

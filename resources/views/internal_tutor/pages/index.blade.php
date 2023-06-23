@@ -83,7 +83,7 @@
                 <div style="border: 1px solid #E6EBED;margin:24px 0px;">
                 </div>
                 <div class="form-group">
-                    <div  style="justify-content: center;align-items: center;padding: 8px 16px;">
+                    <div  style="justify-content: center;align-items: center;">
 
                         <a  href="{{ route('internal_tutor.class.informasi') }}" class="button-text-login btn-masuk" style="text-decoration:none;display:flex;border: 1px solid #063852;border-radius: 5px;width:100%;color:#063852; border-color:#063852;background:white">
                         <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">

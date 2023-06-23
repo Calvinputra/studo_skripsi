@@ -33,7 +33,7 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="nav-link" href="{{ route('studo.post.signout') }}">
-                                    keluar
+                                    Keluar
                                 </a>
                             </div>
                         </div>

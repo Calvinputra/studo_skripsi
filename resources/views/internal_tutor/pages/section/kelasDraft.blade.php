@@ -23,9 +23,16 @@
                         {{ $class->name }}
                     </p>
                         <input type="hidden" name="status" value="active">
-                        <button type="submit" class="btn-publish">
-                            Publish Kelas
-                        </button>
+                        <div class="d-flex align-items-center">
+                            <button type="submit" class="btn-dashboard" style="margin-right:16px;">
+                                Publish Kelas
+                            </button>
+                            <a href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
+                                <button class="btn-dashboard">
+                                    Edit Kelas
+                                </button>
+                            </a>
+                        </div>
                     </b>
                 </div>
             </div>

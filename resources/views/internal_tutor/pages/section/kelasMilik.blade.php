@@ -7,6 +7,10 @@
     .hover-img:hover img {
         opacity: 1;
         filter: brightness(70%);
+        
+    }
+    .btn-dashboard:hover {
+        background: rgba(6, 56, 82, 0.10); 
     }
 </style>
 <div class="row tab-pane active" id="kelasAktif" role="tabpanel">
@@ -31,9 +35,16 @@
                         </a>
                     </div>
                     <div class="col-sm-7">
-                        <p class="text-kelas-admin">
-                            {{ $class->name }}
-                        </p>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <p class="text-kelas-admin">
+                                {{ $class->name }}
+                            </p>
+                            <a class="btn-dashboard hover-img" id="nav-dashboard-tab" href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
+                                <b>
+                                    Edit Kelas
+                                </b>
+                            </a>
+                        </div>
                         <div class="row">
                             <div class="col-sm-4">
                                 <p class="m-0 d-flex align-items-center">

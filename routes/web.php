@@ -60,7 +60,10 @@ Route::namespace('studo')->group( function () {
             Route::post('/setting/user/profile/update/{id}', [SettingController::class, 'updateProfile'])->name('studo.post.updateProfile');
             Route::post('/setting/user/profile/photo/update/{id}', [SettingController::class, 'updateProfilePhoto'])->name('studo.user.profile.update_photo');
             Route::post('/setting/user/profile/updatePassword/{id}', [SettingController::class, 'updatePassword'])->name('studo.post.updatePassword');
-            
+
+            Route::get('/generate-certificate/{user}', [SettingController::class, 'generateCertificate'])->name('studo.generate.certificate');
+
+
             Route::get('/quest/pretest/{slug}', [QuestController::class, 'indexPreTest'])->name('studo.pages.quest.pre-test');
             Route::post('/quest/pretest/{slug}/submit',  [QuestController::class, 'postPreTest'])->name('studo.pages.quest.pre-test.submit');
             Route::get('/quest/pretest/{slug}/result', [QuestController::class, 'resultPreTest'])->name('studo.pages.quest.pre-test.result');

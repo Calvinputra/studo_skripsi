@@ -211,6 +211,7 @@ table.dataTable.no-footer{
                                         </div>
                                         <div class="modal-body">
                                             <div class="mb-3">
+                                                <label style="font-weight: bold" for="type">Select Type<span style="color:#EB2020;">*</span></label>
                                                 <select class="form-select" id="addChapterType" name="type">
                                                     <option value="">Select type</option>
                                                     <option value="video">Video</option>
@@ -218,24 +219,29 @@ table.dataTable.no-footer{
                                                 </select>
                                             </div>
                                             <div class="mb-3" id="addChapterTitleGroup" style="display: none;">
-                                                <input type="text" class="form-control" id="chapterTitle" name="name" placeholder="Enter title">
+                                                <label style="font-weight: bold" for="title">Title<span style="color:#EB2020;">*</span></label>
+                                                <input type="text" class="form-control" id="chapterTitle" name="name" placeholder="Enter title" required>
                                             </div>
                                             <div class="mb-3" id="addChapterDescriptionGroup" style="display: none;">
+                                                <label style="font-weight: bold" for="Description">Description<span style="color:#EB2020;">*</span></label>
                                                 <textarea class="form-control" id="chapterDescription" name="description" placeholder="Enter description"></textarea>
                                             </div>
                                             <div class="mb-3" id="addChapterUrlGroup" style="display: none;">
-                                                <label for="">Link Url Dari Youtube</label>
+                                                <label tyle="font-weight: bold" for="url">Link Url Dari Youtube</label>
                                                 <input type="url" class="form-control" id="chapterUrl" name="url" placeholder="Enter video link" pattern="^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$">
                                                 <small class="text-danger">Please enter a valid YouTube link.</small>
                                             </div>
                                             <div class="mb-3" id="addChapterContentGroup" style="display: none;">
+                                                <label style="font-weight: bold" for="Reading Material">Reading Material<span style="color:#EB2020;">*</span></label>
                                                 <textarea class="form-control" id="chapterContent" name="reading" placeholder="Enter reading material"></textarea>
                                             </div>
                                             <div class="mb-3" id="addChapterDurationGroup" style="display: none;">
-                                                <input type="number" class="form-control" id="chapterDuration" name="duration" placeholder="Minute">
+                                                <label style="font-weight: bold" for="Duration">Duration<span style="color:#EB2020;">*</span></label>
+                                                <input type="number" class="form-control" id="chapterDuration" name="duration" placeholder="Minute" required>
                                             </div>
                                             <div class="mb-3" id="addChapterPriorityGroup" style="display: none;">
-                                                <input type="number" class="form-control" id="chapterPriority" name="priority" placeholder="Priority">
+                                                <label style="font-weight: bold" for="Priority">Priority<span style="color:#EB2020;">*</span></label>
+                                                <input type="number" class="form-control" id="chapterPriority" name="priority" placeholder="Priority" required>
                                             </div>
                                         </div>
                                         <input type="hidden" name="class_id" value="{{ $class->id }}">
@@ -260,6 +266,7 @@ table.dataTable.no-footer{
                                         </div>
                                         <div class="modal-body">
                                             <div class="mb-3">
+                                                <label style="font-weight: bold" for="Select Type">Select Type<span style="color:#EB2020;">*</span></label>
                                                 <select class="form-select" id="updateChapterType" name="type">
                                                     <option value="">Select type</option>
                                                     <option value="video">Video</option>
@@ -267,22 +274,28 @@ table.dataTable.no-footer{
                                                 </select>
                                             </div>
                                             <div class="mb-3" id="updateChapterTitleGroup" style="display: none;">
-                                                <input type="text" class="form-control" id="chapterTitle" name="name" placeholder="Enter title">
+                                                <label style="font-weight: bold" for="Title">Title<span style="color:#EB2020;">*</span></label>
+                                                <input type="text" class="form-control" id="chapterTitle" name="name" placeholder="Enter title" required>
                                             </div>
                                             <div class="mb-3" id="updateChapterDescriptionGroup" style="display: none;">
+                                                <label style="font-weight: bold" for="Description">Description<span style="color:#EB2020;">*</span></label>
                                                 <textarea class="form-control" id="chapterDescription" name="description" placeholder="Enter description"></textarea>
                                             </div>
                                             <div class="mb-3" id="updateChapterUrlGroup" style="display: none;">
+                                                <label style="font-weight: bold" for="Url Youtube">Url Youtube<span style="color:#EB2020;">*</span></label>
                                                 <input type="url" class="form-control" id="chapterUrl" name="url" placeholder="Enter video link" pattern="^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$">
                                             </div>
                                             <div class="mb-3" id="updateChapterContentGroup" style="display: none;">
+                                                <label style="font-weight: bold" for="Reading Material">Reading Material<span style="color:#EB2020;">*</span></label>
                                                 <textarea class="form-control" id="chapterContent" name="reading" placeholder="Enter reading material"></textarea>
                                             </div>
                                             <div class="mb-3" id="updateChapterDurationGroup" style="display: none;">
-                                                <input type="number" class="form-control" id="chapterDuration" name="duration" placeholder="Minute">
+                                                <label style="font-weight: bold" for="Duration">Duration<span style="color:#EB2020;">*</span></label>
+                                                <input type="number" class="form-control" id="chapterDuration" name="duration" placeholder="Minute" required>
                                             </div>
                                             <div class="mb-3" id="updateChapterPriorityGroup" style="display: none;">
-                                                <input type="number" class="form-control" id="chapterPriority" name="priority" placeholder="Priority">
+                                                <label style="font-weight: bold" for="Priority">Priority<span style="color:#EB2020;">*</span></label>
+                                                <input type="number" class="form-control" id="chapterPriority" name="priority" placeholder="Priority" required>
                                             </div>
                                         </div>
                                         <input type="hidden" name="class_id" value="{{ $class->id }}">

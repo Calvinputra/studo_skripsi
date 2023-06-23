@@ -227,6 +227,8 @@ class ClassController extends Controller
             'name' => 'required',
             'class_id' => 'required',
             'type' => 'required',
+            'duration' => 'required',
+            'priority' => 'required',
         ]);
         // dd($request->all());
 

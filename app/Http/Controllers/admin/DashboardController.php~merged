@@ -23,14 +23,22 @@ class DashboardController extends Controller
             'users.email as email',
             'users.phone_number as phone_number',
             'classes.price as price',
+<<<<<<< HEAD
+            DB::raw("CONCAT('storage/photos/', subscription.photo) AS photo")
+=======
             'subscription.photo as photo',
+>>>>>>> ca72f2141c7efe70367febc2c098c1a3d9d72b00
         ])
         ->get();
 
         $list_tarik_saldo = Withdrawal::join('wallet', 'wallet.id', '=', 'withdrawal.wallet_id')
         ->join('users', 'users.id', '=', 'wallet.user_id')
         ->select([
+<<<<<<< HEAD
+            'Withdrawal.*',
+=======
             'withdrawal.*',
+>>>>>>> ca72f2141c7efe70367febc2c098c1a3d9d72b00
             'users.name as name',
             'users.email as email',
             ])

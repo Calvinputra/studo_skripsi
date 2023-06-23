@@ -131,6 +131,9 @@ Route::namespace('internal')->group(function () {
         //  Change status deactive class -> Active
         Route::post('/internal/class/{slug}/actived/class', [ClassController::class, 'activedClass'])->name('internal_tutor.class.actived');
 
+        Route::post('/internal/tutor/nilai/proyek/{id}', [TutorController::class, 'beriNilaiProyek'])->name('internal_tutor.post.beriNilaiProyek');
+
+        Route::post('/internal/profile/tarik/saldo/{id}', [TutorController::class, 'tarikSaldo'])->name('internal_tutor.post.tarikSaldo');
 
         // Input Quest
         Route::post('internal/class/quest/question/import', [ClassController::class, 'import_quiz_question'])->name('internal.quest.question.import');
@@ -153,6 +156,15 @@ Route::middleware('auth.admin')->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.pages.dashboard.index');
     Route::post('/admin/dashboard/confirm/subscription/{id}', [DashboardController::class, 'confirmSubscription'])->name('studo.subscription.confirm');
     Route::post('/admin/dashboard/confirm/subscription/reject/{id}', [DashboardController::class, 'rejectSubscription'])->name('studo.subscription.reject');
+
+    Route::post('/admin/dashboard/confirm/tarik/saldo/{id}', [DashboardController::class, 'confirmTarikSaldo'])->name('studo.TarikSaldo.confirm');
+    Route::post('/admin/dashboard/confirm/tarik/saldo/reject/{id}', [DashboardController::class, 'rejectTarikSaldo'])->name('studo.tarik.saldo.reject');
+
+    Route::post('/admin/dashboard/hapus/pengguna/{id}', [DashboardController::class, 'deletePengguna'])->name('studo.deletePengguna');
+    Route::post('/admin/dashboard/hapus/kelas/{id}', [DashboardController::class, 'deleteKelas'])->name('studo.deleteKelas');
+
+
+
 });
 
 

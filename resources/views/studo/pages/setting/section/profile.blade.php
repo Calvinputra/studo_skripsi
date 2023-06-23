@@ -3,22 +3,33 @@
         Edit Profil
     </h2>
 
-    <form action="{{ route('studo.user.profile.update_photo', auth()->user()->id ) }}" method="POST" enctype="multipart/form-data">
+    <form id="photo_form" action="{{ route('studo.user.profile.update_photo', auth()->user()->id ) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div style="">
-            <input type="file" name="avatar" id="image_upload" accept=".png, .jpg, .jpeg" />
-            @if ($user->avatar)
-                <img style="margin-top: 40px; width:500px; height:500px" src="{{ $user->avatar }}" alt="">
-            @else
-                <img style="margin-top: 40px;" src="https://via.placeholder.com/300" alt="">
-            @endif
-            <button class="btn my-4 my-sm-0 mx-4" style="color:white;background:rgba(6, 56, 82, 0.1);" type="submit">
+            <label for="image_upload" style="cursor: pointer;">
+                <input type="file" name="avatar" id="image_upload" accept=".png, .jpg, .jpeg" style="display: none;" />
+                @if ($user->avatar)
+                    <img style="width: 100px;height: 100px;border-radius:100px;" src="{{ $user->avatar }}" alt="">
+                @else
+                    <img style="margin-top: 40px;" src="https://via.placeholder.com/300" alt="">
+                @endif
+            </label>
+            <button class="btn my-4 my-sm-0 mx-4" style="color:white;background:rgba(6, 56, 82, 0.1);" type="button" onclick="selectImage()">
                 <b>
                     <p style="color:#063852;margin:0px;">
                         Ubah foto
                     </p>
                 </b>
             </button>
+            <script>
+                function selectImage() {
+                    document.getElementById('image_upload').click();
+                }
+
+                document.getElementById('image_upload').addEventListener('change', function() {
+                    document.getElementById('photo_form').submit();
+                });
+            </script>
         </div>
     </form>
     <form action="{{ route('studo.post.updateProfile', auth()->user()->id) }}" method="POST">

@@ -1,4 +1,4 @@
-<div class="row tab-pane fade" id="goals" role="tabpanel">
+<div class="row tab-pane fade" id="saldo" role="tabpanel">
     <h2 style="font-weight: 700;font-size: 32px;line-height: 39px;">
         Penarikan Saldo
     </h2>
@@ -11,32 +11,36 @@
         </div>
         <div>
             <p class="header-text-category m-0">
-                Rp85.000
+                Rp.{{ number_format($check_balance->balance, 3) }}
             </p>
         </div>
     </div>
 
-    <form>
+    <form action="{{ route('internal_tutor.post.tarikSaldo', $check_balance->id) }}" method="POST">
+        @csrf
         <div style="">
-        <label class="form-label semibold">E-wallet</label>
-            <input type="saldo" value="OVO" disabled placeholder="" name="no_hp" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
+        <p style="color:#EB2020;">
+            * Permintaan penarikan saldo akan di proses maksimal 2x24 Jam
+        </p>
+        <label class="form-label semibold">Bank</label>
+            <input type="saldo" value=""  placeholder="Bank XYZ" name="bank" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
         </div>
         <div class="form-group">
             <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;margin-top:24px;">
-                Nomor Handphone
+                Nomor Rekening
             </p>
-            <input type="name" value="" placeholder="" name="no_hp" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
+            <input type="name" value="" placeholder="321354354" name="account_number" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
             <p style="color:#EB2020;">
-                * pastikan nomor yang tertera sudah sesuai dengan e-wallet kamu
+                * pastikan nomor rekening yang tertera sudah sesuai dengan bank kamu
             </p>
         </div>
         <div class="form-group">
             <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;margin-top:24px;">
                 Jumlah saldo yang ingin ditarik
             </p>
-            <input type="name" value="" placeholder="" name="saldo" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
+            <input type="number" value="" placeholder="100000" name="balance" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
             <p style="color:#EB2020;">
-                * minimal jumlah saldo yang ditarik sebesar Rp150.000
+                * Maximal jumlah saldo yang ditarik sebesar Rp.{{ number_format($check_balance->balance) }}
             </p>
         </div>
         <div style="float:right;">

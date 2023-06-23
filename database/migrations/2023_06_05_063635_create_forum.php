@@ -17,7 +17,7 @@ class CreateForum extends Migration
             $table->id();
             $table->unsignedInteger('class_id');
             $table->unsignedInteger('user_id');
-            $table->string('description');
+            $table->longtext('description');
             $table->timestamps();
         });
     }

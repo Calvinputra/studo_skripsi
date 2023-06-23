@@ -15,6 +15,7 @@ class QuestController extends Controller
 {
     public function indexPreTest($slug)
     {
+        $user = User::find(auth()->user()->id);
         $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->select([
             'classes.*',
@@ -54,6 +55,7 @@ class QuestController extends Controller
         if (!$check_pretest) {
             return view('studo.pages.quest.pre-test', [
                 'class' => $class,
+                'user' => $user,
                 'pretests' => $pretests,
             ]);
         }else{
@@ -110,6 +112,7 @@ class QuestController extends Controller
 
     public function resultPreTest($slug)
     {
+        $user = User::find(auth()->user()->id);
         $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->leftJoin('chapters', 'chapters.class_id', '=', 'classes.id')
         ->select([
@@ -134,12 +137,14 @@ class QuestController extends Controller
 
         return view('studo.pages.quest.result-pre-test', [
             'class' => $class,
+            'user' => $user,
             'score' => $score
         ]);
     }
 
     public function indexPostTest($slug)
     {
+        $user = User::find(auth()->user()->id);
         $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->select([
             'classes.*',
@@ -224,6 +229,7 @@ class QuestController extends Controller
 
     public function resultPostTest($slug)
     {
+        $user = User::find(auth()->user()->id);
         $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->leftJoin('chapters', 'chapters.class_id', '=', 'classes.id')
         ->select([
@@ -248,6 +254,7 @@ class QuestController extends Controller
 
         return view('studo.pages.quest.result-post-test', [
             'class' => $class,
+            'user' => $user,
             'score' => $score
         ]);
     }

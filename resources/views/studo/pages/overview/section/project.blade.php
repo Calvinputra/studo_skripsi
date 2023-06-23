@@ -46,15 +46,25 @@
         @php
             $chapterId = request()->segment(3);
         @endphp
-        <form action="{{ route('studo.pages.project.submit', [$class->slug, $chapterId]) }}" method="POST" 
-            enctype="multipart/form-data" id="form-image">
-            @csrf
-            <div>
-                <label for="file-upload" class="btn my-2 my-sm-0" style="color:white;background:#063852;">
-                    <b>Upload</b>
-                </label>
-                <input id="file-upload" type="file" name="photo" style="display: none;" onchange="document.getElementById('form-image').submit();">
-            </div>
-        </form>
+        @if($check_project == null )
+            <form action="{{ route('studo.pages.project.submit', [$class->slug, $chapterId]) }}" method="POST" 
+                enctype="multipart/form-data" id="form-image">
+                @csrf
+                <div>
+                    <label for="file-upload" class="btn my-2 my-sm-0" style="color:white;background:#063852;">
+                        <b>Upload</b>
+                    </label>
+                    <input id="file-upload" type="file" name="photo" style="display: none;" onchange="document.getElementById('form-image').submit();">
+                </div>
+            </form>
+        @elseif($check_project->score == null)
+            <label for="file-upload" class="btn my-2 my-sm-0" style="color:white;background:#063852;">
+                <b>Project Sedang Dalam Pemeriksaan</b>
+            </label>
+        @else
+            <label for="file-upload" class="btn my-2 my-sm-0" style="color:white;background:green;">
+                <b>Done</b>
+            </label>
+        @endif
     </div>
 </div>

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\studo;
 
 use App\Http\Controllers\Controller;
+use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -19,11 +21,84 @@ class SettingController extends Controller
         }
 
         $user = User::find(auth()->user()->id);
-        $avatar = auth()->user()->avatar;
+
+        $subscriptions = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
+        ->join('users', 'users.id', '=', 'classes.user_id')
+        ->leftJoin('chapters', function ($join) {
+            $join->on('chapters.class_id', '=', 'classes.id')
+            ->whereRaw('chapters.id = (SELECT MIN(id) FROM chapters WHERE class_id = classes.id)');
+        })
+            ->select([
+                'classes.*',
+                'users.id as user_id',
+                'users.name as tutor_name',
+                'users.email as tutor_email',
+                'chapters.id as chapter_id',
+                'chapters.name as chapter_name',
+            ])
+            ->whereIn('subscription.id', function ($query) use ($user) {
+                $query->select(DB::raw('MAX(id)'))
+                ->from('subscription')
+                ->where('user_id', $user->id)
+                    ->where('status', 'paid')
+                    ->groupBy('class_id');
+            })
+            ->get();
+
+        $check_done_class = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
+        ->join('quest', 'quest.class_id', '=', 'classes.id')
+        ->join('quest_completion', 'quest_completion.quest_id', '=', 'quest.id')
+        ->select([
+            'classes.*',
+            'subscription.user_id as user_id',
+            'quest_completion.id as quest_completion_id',
+            'quest_completion.quest_type as quest_completion_type',
+        ])
+            ->whereIn('subscription.id', function ($query) use ($user) {
+                $query->select(DB::raw('MAX(id)'))
+                ->from('subscription')
+                ->where('user_id', $user->id)
+                    ->where('status', 'paid')
+                    ->groupBy('class_id');
+            })
+            ->where('quest_completion.user_id', $user->id)
+            ->where('quest_completion.quest_type', 'posttest')
+            ->get();
+
+        $check_undone_class = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
+        ->join('quest', 'quest.class_id', '=', 'classes.id')
+        ->leftJoin('quest_completion AS posttest_completion', function ($join) use ($user) {
+            $join->on('posttest_completion.quest_id', '=', 'quest.id')
+            ->where('posttest_completion.user_id', $user->id)
+                ->where('posttest_completion.quest_type', 'posttest');
+        })
+            ->join('quest_completion AS pretest_completion', function ($join) use ($user) {
+                $join->on('pretest_completion.quest_id', '=', 'quest.id')
+                ->where('pretest_completion.user_id', $user->id)
+                    ->where('pretest_completion.quest_type', 'pretest');
+            })
+            ->select([
+                'classes.*',
+                'subscription.user_id as user_id',
+                'pretest_completion.id as pretest_completion_id',
+                'pretest_completion.quest_type as pretest_completion_type',
+            ])
+            ->whereIn('subscription.id', function ($query) use ($user) {
+                $query->select(DB::raw('MAX(id)'))
+                ->from('subscription')
+                ->where('user_id', $user->id)
+                    ->where('status', 'paid')
+                    ->groupBy('class_id');
+            })
+            ->whereNull('posttest_completion.id')
+            ->get();
+            
 
         return view('studo.pages.setting.index', [
             'user' => $user,
-            'avatar' => $avatar
+            'subscriptions' => $subscriptions,
+            'check_done_class' => $check_done_class,
+            'check_undone_class' => $check_undone_class,
         ]);
     }
 

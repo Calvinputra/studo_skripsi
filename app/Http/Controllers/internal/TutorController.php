@@ -29,7 +29,7 @@ class TutorController extends Controller
         $sold_class = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
         ->join('users', 'users.id', '=', 'classes.user_id')
         ->where('users.id', $tutor->id)
-        ->where('subscription.id', $tutor->id)->count();
+        ->where('subscription.status', 'paid')->count();
 
         $check_balance = Wallet::join('users', 'users.id', '=', 'wallet.user_id')
         ->where('users.id', $tutor->id)->first();

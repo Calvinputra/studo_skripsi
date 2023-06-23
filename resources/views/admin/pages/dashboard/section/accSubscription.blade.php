@@ -31,7 +31,7 @@
                                             <td style="text-align:center;width:50px;">{{ $beli_kelas->price }}</td>
                                             <th scope="col" class="filter text-center" data-filter="bukti">
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#buktiModal{{ $beli_kelas->id }}">
-                                                    <img src="{{ asset($beli_kelas->photo) }}" alt="Foto Bukti">
+                                                    <img width="40" height="40" src="{{ asset($beli_kelas->photo) }}" alt="Foto Bukti">
                                                 </a>
                                             </th>
                                             <td style="text-align:center;width:50px;">{{ $beli_kelas->status }}</td>
@@ -40,7 +40,7 @@
                                                     <p style="color: green;">Done</p>
                                                 @else
                                                 <div class="d-flex">
-                                                    <form class="pe-2" action="{{ route('studo.subscription.confirm', $beli_kelas->id) }}" method="POST">
+                                                    <form class="pe-3" action="{{ route('studo.subscription.confirm', $beli_kelas->id) }}" method="POST">
                                                         @csrf
                                                         <button type="submit" style="color: #20A2EB; background: none; border: none; padding: 0; font: inherit; cursor: pointer; text-decoration: underline;">Konfirmasi</button>
                                                     </form>
@@ -80,4 +80,4 @@
     $(document).ready( function () {
         $('#myTableAccSubscription').DataTable();
     } );
-    </script>
+</script>

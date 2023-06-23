@@ -43,7 +43,7 @@
                     ->groupBy('project_log.user_id', 'project_log.class_id','project_log.photo', 'users.name', 'users.email')
                     ->get();
                 @endphp
-                <div class="row" style="margin:24px 0px;">
+                <div class="row" style="margin:48px 0px;">
                     <div class="col-sm-4">
                         <a class="hover-img" href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
                             <img style="width: 100%;height:144px;margin:0px;"

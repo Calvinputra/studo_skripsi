@@ -8,6 +8,10 @@
     .hover-img:hover img {
         opacity: 1;
         filter: brightness(70%);
+        
+    }
+    .btn-dashboard:hover {
+        background: rgba(6, 56, 82, 0.10); 
     }
 </style>
 <div class="row tab-pane active" id="kelasAktif" role="tabpanel">
@@ -41,7 +45,7 @@
                     ->groupBy('project_log.user_id', 'project_log.class_id','project_log.photo', 'users.name', 'users.email','classes.price')
                     ->get();
                 @endphp
-                <div class="row" style="margin:24px 0px;">
+                <div class="row" style="margin:48px 0px;">
                     <div class="col-sm-4">
                         <a class="hover-img" href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
                             <img style="width: 100%;height:144px;margin:0px;"
@@ -53,9 +57,16 @@
                         </a>
                     </div>
                     <div class="col-sm-7">
-                        <p class="text-kelas-admin">
-                            {{ $class->name }}
-                        </p>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <p class="text-kelas-admin">
+                                {{ $class->name }}
+                            </p>
+                            <a class="btn-dashboard hover-img" id="nav-dashboard-tab" href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
+                                <b>
+                                    Edit Kelas
+                                </b>
+                            </a>
+                        </div>
                         <div class="row">
                             <div class="col-sm-4">
                                 <p class="m-0 d-flex align-items-center">

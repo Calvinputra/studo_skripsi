@@ -7,7 +7,7 @@
         <form action="{{ route('internal_tutor.class.actived', $class->slug) }}"
             method="POST">
             @csrf
-            <div class="row" style="margin:24px 0px;">
+            <div class="row" style="margin:48px 0px;">
                 <div class="col-sm-4">
                     <a class="hover-img" href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
                         <img style="width: 100%;height:144px;margin:0px;"
@@ -23,13 +23,15 @@
                         {{ $class->name }}
                     </p>
                         <input type="hidden" name="status" value="active">
-                        <div class="d-flex">
-                            <a class="btn-dashboard me-3" href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
-                                <b>Edit Kelas</b>
-                            </a>
-                            <button style="color:#063852 !important;border-color:#063852;background:white;padding: 10px;border: 1px solid #063852;border-radius:5px;" type="submit" class="btn-publish">
+                        <div class="d-flex align-items-center">
+                            <button type="submit" class="btn-dashboard" style="margin-right:16px;">
                                 Publish Kelas
                             </button>
+                            <a href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
+                                <button class="btn-dashboard">
+                                    Edit Kelas
+                                </button>
+                            </a>
                         </div>
                     </b>
                 </div>

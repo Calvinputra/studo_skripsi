@@ -51,7 +51,7 @@
                                     Pengaturan
                                 </a>
                                 <a class="nav-link" href="{{ route('studo.post.signout') }}">
-                                    keluar
+                                    Keluar
                                 </a>
                             </div>
                         </div>

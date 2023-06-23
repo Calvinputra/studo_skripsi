@@ -21,7 +21,7 @@ class Withdrawal extends Authenticatable
     protected $fillable = [
         'wallet_id',
         'bank',
-        'acoount_number',
+        'account_number',
         'reason',
         'balance',
     ];

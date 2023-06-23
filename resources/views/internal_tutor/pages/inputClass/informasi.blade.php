@@ -242,12 +242,11 @@
                                             id="exampleFormControlTextarea1" rows="3">{{ old('competency_unit', isset($edit) ? $edit->competency_unit : '') }}</textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleFormControlTextarea1">Durasi Total Pembelajaran (menit)<span
-                                                style="color: #EB2020">*</span></label><span
-                                                style="color: #EB2020"><br>Durasi Total akan muncul secara otomatis ketika kamu sudah membuat materi pembelajaran</span>
-                                        <input type="text"
+                                        <label for="exampleFormControlTextarea1">Durasi Total Pembelajaran (menit) </label>
+                                            <input type="text" class="form-control"
                                             style="border: 1px solid black;border-radius:5px;" class="form-control" value="{{ old('total_duration', isset($total_duration) ? $total_duration : '') }}" 
                                             disabled>
+                                            <span style="color: #EB2020">*Durasi Total akan muncul secara otomatis ketika kamu sudah membuat materi pembelajaran</span>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Harga<span

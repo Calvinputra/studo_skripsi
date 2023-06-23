@@ -65,7 +65,7 @@
                             </div>
                             <div class="col-sm-8">
                                 <p class="m-0">
-                                    : 20 User
+                                    : {{ count($list_nilai_proyek) }} User
                                 </p>
                             </div>
                         </div>

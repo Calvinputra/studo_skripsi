@@ -47,10 +47,14 @@ class SettingController extends Controller
 
         $check_done_class = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
         ->join('quest', 'quest.class_id', '=', 'classes.id')
+        ->join('users', 'users.id', '=', 'classes.user_id')
         ->join('quest_completion', 'quest_completion.quest_id', '=', 'quest.id')
+        ->join('project_log', 'project_log.class_id', '=', 'classes.id')
         ->select([
             'classes.*',
             'subscription.user_id as user_id',
+            'project_log.score as project_score',
+            'users.name as user_name',
             'quest_completion.id as quest_completion_id',
             'quest_completion.quest_type as quest_completion_type',
         ])
@@ -67,6 +71,7 @@ class SettingController extends Controller
 
         $check_undone_class = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
         ->join('quest', 'quest.class_id', '=', 'classes.id')
+        ->join('users', 'users.id', '=', 'classes.user_id')
         ->leftJoin('quest_completion AS posttest_completion', function ($join) use ($user) {
             $join->on('posttest_completion.quest_id', '=', 'quest.id')
             ->where('posttest_completion.user_id', $user->id)
@@ -80,6 +85,7 @@ class SettingController extends Controller
             ->select([
                 'classes.*',
                 'subscription.user_id as user_id',
+                'users.name as user_name',
                 'pretest_completion.id as pretest_completion_id',
                 'pretest_completion.quest_type as pretest_completion_type',
             ])

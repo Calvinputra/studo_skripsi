@@ -23,7 +23,7 @@
                     </a>
                     <ul class="navbar-nav mt-2 mt-lg-0">
                     @if (auth()->check())
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('internal_tutor.index') }}">
                             <button class="btn my-2 my-sm-0"  style="color:#063852; border-color:#063852;background:#E6EBED" type="button">
                                 <b>
@@ -31,7 +31,7 @@
                                 </b>
                             </button>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <div class="dropdown">
                             <button class="btn my-2 my-sm-0 dropdown-toggle" id="dropdownMenuButtonIconTutor" data-bs-toggle="dropdown" aria-expanded="false" style="color:#063852; background:#E6EBED" type="button">

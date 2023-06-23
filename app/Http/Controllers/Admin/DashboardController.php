@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 class DashboardController extends Controller
 {
     public function index()
-    { 
+    {
         $list_beli_kelas = Subscription::join('users', 'users.id', '=', 'subscription.user_id')
         ->join('classes', 'classes.id', '=', 'subscription.class_id')
         ->select([

@@ -30,7 +30,7 @@ class DashboardController extends Controller
         $list_tarik_saldo = Withdrawal::join('wallet', 'wallet.id', '=', 'withdrawal.wallet_id')
         ->join('users', 'users.id', '=', 'wallet.user_id')
         ->select([
-            'Withdrawal.*',
+            'withdrawal.*',
             'users.name as name',
             'users.email as email',
             ])

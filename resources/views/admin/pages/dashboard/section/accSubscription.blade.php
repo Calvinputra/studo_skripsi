@@ -31,7 +31,7 @@
                                             <td style="text-align:center;width:50px;">{{ $beli_kelas->price }}</td>
                                             <th scope="col" class="filter text-center" data-filter="bukti">
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#buktiModal{{ $beli_kelas->id }}">
-                                                    <img src="'{{ url($beli_kelas->photo) }}'" alt="Foto Bukti">
+                                                    <img src="{{ asset($beli_kelas->photo) }}" alt="Foto Bukti">
                                                 </a>
                                             </th>
                                             <td style="text-align:center;width:50px;">{{ $beli_kelas->status }}</td>
@@ -60,7 +60,7 @@
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <img src="'{{ url($beli_kelas->photo) }}'" alt="Bukti Pembayaran" width="100%">
+                                                            <img src="{{ asset($beli_kelas->photo) }}" alt="Bukti Pembayaran" width="100%">
                                                         </div>
                                                     </div>
                                                 </div>

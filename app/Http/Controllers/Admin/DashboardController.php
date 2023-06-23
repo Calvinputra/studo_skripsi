@@ -23,7 +23,7 @@ class DashboardController extends Controller
             'users.email as email',
             'users.phone_number as phone_number',
             'classes.price as price',
-            DB::raw("CONCAT('storage/photos/', subscription.photo) AS photo")
+            'subscription.photo as photo',
         ])
         ->get();
 

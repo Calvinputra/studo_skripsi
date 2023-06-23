@@ -237,7 +237,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Durasi Total Pembelajaran (menit)<span
-                                                style="color: #EB2020">*</span></label>
+                                                style="color: #EB2020">*</span></label><span
+                                                style="color: #EB2020"><br>Durasi Total akan muncul secara otomatis ketika kamu sudah membuat materi pembelajaran</span>
                                         <input type="text"
                                             style="border: 1px solid black;border-radius:5px;" class="form-control" value="{{ old('total_duration', isset($total_duration) ? $total_duration : '') }}" 
                                             disabled>

@@ -15,50 +15,52 @@
                                             <th scope="col" class="filter" data-filter="name">Nama pengguna</th>
                                             <th scope="col" class="filter text-center" data-filter="email">Email</th>
                                             <th scope="col" class="filter" data-filter="Handphone">No Handphone</th>
-                                            <th scope="col" class="filter text-center" data-filter="saldo">Saldo Pengajuan</th>
+                                            <th scope="col" class="filter text-center" data-filter="Saldo">Saldo Pengajuan</th>
                                             <th scope="col" class="filter text-center" data-filter="bukti">Bukti</th>
                                             <th scope="col" class="filter text-center" data-filter="status">Status</th>
                                             <th scope="col" class="filter text-center" style="width:150px;"data-filter="action">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   @foreach ($list_tarik_saldo as $key => $saldo)
+                                   @foreach ($list_beli_kelas as $key => $beli_kelas)
                                             <tr>
                                             <td style="text-align:center;">{{ $key + 1 }}</td>
-                                            <td style="text-align:left;">{{ $saldo->name }}</td>
-                                            <td style="text-align:center;">{{ $saldo->email }}</td>
-                                            <td style="text-align:center;">{{ $saldo->phone_number }}</td>
-                                            <td style="text-align:center;width:50px;">{{ $saldo->price }}</td>
+                                            <td style="text-align:left;">{{ $beli_kelas->name }}</td>
+                                            <td style="text-align:center;">{{ $beli_kelas->email }}</td>
+                                            <td style="text-align:center;">{{ $beli_kelas->phone_number }}</td>
+                                            <td style="text-align:center;width:50px;">{{ $beli_kelas->price }}</td>
                                             <th scope="col" class="filter text-center" data-filter="bukti">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#buktiModal{{ $saldo->id }}">
-                                                    <img src="{{ Storage::url('photos/' . $saldo->photo) }}" alt="Foto Bukti">
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#buktiModal{{ $beli_kelas->id }}">
+                                                    <img src="{{ asset($beli_kelas->photo) }}" alt="Foto Bukti">
                                                 </a>
                                             </th>
-                                            <td style="text-align:center;width:50px;">{{ $saldo->status }}</td>
+                                            <td style="text-align:center;width:50px;">{{ $beli_kelas->status }}</td>
                                             <td style="text-align:center;">
-                                                @if ($saldo->status == 'paid')
+                                                @if ($beli_kelas->status == 'paid')
                                                     <p style="color: green;">Done</p>
                                                 @else
-                                                    <form action="{{ route('studo.subscription.confirm', $saldo->id) }}" method="POST">
+                                                <div class="d-flex">
+                                                    <form class="pe-2" action="{{ route('studo.subscription.confirm', $beli_kelas->id) }}" method="POST">
                                                         @csrf
                                                         <button type="submit" style="color: #20A2EB; background: none; border: none; padding: 0; font: inherit; cursor: pointer; text-decoration: underline;">Konfirmasi</button>
                                                     </form>
-                                                    <form id="tolakForm-{{ $saldo->id }}" action="{{ route('studo.subscription.reject', $saldo->id) }}" method="POST">
+                                                    <form id="tolakForm-{{ $beli_kelas->id }}" action="{{ route('studo.subscription.reject', $beli_kelas->id) }}" method="POST">
                                                         @csrf
                                                         <button type="submit" style="color: #20A2EB; background: none; border: none; padding: 0; font: inherit; cursor: pointer; text-decoration: underline;">Tolak</button>
                                                     </form>
+                                                </div>
                                                 @endif
                                             </td>
                                             <!-- Modal Bukti Pembayaran -->
-                                            <div class="modal fade" id="buktiModal{{ $saldo->id }}" tabindex="-1" aria-labelledby="buktiModal{{ $saldo->id }}Label" aria-hidden="true">
+                                            <div class="modal fade" id="buktiModal{{ $beli_kelas->id }}" tabindex="-1" aria-labelledby="buktiModal{{ $beli_kelas->id }}Label" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="buktiModal{{ $saldo->id }}Label">Bukti Pembayaran</h5>
+                                                            <h5 class="modal-title" id="buktiModal{{ $beli_kelas->id }}Label">Bukti Pembayaran</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <img src="{{ Storage::url('photos/' . $saldo->photo) }}" alt="Bukti Pembayaran" width="100%">
+                                                            <img src="{{ asset($beli_kelas->photo) }}" alt="Bukti Pembayaran" width="100%">
                                                         </div>
                                                     </div>
                                                 </div>

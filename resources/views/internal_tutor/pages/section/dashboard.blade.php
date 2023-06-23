@@ -29,6 +29,11 @@ table.dataTable thead .sorting{
     background-image: url("/thumbnails/both.png") !important;
     
 }
+.padding-header {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
 </style>
 <div class="row tab-pane fade show active" id="profile" role="tabpanel">
     <div class="row">
@@ -55,7 +60,7 @@ table.dataTable thead .sorting{
         <div class="col-sm-6">
             <div class="padding-header">
                 <p class="header-text-category m-0">
-                    Rp.{{ $check_balance->balance }}
+                    Rp.{{ number_format($check_balance->balance, 3) }}
                 </p>
                 <p class="text-category m-0">
                     Total Saldo

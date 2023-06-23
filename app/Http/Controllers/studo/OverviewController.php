@@ -15,7 +15,9 @@ use App\Models\ReplyForum;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class OverviewController extends Controller
 {
@@ -77,6 +79,7 @@ class OverviewController extends Controller
                 $reply_forum = null;
                 $list_leaderboard = null;
                 $count_chapter_leader_boards = null;
+                $check_project = null;
             } else {
                 $chapter = Chapter::where('class_id', $class->id)->where('id', $chapter_id)->first();
                 $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
@@ -172,6 +175,9 @@ class OverviewController extends Controller
                     ->orderBy('total_completion_hours', 'ASC')
                     ->get();
 
+                $check_project = ProjectLog::where('user_id', $user->id)
+                ->where('class_id', $class->id)->first();
+
                 $count_chapter_leader_boards = Chapter::where('class_id', $class->id)->count();
 
             }
@@ -188,6 +194,7 @@ class OverviewController extends Controller
             $count_chapter_leader_boards = null;
             $user = null;
             $chapter_log = null;
+            $check_project = null;
             $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
             ->join('chapters', 'chapters.class_id', '=', 'classes.id')
                 ->select([
@@ -235,6 +242,7 @@ class OverviewController extends Controller
             'list_forum' => $list_forum,
             'reply_forum' => $reply_forum,
             'list_leaderboard' => $list_leaderboard,
+            'check_project' => $check_project,
             'count_chapter_leader_boards' => $count_chapter_leader_boards,
             'user' => $user,
         ]);
@@ -248,21 +256,49 @@ class OverviewController extends Controller
             'classes.*',
             'users.name as tutor_name',
             'users.email as tutor_email',
-        ])->where('slug', $slug)->where('status', 'active')->first();
+        ])
+            ->where('slug', $slug)
+            ->where('status', 'active')
+            ->first();
 
         if (!$class) {
-            return redirect()->route('studo.index')->with('error', 'Quest ini tidak ditemukan !');
+            return redirect()->route('studo.index')->with('error', 'Kelas tidak ditemukan!');
+        }
+        $user_id = Auth::user()->id;
+
+        $projectLog = ProjectLog::where('class_id', $class->id)->where('user_id', $user_id)->first();
+
+        if($projectLog){
+
+            $projectLog->class_id = $class->id;
+            $projectLog->user_id = $user_id;
+            $projectLog->status = 'review';
+
+            // Mengunggah dan menyimpan foto
+            if ($request->hasFile('photo')) {
+                $photo = $request->file('photo');
+                $photoPath = $photo->store('projects'); // Menyimpan foto ke direktori 'storage/app/projects'
+                $projectLog->photo = $photoPath;
+            }
+
+            $projectLog->save();
+        }else{
+            $project = new ProjectLog;
+            $project->class_id = $class->id;
+            $project->user_id = $user_id;
+            $project->status = 'review';
+
+            // Mengunggah dan menyimpan foto
+            if ($request->hasFile('photo')) {
+                $photo = $request->file('photo');
+                $photoPath = $photo->store('projects'); // Menyimpan foto ke direktori 'storage/app/photos'
+                $project->photo = $photoPath;
+            }
+            $project->save();
+
         }
 
-
-        $quiz_completion = ProjectLog::updateOrCreate([
-            'class_id'       => $class->id,
-            'user_id'       => Auth()->user()->id,
-            'photo'     => $request->photo,
-        ]);
-
-        return redirect()->route('studo.overview', ['slug' => $slug, 'chapter_id' => $chapter_id])->with('success', 'Project berhasil diinput');
-
+        return redirect()->route('studo.overview', ['slug' => $slug, 'chapter_id' => $chapter_id])->with('success', 'Proyek berhasil diunggah');
     }
 
     public function postForum(Request $request,$slug, $chapter_id = null)

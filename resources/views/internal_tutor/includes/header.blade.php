@@ -35,8 +35,14 @@
                     <li class="nav-item">
                         <div class="dropdown">
                             <button class="btn my-2 my-sm-0 dropdown-toggle" id="dropdownMenuButtonIconTutor" data-bs-toggle="dropdown" aria-expanded="false" style="color:#063852; background:#E6EBED" type="button">
-                            <img style="width: 30px;height: 30px;border-radius:100px;" class="" src="{{ asset($tutor->avatar) }}" alt="">
-                            <b>
+                                @if ($tutor->avatar)
+                                    <img style="width: 30px;height: 30px;border-radius:100px;" class="" src="{{ asset($tutor->avatar) }}" alt="">
+                                @else
+                                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="20" cy="20" r="20" fill="#D9D9D9"/>
+                                    </svg>
+                                @endif
+                                <b>
                                     {{ auth()->user()->name }}
                                 </b>
                             </button>

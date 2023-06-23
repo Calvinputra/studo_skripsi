@@ -10,6 +10,7 @@ use App\Models\Tutor;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Wallet;
+use App\Models\Withdrawal;
 use Illuminate\Support\Facades\Hash;
 
 class TutorController extends Controller
@@ -66,9 +67,12 @@ class TutorController extends Controller
         $tutor = User::find(auth()->user()->id);
         $avatar = auth()->user()->avatar;
 
+        $check_balance = Wallet::join('users', 'users.id', '=', 'wallet.user_id')
+        ->where('users.id', $tutor->id)->first();
+
         return view('internal_tutor.pages.profileTutor', [
             'tutor' => $tutor,
-            'avatar' => $avatar
+            'check_balance' => $check_balance,
         ]);
     }
     public function updateProfile(Request $request, $id){
@@ -137,5 +141,47 @@ class TutorController extends Controller
         $user->save();
 
         return back()->with('success', 'Foto profil berhasil diperbaharui');
+    }
+    public function beriNilaiProyek(Request $request, $id)
+    {
+        
+        $project_log_id = ProjectLog::find($id);
+        $project_log = ProjectLog::where('user_id', $project_log_id->user_id)
+            ->where('class_id', $project_log_id->class_id)
+            ->update([
+                'photo' => $project_log_id->photo,
+                'status' => $request->status,
+                'score' => $request->score,
+            ]);
+
+        return back()->with('success', 'Biodata berhasil diperbaharui');
+    }
+    public function tarikSaldo(Request $request, $id)
+    {
+
+        // Mengambil data balance
+        $balance = Wallet::where('user_id', $id)->first();
+        if (!$balance) {
+            return redirect()->back()->with('error', 'Saldo tidak ditemukan');
+        }
+
+        // Memvalidasi jumlah saldo yang ingin ditarik
+        $requestedBalance = $request->input('balance');
+        if ($requestedBalance > $balance->balance) {
+            return redirect()->back()->with('error', 'Jumlah saldo yang ingin ditarik melebihi saldo yang tersedia');
+        }else{
+            $withdrawal = new Withdrawal;
+            $withdrawal->wallet_id = $balance->id;
+            $withdrawal->bank = $request->bank;
+            $withdrawal->account_number = $request->account_number;
+            $withdrawal->balance = $request->balance;
+
+            $withdrawal->save();
+        }
+
+        // Proses permintaan tarik saldo
+        // ...
+
+        return redirect()->back()->with('success', 'Permintaan tarik saldo berhasil diajukan');
     }
 }

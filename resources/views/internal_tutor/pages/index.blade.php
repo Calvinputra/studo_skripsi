@@ -140,7 +140,13 @@ table.dataTable.no-footer{
         <div class="row">
             <div class="col-sm-4">
                 <div class="d-flex" style="background: rgba(32, 162, 235, 0.1);border-radius: 5px; padding:16px;">
-                    <img style="width: 60px;height:60px;margin:0px;" src="{{ asset($tutor->avatar) }}" alt="">
+                    @if($tutor->avatar)
+                        <img style="width: 60px;height:60px;margin:0px;" src="{{ asset($tutor->avatar) }}" alt="">
+                    @else
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="30" cy="30" r="30" fill="#D9D9D9"/>
+                        </svg>
+                    @endif
                     <div style="margin-left:16px;display:grid; align-items:center;">
                         <p class="desc-text-login m-0">
                             {{ $tutor->name }}
@@ -151,11 +157,11 @@ table.dataTable.no-footer{
                     </div>
                 </div>    
                 <div style="margin-top:16px;">
-                    <button class="btn my-2 my-sm-0" style="color:white;background:#063852;width:100%;" type="button">
+                    <a class="btn my-2 my-sm-0" style="color:white;background:#063852;width:100%;" href="{{ route('internal_tutor.profileTutor') }}" role="button">
                         <b>
                             Tarik Saldo
                         </b>
-                    </button>
+                    </a>
                 </div>
 
                 {{-- <ul class="nav" style="display:grid;">

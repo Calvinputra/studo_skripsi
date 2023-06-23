@@ -32,6 +32,8 @@
         border-radius: 5px;justify-content: center;
         align-items: center;
         padding: 10px 16px;
+        background-color: white;
+
     }
 
 </style>

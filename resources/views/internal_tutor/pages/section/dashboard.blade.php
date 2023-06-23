@@ -45,7 +45,7 @@ table.dataTable thead .sorting{
         <div class="col-sm-3">
             <div class="padding-header" style="width: 160px;">
                 <p class="header-text-category m-0">
-                    20
+                    {{ $sold_class }}
                 </p>
                 <p class="text-category m-0">
                     Kelas Terjual
@@ -55,7 +55,7 @@ table.dataTable thead .sorting{
         <div class="col-sm-6">
             <div class="padding-header">
                 <p class="header-text-category m-0">
-                    Rp85.000
+                    Rp.{{ $check_balance->balance }}
                 </p>
                 <p class="text-category m-0">
                     Total Saldo

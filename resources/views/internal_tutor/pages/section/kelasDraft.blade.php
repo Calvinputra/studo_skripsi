@@ -11,7 +11,7 @@
                 <div class="col-sm-4">
                     <a class="hover-img" href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
                         <img style="width: 100%;height:144px;margin:0px;"
-                            src="/thumbnails/{{$class->thumbnail}}"
+                            src="{{ asset($class->thumbnail) }}"
                             alt="">                        
                         <div class="middle">
                             <div class="text hover-text-card" style="color: #063852">Edit Kelas</div>
@@ -23,9 +23,14 @@
                         {{ $class->name }}
                     </p>
                         <input type="hidden" name="status" value="active">
-                        <button type="submit" class="btn-publish">
-                            Publish Kelas
-                        </button>
+                        <div class="d-flex">
+                            <a class="btn-dashboard me-3" href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
+                                <b>Edit Kelas</b>
+                            </a>
+                            <button style="color:#063852 !important;border-color:#063852;background:white;padding: 10px;border: 1px solid #063852;border-radius:5px;" type="submit" class="btn-publish">
+                                Publish Kelas
+                            </button>
+                        </div>
                     </b>
                 </div>
             </div>

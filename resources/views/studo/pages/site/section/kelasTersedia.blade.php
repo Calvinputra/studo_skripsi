@@ -23,7 +23,9 @@
         align-items: center;
         padding: 10px 16px;
         background-color: white;
-        color: #063852
+        color: #063852;
+        background-color: white;
+
     }
     .middle {
         transition: .5s ease;
@@ -55,38 +57,45 @@
         @endif
         </center>
         <div class="row" >
-            @foreach ($classes as $class)
-                @if($class->status == 'active')
+            @php
+                $count = 0;
+            @endphp
+            @foreach ($classes as $key => $class)
+                @if ($class->status == 'active')
                     @php
-                    $normal_price = $class->price / (1 - $class->discount/100);  
-                    $normal_price_formatted = number_format($normal_price, 0, ',', '.');
+                        $normal_price = $class->price / (1 - $class->discount/100);  
+                        $normal_price_formatted = number_format($normal_price, 0, ',', '.');
                     @endphp
-                    <div class="col-sm-4 hover-img"style="margin-top:60px;">
-                        <a href="{{route('studo.overview',$class->slug)}}">
-                            <img class="" style="width: 352px;height:198px;border-radius:3px" src="{{ $class->thumbnail }}" alt="">
+                    <div class="col-sm-4 hover-img" style="margin-top: 60px;">
+                        <a href="{{ route('studo.overview', $class->slug) }}">
+                            <img class="" style="width: 352px; height: 198px; border-radius: 3px" src="{{ asset($class->thumbnail) }}" alt="">
                             <div class="middle">
                                 <div class="text hover-text-card">Lihat Overview Kelas</div>
                             </div>
-                            <p class="title-text-card" style="margin-top:24px;margin-bottom:8px;">
+                            <p class="title-text-card" style="margin-top: 24px; margin-bottom: 8px;">
                                 {{ $class->name }}
                             </p>
                             <p class="mentor-name-text-card">
                                 {{ $class->tutor_name }}
                             </p>
-                            @if($class->discount == 0)
-                                <p class="normal-price-text-card"style="font-weight:700;color:#063852;margin-top:16px">
-                                Rp.{{ number_format($class->price, 0, ',', '.') }}
-                                </p>
-                            @else
-                            <div class="d-flex" style="align-items: center">
-                                <p class="normal-price-text-card"style="font-weight:700;color:#063852;margin-top:16px">
+                            @if ($class->discount == 0)
+                                <p class="normal-price-text-card" style="font-weight: 700; color: #063852; margin-top: 16px">
                                     Rp.{{ number_format($class->price, 0, ',', '.') }}
                                 </p>
-                                <p class="disc-price-text-card">Rp.{{ $normal_price_formatted }}</p>
-                            </div>
+                            @else
+                                <div class="d-flex" style="align-items: center">
+                                    <p class="normal-price-text-card" style="font-weight: 700; color: #063852; margin-top: 16px">
+                                        Rp.{{ number_format($class->price, 0, ',', '.') }}
+                                    </p>
+                                    <p class="disc-price-text-card">Rp.{{ $normal_price_formatted }}</p>
+                                </div>
                             @endif
                         </a>
                     </div>
+                    @php
+                        $count++;
+                        if ($count == 6) break;
+                    @endphp
                 @endif
             @endforeach
         </div>

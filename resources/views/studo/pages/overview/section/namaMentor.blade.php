@@ -54,7 +54,7 @@
         </div>
         <div>
             @if($chapter == null)
-                <img style="width:736px;height: 414px;border-radius:3px" src="{{ $class->thumbnail }}" alt="">
+                <img style="width:736px;height: 414px;border-radius:3px" src="{{ asset($class->thumbnail) }}" alt="">
             @else
                 @if($chapter->type == "reading")
                     {{ $chapter->reading }}

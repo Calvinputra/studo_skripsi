@@ -557,13 +557,23 @@ class ClassController extends Controller
         if (!auth()->check()) {
             return redirect()->route('internal_tutor.index')->with('error', 'Harus Login terlebih dahulu');
         }
+
+        
         $class = Classes::where('slug', $request->slug)->where('user_id', auth()->user()->id)->first();
 
-        $status = Classes::find($class->id);
-        $status->status = 'active';
-        $status->save();
+        $check_done_class = Classes::join('project', 'project.class_id', '=', 'classes.id')
+        ->where('class_id', $class->id)->first();
 
-        return redirect()->route('internal_tutor.index')->with('success', 'Kelas berhasil di Aktifkan');
+        
+        if($check_done_class){
+            $status = Classes::find($class->id);
+            $status->status = 'active';
+            $status->save();
+            return redirect()->route('internal_tutor.index')->with('success', 'Kelas berhasil di Aktifkan');
+        }else{
+            return redirect()->route('internal_tutor.index')->with('error', 'Lengkapi Kelas Terlebih dahulu!');
+        }
+
     }
 
     public function download_template_question_import()

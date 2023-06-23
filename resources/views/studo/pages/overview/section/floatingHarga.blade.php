@@ -8,7 +8,7 @@
             <span style="color:#063852;font-weight: 500;font-size: 24px;line-height: 29px;">Rp.{{ number_format($class->price, 0, ',', '.') }}</span>
         @else
             <span style="color:#063852;font-weight: 500;font-size: 24px;line-height: 29px;">Rp.{{ number_format($class->price, 0, ',', '.') }}</span>
-            <span style="text-decoration: line-through; font-size: 14px; color: grey">Rp.{{ $normal_price_formatted }}</span>
+            <span class="ms-1" style="text-decoration: line-through; font-size: 14px; color: grey">Rp.{{ $normal_price_formatted }}</span>
         @endif
     </div>
     @if(auth()->check())

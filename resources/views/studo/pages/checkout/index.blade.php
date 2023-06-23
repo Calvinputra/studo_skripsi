@@ -19,7 +19,7 @@
                 <p class="desc-text-main" style="margin-top:8px;">
                     {{ $class->tutor_name }}
                 </p>
-                <img style="width:568px;margin-top:24px;height: 414px" src="{{ $class->thumbnail }}" alt="">
+                <img style="width:568px;margin-top:24px;height: 414px" src="{{ asset($class->thumbnail) }}" alt="">
                 
             </div>
             <div class="col-sm-5" style="">

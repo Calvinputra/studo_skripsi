@@ -137,6 +137,7 @@ Route::namespace('internal')->group(function () {
 
         // Update Profile Tutor
         Route::post('/internal/tutor/profile/update/{id}', [TutorController::class, 'updateProfile'])->name('internal_tutor.post.updateProfile');
+        Route::post('/internal/tutor/profile/photo/update/{id}', [TutorController::class, 'updateProfilePhoto'])->name('internal_tutor.post.profile.update_photo');
         Route::post('/internal/tutor/profile/updatePassword/{id}', [TutorController::class, 'updatePassword'])->name('internal_tutor.post.updatePassword');
 
         Route::get('/internal/tutor/get-forum/{classId}', [TabPanesController::class, 'getForum']);

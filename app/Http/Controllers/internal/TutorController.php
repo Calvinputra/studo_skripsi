@@ -5,9 +5,11 @@ namespace App\Http\Controllers\internal;
 use App\Http\Controllers\Controller;
 use App\Models\Classes;
 use App\Models\ProjectLog;
+use App\Models\Subscription;
 use App\Models\Tutor;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Wallet;
 use Illuminate\Support\Facades\Hash;
 
 class TutorController extends Controller
@@ -22,6 +24,14 @@ class TutorController extends Controller
         
         $classes = Classes::where('user_id', $tutor->id)->get();
         $count_classes = Classes::where('user_id', '=', $tutor->id)->count();
+
+        $sold_class = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
+        ->join('users', 'users.id', '=', 'classes.user_id')
+        ->where('users.id',$tutor->id)->count();
+
+        $check_balance = Wallet::join('users', 'users.id', '=', 'wallet.user_id')
+        ->where('users.id', $tutor->id)->first();
+
 
         // $list_nilai_proyek = ProjectLog::join('users', 'users.id', '=', 'project_log.user_id')
         // ->leftJoin('quest_completion', function ($join) {
@@ -42,6 +52,8 @@ class TutorController extends Controller
             'tutor' => $tutor,
             'classes' => $classes,
             'count_classes' => $count_classes,
+            'sold_class' => $sold_class,
+            'check_balance' => $check_balance,
             // 'list_nilai_proyek' => $list_nilai_proyek,
         ]);
     }
@@ -96,5 +108,34 @@ class TutorController extends Controller
         } else {
             return back()->with('error', 'Password lama tidak sesuai');
         }
+    }
+    public function updateProfilePhoto(Request $request)
+    {
+        $rules = [
+            'avatar' => 'nullable|mimes:png,jpg,jpeg,svg',
+        ];
+
+        $request->validate($rules);
+
+        $user = auth()->user();
+
+        // handle file upload
+        if ($request->hasFile('avatar')) {
+            // get file
+            $file = $request->file('avatar');
+
+            // generate unique name for the file
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+
+            // save file to public/avatars directory
+            $path = $file->storeAs('avatarProject', $filename, 'public');
+
+            // save file name to database
+            $user->avatar = $path;
+        }
+
+        $user->save();
+
+        return back()->with('success', 'Foto profil berhasil diperbaharui');
     }
 }

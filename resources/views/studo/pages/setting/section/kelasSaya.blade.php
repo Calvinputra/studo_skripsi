@@ -32,6 +32,8 @@
         align-items: center;
         padding: 10px 16px;
         width:150px;
+        background-color: white;
+
     }
 
 </style>

@@ -140,7 +140,7 @@ table.dataTable.no-footer{
         <div class="row">
             <div class="col-sm-4">
                 <div class="d-flex" style="background: rgba(32, 162, 235, 0.1);border-radius: 5px; padding:16px;">
-                    <img style="width: 60px;height:60px;margin:0px;" src="{{ $tutor->avatar }}" alt="">
+                    <img style="width: 60px;height:60px;margin:0px;" src="{{ asset($tutor->avatar) }}" alt="">
                     <div style="margin-left:16px;display:grid; align-items:center;">
                         <p class="desc-text-login m-0">
                             {{ $tutor->name }}

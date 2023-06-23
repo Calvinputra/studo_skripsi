@@ -58,7 +58,7 @@
                     @endphp
                     <div class="col-sm-4 hover-img"style="margin-top:60px;">
                         <a href="{{route('studo.overview',$class->slug)}}">
-                            <img class=""  style="width: 352px;height:198px;border-radius:3px" src="{{ $class->thumbnail }}" alt="">
+                            <img class=""  style="width: 352px;height:198px;border-radius:3px" src="{{ asset($class->thumbnail) }}" alt="">
                             <div class="middle">
                                 <div class="text hover-text-card" style="color: #063852">Lihat Overview Kelas</div>
                             </div>

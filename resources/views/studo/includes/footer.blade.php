@@ -18,9 +18,6 @@
             </p>
         </div>
         <div>
-            <a href="" style="margin-right:24px;color:white">
-                <span>Kelas</span>
-            </a>
             <a href="{{ route('internal_tutor.signin')}}" style="color:white">
                 <span>Masuk Sebagai Tutor</span>
             </a>

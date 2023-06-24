@@ -16,6 +16,10 @@
         align-items:center;
     }
 </style>
+<head>
+    <!-- ... -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+</head>
         <div>
             <nav class="navbar navbar-expand-lg bg-navbar">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +33,7 @@
                     <ul class="navbar-nav mt-2 mt-lg-0">
                     @if (auth()->check())
                     <li class="nav-item">
-                        <a class="nav-link" href="" data-bs-toggle="modal" data-bs-target="#goalsModal">
+                        <a class="nav-link nav-link-pengingatBelajar" href="" data-bs-toggle="modal" data-bs-target="#goalsModal" disabled>
                             <p class="m-0" style="color:#063852">
                                 Pengingat Belajar
                             </p>
@@ -94,24 +98,41 @@
                 </div>
             </nav>
         </div>
-    {{-- @php
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    @php
+        use App\Models\Subscription;
         if(auth()->check())
             {
-                @use App\Models\Subscription;
                 $check_user_class = Subscription::where('user_id', $user->id)
                 ->where('status', 'paid')->first();
             }
     @endphp
     <script>
-        $(document).ready(function() {
-            $('.nav-link-kelasSaya').on('click', function(e) {
-                @if (auth()->check() && !$check_user_class) // ganti dengan logika yang sesuai untuk mengecek apakah user memiliki kelas
-                    e.preventDefault();
-                    toastr.warning("Anda harus membeli kelas terlebih dahulu.");
+            $(document).ready(function() {
+                // Cek apakah pengguna telah membeli kelas
+                @if (auth()->check() && $check_user_class == null)
+                    $('#goalsModal').on('show.bs.modal', function(e) {
+                        e.preventDefault();
+                        toastr.warning('Anda harus membeli kelas terlebih dahulu.', 'Peringatan');
+                    });
                 @endif
+
+                // Fungsi untuk membuka goalsModal
+                function openGoalsModal() {
+                    $('#goalsModal').modal('show');
+                }
+
+                // Event listener untuk tombol yang membuka goalsModal
+                $('.nav-link-pengingatBelajar').on('click', function(e) {
+                    // Cek apakah pengguna telah membeli kelas
+                    @if (auth()->check() && $check_user_class != null)
+                        e.preventDefault();
+                        openGoalsModal();
+                    @endif
+                });
             });
-        });
-    </script> --}}
+    </script>
     <script>
         // Fungsi untuk menutup modal login dan membuka modal daftar
         function openRegisterModal() {

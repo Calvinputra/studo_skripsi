@@ -148,32 +148,40 @@ class OverviewController extends Controller
                 ->where('class_id', $class->id)
                 ->get();
 
-                $list_leaderboard = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
+            $list_leaderboard = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
                 ->join('users', 'users.id', '=', 'subscription.user_id')
                 ->join('chapters', 'chapters.class_id', '=', 'classes.id')
                 ->leftJoin('chapter_log', function ($join) {
                     $join->on('chapter_log.chapter_id', '=', 'chapters.id')
-                    ->on('chapter_log.user_id', '=', 'users.id');
+                        ->on('chapter_log.user_id', '=', 'users.id')
+                        ->where('chapter_log.created_at', '=', function ($query) {
+                            $query->select(DB::raw('MIN(created_at)'))
+                                ->from('chapter_log')
+                                ->whereColumn('chapter_log.user_id', '=', 'users.id')
+                                ->whereColumn('chapter_log.chapter_id', '=', 'chapters.id');
+                        });
                 })
-                    ->select([
-                        'users.name as user_name',
-                        DB::raw('COUNT(DISTINCT chapter_log.chapter_id) as total_chapters_watched'),
-                        DB::raw('SUM(chapters.duration) as total_duration'),
-                        DB::raw('TIMESTAMPDIFF(HOUR, MAX(subscription.created_at), MAX(chapter_log.created_at)) %24 as total_completion_hours'),
-                        DB::raw('SEC_TO_TIME(SUM(chapters.duration) * 60) as total_duration_formatted'),
-                        DB::raw('TIMESTAMPDIFF(MINUTE, MAX(subscription.created_at), MAX(chapter_log.created_at)) %60 as total_completion_minutes'),
-                        DB::raw('TIMESTAMPDIFF(DAY, MAX(subscription.created_at), MAX(chapter_log.created_at)) as total_completion_days')
-                    ])
-                    ->whereIn('subscription.id', function ($query) use ($class) {
-                        $query->select(DB::raw('MAX(id)'))
-                        ->from('subscription')
-                        ->where('class_id', $class->id)
-                            ->groupBy('user_id');
-                    })
-                    ->groupBy('user_name')
-                    ->orderBy('total_chapters_watched', 'DESC')
-                    ->orderBy('total_completion_hours', 'ASC')
-                    ->get();
+            ->select([
+                'users.name as user_name',
+                DB::raw('COUNT(DISTINCT chapter_log.chapter_id) as total_chapters_watched'),
+                DB::raw('SUM(chapters.duration) as total_duration'),
+                DB::raw('TIMESTAMPDIFF(HOUR, MIN(chapter_log.created_at), MAX(chapter_log.created_at)) % 24 as total_completion_hours'),
+                DB::raw('SEC_TO_TIME(SUM(chapters.duration) * 60) as total_duration_formatted'),
+                DB::raw('TIMESTAMPDIFF(MINUTE, MIN(chapter_log.created_at), MAX(chapter_log.created_at)) % 60 as total_completion_minutes'),
+                DB::raw('TIMESTAMPDIFF(SECOND, MIN(chapter_log.created_at), MAX(chapter_log.created_at)) % 60 as total_completion_seconds'),
+                DB::raw('TIMESTAMPDIFF(DAY, MIN(chapter_log.created_at), MAX(chapter_log.created_at)) as total_completion_days')
+            ])
+            ->whereIn('subscription.id', function ($query) use ($class) {
+                $query->select(DB::raw('MAX(id)'))
+                    ->from('subscription')
+                    ->where('class_id', $class->id)
+                    ->groupBy('user_id');
+            })
+            ->groupBy('user_name')
+            ->where('subscription.status', 'paid')
+            ->orderBy('total_chapters_watched', 'DESC')
+            ->orderBy('total_completion_hours', 'ASC')
+            ->get();
 
                 $check_project = ProjectLog::where('user_id', $user->id)
                 ->where('class_id', $class->id)->first();

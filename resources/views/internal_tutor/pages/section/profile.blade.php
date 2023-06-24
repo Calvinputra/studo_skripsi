@@ -51,10 +51,12 @@
             <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;">
                 Nomor Telepon
             </p>
-            <input type="number" value="{{ old('phone_number', $tutor->phone_number) }}" placeholder="08XXXXXXX" name="phone_number" style="border: 1px solid black;border-radius:5px;" class="form-control">
+            <input type="text" id="phone_number" value="{{ old('phone_number', $tutor->phone_number) }}" placeholder="08XXXXXXX" name="phone_number" style="border: 1px solid black;border-radius:5px;" class="form-control">
+            <p id="phone_number_error" style="display: none; color: red;">Nomor telepon harus diawali dengan 08 dan minimal 10 angka.</p>
         </div>
+
         <div style="float:right">
-            <button class="btn my-4 my-sm-0" style="color:white;background:#063852;" type="submit">
+            <button id="save_button" class="btn my-4 my-sm-0" style="color:white;background:#063852;" type="submit" disabled>
                 <b>
                     Simpan
                 </b>
@@ -89,4 +91,31 @@
             dropdownCssClass: "select2--small",
             width: '100%'
         });
+</script>
+<script>
+    const phoneNumberInput = document.getElementById('phone_number');
+    const phoneNumberError = document.getElementById('phone_number_error');
+    const saveButton = document.getElementById('save_button');
+
+    function validatePhoneNumber() {
+        const value = phoneNumberInput.value;
+        if (!/^08/.test(value) || value.length < 10) {
+            phoneNumberError.style.display = 'block';
+            saveButton.disabled = true;
+        } else {
+            phoneNumberError.style.display = 'none';
+            saveButton.disabled = false;
+        }
+    }
+
+    phoneNumberInput.addEventListener('input', validatePhoneNumber);
+
+    phoneNumberInput.addEventListener('keypress', function(event) {
+        if (event.which < 48 || event.which > 57) {
+            event.preventDefault();
+        }
+    });
+
+    // Run validation on page load in case there is already a value in the input field
+    validatePhoneNumber();
 </script>

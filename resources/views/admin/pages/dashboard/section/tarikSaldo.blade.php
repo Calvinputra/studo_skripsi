@@ -16,7 +16,7 @@
                                             <th scope="col" class="filter" data-filter="Bank">Bank</th>
                                             <th scope="col" class="filter text-center" data-filter="email">Email</th>
                                             <th scope="col" class="filter" data-filter="Handphone">Nomor Rekening</th>
-                                            <th scope="col" class="filter text-center" data-filter="saldo">Saldo Pengajuan</th>
+                                            <th scope="col" class="filter text-center" data-filter="saldo">Total Pembayaran</th>
                                             <th scope="col" class="filter text-center" style="width:150px;"data-filter="action">Action</th>
                                     </tr>
                                 </thead>

@@ -46,14 +46,15 @@
             </p>
             <input disabled type="email" value="{{ $user->email }}" placeholder="Email" name="email" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
         </div>
-        <div class="form-group" >
+        <div class="form-group">
             <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;">
                 Nomor Telepon
             </p>
-            <input type="number" value="{{ old('phone_number', $user->phone_number) }}" placeholder="08XXXXXXXXX" name="phone_number" style="border: 1px solid black;border-radius:5px;" class="form-control">
+            <input type="text" id="phone_number" value="{{ old('phone_number', $user->phone_number) }}" placeholder="08XXXXXXXXX" name="phone_number" style="border: 1px solid black;border-radius:5px;" class="form-control">
+            <p id="phone_number_error" style="display: none; color: red;">Nomor telepon harus diawali dengan 08 dan minimal 10 angka.</p>
         </div>
         <div style="float:right;">
-            <button class="btn my-4 my-sm-0" style="color:white;background:#063852;" type="submit">
+            <button id="save_button" class="btn my-4 my-sm-0" style="color:white;background:#063852;" type="submit" disabled>
                 <b>
                     Simpan
                 </b>
@@ -62,30 +63,29 @@
     </form>
 </div>
 <script>
-        $("#btnChoosePhotoProfileSetting").click(function() {
-            $("#image_upload").click();
-        })
+    const phoneNumberInput = document.getElementById('phone_number');
+    const phoneNumberError = document.getElementById('phone_number_error');
+    const saveButton = document.getElementById('save_button');
 
-        $('#image_upload').change(function() {
-            $('#form-image').submit();
-        });
+    function validatePhoneNumber() {
+        const value = phoneNumberInput.value;
+        if (!/^08/.test(value) || value.length < 10) {
+            phoneNumberError.style.display = 'block';
+            saveButton.disabled = true;
+        } else {
+            phoneNumberError.style.display = 'none';
+            saveButton.disabled = false;
+        }
+    }
 
-        $(".toggle-password").click(function() {
+    phoneNumberInput.addEventListener('input', validatePhoneNumber);
 
-            $(this).toggleClass("fa-eye fa-eye-slash");
-            var input = $($(this).attr("toggle"));
-            if (input.attr("type") == "password") {
-                input.attr("type", "text");
-            } else {
-                input.attr("type", "password");
-            }
-        });
+    phoneNumberInput.addEventListener('keypress', function(event) {
+        if (event.which < 48 || event.which > 57) {
+            event.preventDefault();
+        }
+    });
 
-        // Small using Select2 properties
-        $("#location").select2({
-            theme: "bootstrap-5",
-            selectionCssClass: "select2--small", // For Select2 v4.1
-            dropdownCssClass: "select2--small",
-            width: '100%'
-        });
+    // Run validation on page load in case there is already a value in the input field
+    validatePhoneNumber();
 </script>

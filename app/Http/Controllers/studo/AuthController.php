@@ -60,7 +60,6 @@ class AuthController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            // 'name' => 'required',
             'password' => 'required',
         ]);
 
@@ -75,6 +74,12 @@ class AuthController extends Controller
         if (!$userCheck) {
             return back()->with('error', 'Email kamu belum atau tidak terdaftar');
         }
+
+        // Cek jika role id pengguna adalah 1
+        if ($userCheck->role_id != 1) {
+            return back()->with('error', 'Maaf, Anda tidak memiliki akses untuk login');
+        }
+
         if (!auth()->attempt($credentials)) {
             if ($password == $userCheck->password) {
                 Auth::loginUsingId(User::where('email', $email)->first()->id);

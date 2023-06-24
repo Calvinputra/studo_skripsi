@@ -60,7 +60,6 @@ class AuthController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            // 'name' => 'required',
             'password' => 'required',
         ]);
 
@@ -75,6 +74,12 @@ class AuthController extends Controller
         if (!$tutorCheck) {
             return back()->with('error', 'Email kamu belum atau tidak terdaftar');
         }
+
+        // Cek jika role id pengguna adalah 2
+        if ($tutorCheck->role_id != 2) {
+            return back()->with('error', 'Maaf, Anda tidak memiliki akses untuk login sebagai Tutor');
+        }
+
         if (!auth()->attempt($credentials)) {
             if (Hash::check($password, $tutorCheck->password)) {
                 Auth::guard('users')->loginUsingId(User::where('email', $email)->first()->id);
@@ -84,6 +89,7 @@ class AuthController extends Controller
         }
         return redirect()->route('internal_tutor.index')->with('success', 'Login sebagi Tutor Berhasil');
     }
+
 
     public function postSignup(Request $request)
     {

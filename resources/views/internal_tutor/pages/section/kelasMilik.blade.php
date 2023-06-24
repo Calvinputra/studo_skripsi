@@ -112,11 +112,6 @@
                         <div class="nav-container pt-2">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="btn-dashboard me-3" href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
-                                        <b>Edit Kelas</b>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="btn-dashboard" id="nav-dashboard-tab-1" data-bs-toggle="tab" href="#lihatForum{{ $ckey }}">
                                         <b>Lihat Forum</b>
                                     </a>

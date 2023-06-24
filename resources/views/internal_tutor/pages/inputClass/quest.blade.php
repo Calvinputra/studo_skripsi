@@ -169,7 +169,7 @@
                             <div class="d-flex" style="justify-content: space-between;align-items: center;">
                                 <div class="d-flex align-items-center">
                                     <p class="button-text-category m-0">
-                                        {{ $count_pretest }} Pretest, {{ $count_posttest }} Posttest
+                                        {{ $count_pretest }} Pretest, {{ $count_posttest }} Posttest &nbsp; 
                                         <div class="dropdown">
                                             <span class="dropbtn">
                                                 <svg width="21" height="20" fill="none"

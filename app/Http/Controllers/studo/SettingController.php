@@ -220,7 +220,7 @@ class SettingController extends Controller
         $pdf = PDF::loadView('certificate.template', $certificateData)->setPaper('a4', 'landscape');
 
         // Simpan sertifikat ke file atau lakukan tindakan lain seperti pengiriman email
-        $pdf->save(storage_path('app/public/certificates/' . $user->id . '.pdf'));
+        $pdf->save(storage_path('app/public/storage/certificates/' . $user->id . '.pdf'));
 
         // Tampilkan sertifikat kepada pengguna atau lakukan tindakan lain seperti pengunduhan
         return $pdf->stream('certificate.pdf');

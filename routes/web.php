@@ -63,6 +63,8 @@ Route::namespace('studo')->group( function () {
 
             Route::get('/generate-certificate/{user}', [SettingController::class, 'generateCertificate'])->name('studo.generate.certificate');
 
+            Route::post('/make/goals', [SettingController::class, 'postGoal'])->name('studo.post.goal');
+
 
             Route::get('/quest/pretest/{slug}', [QuestController::class, 'indexPreTest'])->name('studo.pages.quest.pre-test');
             Route::post('/quest/pretest/{slug}/submit',  [QuestController::class, 'postPreTest'])->name('studo.pages.quest.pre-test.submit');

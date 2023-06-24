@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\studo;
 
 use App\Http\Controllers\Controller;
+use App\Models\Goal;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -101,13 +102,25 @@ class SettingController extends Controller
             })
             ->whereNull('posttest_completion.id')
             ->get();
-            
+
+
+        $list_goals = Goal::join('subscription', 'subscription.id', '=', 'goals.subscription_id')
+        ->join('classes', 'classes.id', '=', 'subscription.class_id')
+        ->join('users', 'users.id', '=', 'subscription.user_id')
+        ->select([
+            'goals.*',
+            'classes.name as class_name',
+        ])
+        ->get();
+
+
 
         return view('studo.pages.setting.index', [
             'user' => $user,
             'subscriptions' => $subscriptions,
             'check_done_class' => $check_done_class,
             'check_undone_class' => $check_undone_class,
+            'list_goals' => $list_goals,
         ]);
     }
 
@@ -225,4 +238,29 @@ class SettingController extends Controller
         // Tampilkan sertifikat kepada pengguna atau lakukan tindakan lain seperti pengunduhan
         return $pdf->stream('certificate.pdf');
     }
+
+    public function postGoal(Request $request)
+    {
+        $request->validate([
+            'class_id' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'notes' => 'required',
+        ]);
+
+        $subscription_id_goal = Subscription::where('class_id',$request->class_id)
+        ->where('user_id', $request->user_id)->first();
+
+        $goal = new Goal;
+
+        $goal->subscription_id = $subscription_id_goal->id ;
+        $goal->notes = $request->notes;
+        $goal->start_date = $request->start_date;
+        $goal->end_date = $request->end_date;
+
+        $goal->save();
+
+        return back()->with('success', 'Goals berhasil diinput');
+    }
+
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\studo;
 
 use App\Http\Controllers\Controller;
 use App\Models\Classes;
+use App\Models\Goal;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -60,6 +61,16 @@ class SiteController extends Controller
                     'users.id as user_id',
                     'users.name as tutor_name',
                 ])->whereNotIn('classes.id', $arr_pd_id)->get();
+                
+        $list_goals = Goal::join('subscription', 'subscription.id', '=', 'goals.subscription_id')
+            ->join('classes', 'classes.id', '=', 'subscription.class_id')
+            ->join('users', 'users.id', '=', 'subscription.user_id')
+            ->select([
+                'goals.*',
+                'classes.name as class_name',
+            ])
+            ->get();
+
     }
     else{
         $user = NULL;
@@ -80,6 +91,7 @@ class SiteController extends Controller
             'user' => $user,
             'classes' => $classes,
             'subscriptions' => $subscriptions,
+            'list_goals' => $list_goals,
             // 'count_chapter' => $count_chapter
         ]);
     }

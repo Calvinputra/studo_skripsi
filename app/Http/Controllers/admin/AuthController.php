@@ -44,6 +44,12 @@ class AuthController extends Controller
         if (!$tutorCheck) {
             return back()->with('error', 'Email kamu belum atau tidak terdaftar');
         }
+
+        // Cek jika role id pengguna adalah 3
+        if ($tutorCheck->role_id != 3) {
+            return back()->with('error', 'Maaf, Anda tidak memiliki akses untuk login sebagai Admin');
+        }
+
         if (!auth()->attempt($credentials)) {
             if (Hash::check($password, $tutorCheck->password)) {
                 Auth::guard('admin')->loginUsingId(User::where('email', $email)->first()->id);
@@ -53,5 +59,6 @@ class AuthController extends Controller
         }
         return redirect()->route('admin.pages.dashboard.index')->with('success', 'Login sebagai Admin Berhasil');
     }
+
 
 }

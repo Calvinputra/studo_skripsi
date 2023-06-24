@@ -217,10 +217,10 @@ class SettingController extends Controller
         ];
 
         // Generate sertifikat sebagai file PDF
-        $pdf = PDF::loadView('certificate.template', $certificateData);
+        $pdf = PDF::loadView('certificate.template', $certificateData)->setPaper('a4', 'landscape');
 
         // Simpan sertifikat ke file atau lakukan tindakan lain seperti pengiriman email
-        $pdf->save('path/to/save/' . $user->id . '.pdf');
+        $pdf->save(storage_path('app/public/certificates/' . $user->id . '.pdf'));
 
         // Tampilkan sertifikat kepada pengguna atau lakukan tindakan lain seperti pengunduhan
         return $pdf->stream('certificate.pdf');

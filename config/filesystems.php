@@ -55,7 +55,12 @@ return [
     ],
     'default' => 'public',
 
-
+    'certificates' => [
+        'driver' => 'local',
+        'root' => storage_path('app/public/certificates'),
+        'url' => env('APP_URL') . '/storage/certificates',
+        'visibility' => 'public',
+    ],
     /*
     |--------------------------------------------------------------------------
     | Symbolic Links

@@ -94,39 +94,56 @@
                 </div>
             </nav>
         </div>
-        <script>
-            // Fungsi untuk menutup modal login dan membuka modal daftar
-            function openRegisterModal() {
-                $('#loginModal').modal('hide'); // Menutup modal login
-                $('#registerModal').modal('show'); // Membuka modal daftar
+    {{-- @php
+        if(auth()->check())
+            {
+                @use App\Models\Subscription;
+                $check_user_class = Subscription::where('user_id', $user->id)
+                ->where('status', 'paid')->first();
             }
-            function openLoginModal() {
-                $('#registerModal').modal('hide'); // Membuka modal daftar
-                $('#loginModal').modal('show'); // Menutup modal login
-            }
-        
-            // Menambahkan event listener pada tombol "Daftar" di modal login
-            $(document).ready(function() {
-                $('#loginModal').on('shown.bs.modal', function() {
-                    $('#registerBtn').click(function() {
-                        openRegisterModal(); // Memanggil fungsi untuk menutup modal login dan membuka modal daftar
-                    });
-                });
-                $('#registerModal').on('shown.bs.modal', function() {
-                    $('#loginBtn').click(function() {
-                        openLoginModal(); // Memanggil fungsi untuk menutup modal login dan membuka modal daftar
-                    });
-                });
-        
-                // Fungsi untuk membersihkan form login ketika modal ditutup
-                $('#loginModal').on('hidden.bs.modal', function() {
-                    $('#loginForm')[0].reset(); // Mengosongkan form login
-                });
-        
-                // Fungsi untuk membersihkan form daftar ketika modal ditutup
-                $('#registerModal').on('hidden.bs.modal', function() {
-                    $('#registerForm')[0].reset(); // Mengosongkan form daftar
+    @endphp
+    <script>
+        $(document).ready(function() {
+            $('.nav-link-kelasSaya').on('click', function(e) {
+                @if (auth()->check() && !$check_user_class) // ganti dengan logika yang sesuai untuk mengecek apakah user memiliki kelas
+                    e.preventDefault();
+                    toastr.warning("Anda harus membeli kelas terlebih dahulu.");
+                @endif
+            });
+        });
+    </script> --}}
+    <script>
+        // Fungsi untuk menutup modal login dan membuka modal daftar
+        function openRegisterModal() {
+            $('#loginModal').modal('hide'); // Menutup modal login
+            $('#registerModal').modal('show'); // Membuka modal daftar
+        }
+        function openLoginModal() {
+            $('#registerModal').modal('hide'); // Membuka modal daftar
+            $('#loginModal').modal('show'); // Menutup modal login
+        }
+    
+        // Menambahkan event listener pada tombol "Daftar" di modal login
+        $(document).ready(function() {
+            $('#loginModal').on('shown.bs.modal', function() {
+                $('#registerBtn').click(function() {
+                    openRegisterModal(); // Memanggil fungsi untuk menutup modal login dan membuka modal daftar
                 });
             });
-        </script>
-        
+            $('#registerModal').on('shown.bs.modal', function() {
+                $('#loginBtn').click(function() {
+                    openLoginModal(); // Memanggil fungsi untuk menutup modal login dan membuka modal daftar
+                });
+            });
+    
+            // Fungsi untuk membersihkan form login ketika modal ditutup
+            $('#loginModal').on('hidden.bs.modal', function() {
+                $('#loginForm')[0].reset(); // Mengosongkan form login
+            });
+    
+            // Fungsi untuk membersihkan form daftar ketika modal ditutup
+            $('#registerModal').on('hidden.bs.modal', function() {
+                $('#registerForm')[0].reset(); // Mengosongkan form daftar
+            });
+        });
+    </script>

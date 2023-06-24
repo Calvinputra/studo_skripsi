@@ -374,7 +374,7 @@ table.dataTable.no-footer{
                             </div>
                         @else
                         <div style="float:left;" class="pt-3">
-                            <a class="btn my-2 my-sm-0" href="{{ route('internal_tutor.class.informasi', $class->slug) }}"
+                            <a class="btn my-2 my-sm-0" href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}"
                                 style="color:#063852; border-color:#063852;background:white;font-weight: bold">
                                 Sebelumnya
                             </a>

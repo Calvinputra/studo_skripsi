@@ -63,11 +63,11 @@ a{
                         {{ $done_class->user_name }}
                     </p>
                     <div style="margin-top:8px;">
-                        <button class="btn my-2 my-sm-0 "data-bs-toggle="modal" data-bs-target="#registerModal" style="color:white;background:#063852;" type="button">
+                        <a href="{{ route('studo.generate.certificate', $done_class->user_id) }}" class="btn my-2 my-sm-0 "style="color:white;background:#063852;" type="button">
                             <b>
                                 Download Sertifikat
                             </b>
-                        </button>
+                        </a>
                     </div>
 
                 </div>

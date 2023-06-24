@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Hash;
+use PDF;
 
 class SettingController extends Controller
 {
@@ -53,6 +54,7 @@ class SettingController extends Controller
         ->select([
             'classes.*',
             'subscription.user_id as user_id',
+            'project_log.id as project_id',
             'project_log.score as project_score',
             'users.name as user_name',
             'quest_completion.id as quest_completion_id',
@@ -66,6 +68,7 @@ class SettingController extends Controller
                     ->groupBy('class_id');
             })
             ->where('quest_completion.user_id', $user->id)
+            ->where('project_log.user_id', $user->id)
             ->where('quest_completion.quest_type', 'posttest')
             ->get();
 
@@ -191,5 +194,35 @@ class SettingController extends Controller
         } else {
             return back()->with('error', 'Password lama tidak sesuai');
         }
+    }
+
+    public function generateCertificate(User $user)
+    {
+        $data_certificate = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
+        ->join('users', 'users.id', '=', 'subscription.user_id')
+        ->select([
+            'subscription.*',
+            'users.id as user_id',
+            'users.name as user_name',
+            'classes.name as class_name',
+        ])
+            ->where('subscription.user_id', $user->id)
+            ->first();
+
+        // Logika pembuatan sertifikat
+        $certificateData = [
+            'user_name' => $data_certificate->user_name,
+            'class_name' => $data_certificate->class_name,
+            // Tambahan data lain yang dibutuhkan
+        ];
+
+        // Generate sertifikat sebagai file PDF
+        $pdf = PDF::loadView('certificate.template', $certificateData);
+
+        // Simpan sertifikat ke file atau lakukan tindakan lain seperti pengiriman email
+        $pdf->save('path/to/save/' . $user->id . '.pdf');
+
+        // Tampilkan sertifikat kepada pengguna atau lakukan tindakan lain seperti pengunduhan
+        return $pdf->stream('certificate.pdf');
     }
 }

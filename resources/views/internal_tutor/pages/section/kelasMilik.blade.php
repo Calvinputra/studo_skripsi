@@ -25,6 +25,7 @@
                 $activeClassExists = true;
                     $list_nilai_proyek = \App\Models\ProjectLog::join('users', 'users.id', '=', 'project_log.user_id')
                     ->join('quest', 'quest.class_id', '=', 'project_log.class_id')
+                    ->join('classes', 'classes.id', '=', 'project_log.class_id')
                     ->leftJoin('quest_completion', function($join) {
                         $join->on('quest_completion.user_id', '=', 'project_log.user_id')
                             ->on('quest_completion.quest_id', '=', 'quest.id');
@@ -34,13 +35,14 @@
                         'project_log.user_id as user_id',
                         'project_log.class_id as class_id',
                         'project_log.photo as photo',
+                        'classes.price as class_price',
                         \DB::raw('MAX(project_log.id) as id'),
                         \DB::raw('MAX(project_log.score) as score'),
                         'users.name as user_name',
                         'users.email as user_email',
                         \DB::raw('MAX(CASE WHEN quest_completion.quest_type = \'posttest\' THEN quest_completion.score ELSE NULL END) as quest_score'),
                     ])
-                    ->groupBy('project_log.user_id', 'project_log.class_id','project_log.photo', 'users.name', 'users.email')
+                    ->groupBy('project_log.user_id', 'project_log.class_id','project_log.photo', 'users.name', 'users.email','classes.price')
                     ->get();
                 @endphp
                 <div class="row" style="margin:48px 0px;">
@@ -92,7 +94,18 @@
                             </div>
                             <div class="col-sm-8">
                                 <p class="m-0">
-                                    : Rp350.000
+                                    @php
+                                    $total_price = 0;
+                                    @endphp
+
+                                    @foreach($list_nilai_proyek as $nilai_proyek)
+                                        @php
+                                        $total_price += ($nilai_proyek->class_price);
+                                        @endphp
+                                    @endforeach
+                                    <p class="m-0">
+                                        : Rp.{{ number_format($total_price) }}
+                                    </p>
                                 </p>
                             </div>
                         </div>

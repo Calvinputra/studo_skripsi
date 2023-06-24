@@ -172,6 +172,7 @@ class QuestController extends Controller
         if (!$check_posttest) {
             return view('studo.pages.quest.post-test', [
                 'class' => $class,
+                'user' => $user,
                 'posttests' => $posttests,
             ]);
         } else {

@@ -51,7 +51,7 @@
             <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;">
                 Nomor Telepon
             </p>
-            <input type="number" value="{{ old('phone_number', $tutor->phone_number) }}" placeholder="Nomor Telepon" name="phone_number" style="border: 1px solid black;border-radius:5px;" class="form-control">
+            <input type="number" value="{{ old('phone_number', $tutor->phone_number) }}" placeholder="08XXXXXXX" name="phone_number" style="border: 1px solid black;border-radius:5px;" class="form-control">
         </div>
         <div style="float:right">
             <button class="btn my-4 my-sm-0" style="color:white;background:#063852;" type="submit">

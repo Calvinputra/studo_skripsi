@@ -135,7 +135,7 @@
                                                     Sebelumnya
                                                 </a>
                                             </div>
-                                            <div style="float:right;">
+                                            <div style="float:right;" class="pt-3">
                                                 <button class="btn my-2 my-sm-0" style="color:white;background:#063852" type="submit">
                                                     <b>
                                                         Update

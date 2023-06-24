@@ -40,7 +40,7 @@
         </form>
     --}}
 
-    <div class="row">
+    <div class="row" style="border: 1px solid black;padding:20px 10px;">
         <div class="col-sm-1">
             <center>
 
@@ -62,7 +62,7 @@
         </div>
         <div class="col-sm-2">
             <center>
-                <p>
+                <p class="m-0">
                     01/08/2023 
                     <br>
                     -

@@ -19,19 +19,23 @@
                     </a>
                 </div>
                 <div class="col-sm-7">
-                    <p class="text-kelas-admin" style="margin-bottom:32px;">
-                        {{ $class->name }}
-                    </p>
+                    <div class="d-flex align-items-center justify-content-between"  style="margin-bottom:32px;">
+                        <p class="text-kelas-admin" style="margin: 0px 20px 0px 0px;">
+                            {{ $class->name }}
+                        </p>
+                        <a href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
+                            <button class="btn-dashboard" style="width:100px;">
+                                <b>
+                                    Edit Kelas
+                                </b>
+                            </button>
+                        </a>
+                    </div>
                         <input type="hidden" name="status" value="active">
                         <div class="d-flex align-items-center">
-                            <button type="submit" class="btn-dashboard" style="margin-right:16px;">
+                            <button type="submit" class="btn-publish" style="margin-right:16px;">
                                 Publish Kelas
                             </button>
-                            <a href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
-                                <button class="btn-dashboard">
-                                    Edit Kelas
-                                </button>
-                            </a>
                         </div>
                     </b>
                 </div>

@@ -12,7 +12,7 @@
         </div>
         <div class="col-sm-8 d-grid align-items-center">
             <h2 class="title-text-login">
-                Hi, {{$user->name}}
+                &nbsp;Hi, {{$user->name}}
             </h2>
         </div>
     </div>
@@ -113,7 +113,7 @@
             <img style="width:100%" src="{{ asset('/thumbnails/heroBanner.png') }}" alt="">
             
         </div>
-        <div class="col-sm-8" style="display:grid; align-items:center;">
+        <div class="col-sm-8" style="display:grid; align-content:center;">
             <b>
                 <h1 style="font-size: 48px;line-height: 58px;color: #20A2EB;font-weight:bold;">
                     Mulai Perjalanan Belajar Kamu Di Studo

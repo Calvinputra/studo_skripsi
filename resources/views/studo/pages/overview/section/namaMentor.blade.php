@@ -118,7 +118,7 @@
                     <div class="grid-container">
                         @foreach($points as $point)
                             <div class="point-container">
-                                <p style="font-weight: 400; font-size: 18px; line-height: 22px;">
+                                <p style="font-weight: 400; font-size: 18px; line-height: 22px;margin:0px;">
                                     {{ $point }}
                                 </p>
                             </div>

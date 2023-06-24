@@ -3,7 +3,7 @@
         Penarikan Saldo
     </h2>
 
-    <div class="d-flex align-items-center justify-content-between" style="margin:40px 0px;background: rgba(255, 193, 0, 0.1);border-radius: 5px;">
+    <div class="d-flex align-items-center justify-content-between" style="margin-tp:40px;background: rgba(255, 193, 0, 0.1);border-radius: 5px;">
         <div>
             <p class="text-category m-0">
                 Total Saldo
@@ -15,15 +15,17 @@
             </p>
         </div>
     </div>
+    <p style="color:#EB2020;margin-bottom:40px;padding:0px;">
+        *Cek saldo kamu setelah pengajuan dalam waktu 2x24 jam pada hari kerja.
+    </p>
+
 
     <form action="{{ route('internal_tutor.post.tarikSaldo', $check_balance->id) }}" method="POST">
         @csrf
         <div style="">
-        <p style="color:#EB2020;">
-            * Permintaan penarikan saldo akan di proses maksimal 2x24 Jam
-        </p>
-        <label class="form-label semibold">Bank</label>
+        <label class="form-label semibold fw-bold">Bank</label>
             <input type="saldo" value=""  placeholder="Bank XYZ" name="bank" style="border: 1px solid black;border-radius:5px;" class="form-control" required="required">
+
         </div>
         <div class="form-group">
             <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;margin-top:24px;">

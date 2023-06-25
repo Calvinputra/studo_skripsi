@@ -15,7 +15,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use PDF;
-
+use App\Mail\ReminderEmail;
 class SettingController extends Controller
 {
     public function index()
@@ -271,11 +271,11 @@ class SettingController extends Controller
         $startDate = Carbon::parse($goal->start_date);
         $endDate = Carbon::parse($goal->end_date);
 
-        // while ($startDate->lte($endDate)) {
-        //     Mail::to($user_email_goal->email)->send(new ReminderEmail($goal));
+        while ($startDate->lte($endDate)) {
+            Mail::to($user_email_goal->email)->send(new ReminderEmail($goal));
 
-        //     $startDate->addDays(3);
-        // }
+            $startDate->addDays(3);
+        }
 
         return back()->with('success', 'Goals berhasil diinput');
     }

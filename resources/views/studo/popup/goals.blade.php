@@ -54,7 +54,9 @@
                                         @foreach($subscription_header as $subscription)
                                             <option value="{{ $subscription->class_id }}">{{ $subscription->name }}</option>
                                         @endforeach
-                                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                        @if(auth()->check())
+                                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                        @endif
                                     @endif
                                 </select>
                             </div>

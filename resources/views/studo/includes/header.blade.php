@@ -39,13 +39,13 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="hover-dashboard nav-link-kelasSaya" href="{{ route('studo.setting') }}">
                             <p class="m-0" style="color:#063852">
                                 Kelas Saya
                             </p>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <div class="dropdown">
                             <button class="btn my-2 my-sm-0 dropdown-toggle" id="dropdownMenuButtonIconUser" data-bs-toggle="dropdown" aria-expanded="false" style="color:#063852; background:#E6EBED" type="button">

@@ -40,7 +40,7 @@
         </form>
     --}}
     @foreach ($list_goals as $lkey => $goal)
-        <div class="row" style="border: 1px solid black;padding:20px 10px;">
+    <div class="row" style="border-radius: 5px;border: 1px solid var(--white, #E6EBED);padding:20px 10px; margin-bottom:16px;">
             <div class="col-sm-2">
                 <center>
                     <p class="m-0 text-kelas-baru">

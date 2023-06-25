@@ -267,33 +267,38 @@ class SettingController extends Controller
 
         $goal->save();
 
-        // Mengirimkan email reminder setiap 3 hari sekali
-        $startDate = Carbon::parse($goal->start_date);
-        $endDate = Carbon::parse($goal->end_date);
+        // Kirim email reminder pertama
+        $reminderDate = Carbon::parse($goal->start_date)->addDays(3);
+        $now = Carbon::now();
 
-        while ($startDate->lte($endDate)) {
+        if ($reminderDate->lessThanOrEqualTo($now)) {
             Mail::to($user_email_goal->email)->send(new ReminderEmail($goal));
-
-            $startDate->addDays(3);
         }
 
         return back()->with('success', 'Goals berhasil diinput');
     }
 
 
-    public function sendEmail()
-    {
-        $to_email = 'studosite@gmail.com';
-        $subject = 'Mail from ItSolutionStuff.com';
-        $body = 'This is for testing email using SMTP.';
+    // public function sendEmail()
+    // {
+    //     $to_email = 'calvinputranirwana2001@gmail.com';
+    //     $to_name = 'calvinputranirwana2001@gmail.com';
+    //     $subject = 'Mail from ItSolutionStuff.com';
+    //     $body = 'This is for testing email using SMTP.';
+    //     $user = User::find(1); // Contoh pengambilan data pengguna dari model User
 
-        Mail::raw($body, function ($message) use ($to_email, $subject) {
-            $message->to($to_email)
-                ->subject($subject);
-        });
+    //     $goals = [
+    //             'name' => $user->name,
+    //             'email' => $user->email,
+    //             // Tambahkan data lain sesuai kebutuhan Anda
+    //         ];
 
+    //     Mail::send('emails.goals', $goals, function($message) use ($to_name, $to_email) {
+    //     $message->to($to_email, $to_name)
+    //     ->subject('Laravel Test Mail');
+    //         $message->from('studosite@gmail.com','test');
+    //     });
 
-        dd("Email is sent successfully.");
-    }
+    // }
 
 }

@@ -76,6 +76,8 @@ class SiteController extends Controller
         $user = NULL;
         $subscriptions = NULL;
         $classes_subs = null;
+        $list_goals = null;
+
 
         $classes = Classes::join('users', 'users.id', '=', 'classes.user_id')
         ->select([

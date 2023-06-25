@@ -40,7 +40,7 @@
         </form>
     --}}
 
-    <div class="row" style="border-radius: 5px;border: 1px solid var(--white, #E6EBED);padding:20px 10px; margin-bottom:16px;">
+    <div class="row" style="border-radius: 5px;border: 1px solid #E6EBED;padding:20px 10px; margin-bottom:16px;">
         <div class="col-sm-1">
             <center>
 
@@ -67,7 +67,15 @@
                     <br>
                     -
                     <br> 
-                    01/08/2023
+                    <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <mask id="mask0_309_534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="25">
+                        <rect y="0.5" width="24" height="24" fill="#FFC100"/>
+                        </mask>
+                        <g mask="url(#mask0_309_534)">
+                        <path d="M5 21.5V4.5H14L14.4 6.5H20V16.5H13L12.6 14.5H7V21.5H5Z" fill="#FFC100"/>
+                        </g>
+                        </svg>
+                        01/08/2023
                 </p>
             </center>
         </div>

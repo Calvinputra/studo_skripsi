@@ -1,4 +1,3 @@
-<div style="position: fixed;left: 0;bottom: 0;width: 100%;">
     <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;padding: 40px 220px;background: #E6EBED;margin-top:40px;">
         <div>
             <div class="d-flex align-items-center">
@@ -25,4 +24,3 @@
             </div>
         </div>
     </div>
-</div>

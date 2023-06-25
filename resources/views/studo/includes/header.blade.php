@@ -26,26 +26,29 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-between container" id="navbarTogglerDemo01">
-                    <a class="navbar-brand" href="{{ route('studo.index') }}">
-                        <img style="width:96px;height:40px;" src="{{ asset('/thumbnails/studo.png') }}" alt="">
-                    </a>
-
-                    <ul class="navbar-nav mt-2 mt-lg-0">
+                    
                     @if (auth()->check())
-                    <li class="nav-item">
-                        <a class="nav-link nav-link-pengingatBelajar" href="" data-bs-toggle="modal" data-bs-target="#goalsModal" disabled>
-                            <p class="m-0" style="color:#063852">
-                                Pengingat Belajar
-                            </p>
+                    <div class="d-flex align-items-center justify-content-left">
+                        <a class="navbar-brand" href="{{ route('studo.index') }}">
+                            <img style="width:96px;height:40px;" src="{{ asset('/thumbnails/studo.png') }}" alt="">
                         </a>
-                    </li>
-                    {{-- <li class="nav-item">
-                        <a class="hover-dashboard nav-link-kelasSaya" href="{{ route('studo.setting') }}">
-                            <p class="m-0" style="color:#063852">
-                                Kelas Saya
-                            </p>
-                        </a>
-                    </li> --}}
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-pengingatBelajar" href="" disabled>
+                                <p class="m-0" style="color:#063852">
+                                    Beranda
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-pengingatBelajar" href="" data-bs-toggle="modal" data-bs-target="#goalsModal" disabled>
+                                <p class="m-0" style="color:#063852">
+                                    Pengingat Belajar
+                                </p>
+                            </a>
+                        </li>
+                    </div>
+                    <ul class="navbar-nav mt-2 mt-lg-0">
+
                     <li class="nav-item">
                         <div class="dropdown">
                             <button class="btn my-2 my-sm-0 dropdown-toggle" id="dropdownMenuButtonIconUser" data-bs-toggle="dropdown" aria-expanded="false" style="color:#063852; background:#E6EBED" type="button">
@@ -75,24 +78,29 @@
                         </div>
                     </li>
                     @else
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <button class="btn my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#loginModal" style="color:#063852; border-color:#063852;background:#E6EBED" type="button">
-                                <b>
-                                    Masuk
-                                </b>
-                            </button>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <button class="btn my-2 my-sm-0 "data-bs-toggle="modal" data-bs-target="#registerModal" style="color:white;background:#063852;" type="button">
-                                <b>
-                                    Daftar
-                                </b>
-                            </button>
-                        </a>
-                    </li>
+                    <a class="navbar-brand" href="{{ route('studo.index') }}">
+                        <img style="width:96px;height:40px;" src="{{ asset('/thumbnails/studo.png') }}" alt="">
+                    </a>
+                    <div class="d-flex align-items-center">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <button class="btn my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#loginModal" style="color:#063852; border-color:#063852;background:#E6EBED" type="button">
+                                    <b>
+                                        Masuk
+                                    </b>
+                                </button>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <button class="btn my-2 my-sm-0 "data-bs-toggle="modal" data-bs-target="#registerModal" style="color:white;background:#063852;" type="button">
+                                    <b>
+                                        Daftar
+                                    </b>
+                                </button>
+                            </a>
+                        </li>
+                    </div>
                     @endif
                 </ul>
                 </div>

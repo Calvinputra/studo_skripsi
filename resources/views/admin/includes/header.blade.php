@@ -21,8 +21,15 @@
                     <a class="navbar-brand" href="{{ route('admin.pages.dashboard.index') }}">
                         <img style="width:96px;height:40px;" src="{{ asset('/thumbnails/studo.png') }}" alt="">
                     </a>
-                    <ul class="navbar-nav mt-2 mt-lg-0">
+                    <ul class="navbar-nav mt-2 mt-lg-0 ">
                     @if (auth()->check())
+                        <li class="nav-item">
+                            <p class="nav-link mb-0" style="color:#063852; border-color:#063852;background:#E6EBED; font-size:24px; font-weight: 500" href="{{ route('internal_tutor.index') }}">
+                                Dashboard Admin
+                            </p>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav mt-2 mt-lg-0">
                     <li class="nav-item">
                         <div class="dropdown">
                             <button class="btn my-2 my-sm-0 dropdown-toggle" id="dropdownMenuButtonAdmin" data-bs-toggle="dropdown" aria-expanded="false" style="color:#063852; background:#E6EBED" type="button">

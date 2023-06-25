@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Goal;
 use App\Models\Subscription;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use PDF;
 
 class SettingController extends Controller
@@ -103,6 +105,7 @@ class SettingController extends Controller
             ->whereNull('posttest_completion.id')
             ->get();
 
+        $currentDate = date('Y-m-d');
 
         $list_goals = Goal::join('subscription', 'subscription.id', '=', 'goals.subscription_id')
         ->join('classes', 'classes.id', '=', 'subscription.class_id')
@@ -111,7 +114,8 @@ class SettingController extends Controller
             'goals.*',
             'classes.name as class_name',
         ])
-        ->get();
+            ->whereDate('goals.end_date', '>=', $currentDate) // Memfilter berdasarkan tanggal
+            ->get();
 
 
 
@@ -251,6 +255,9 @@ class SettingController extends Controller
         $subscription_id_goal = Subscription::where('class_id',$request->class_id)
         ->where('user_id', $request->user_id)->first();
 
+
+        $user_email_goal = User::where('id', $subscription_id_goal->user_id)->first();
+
         $goal = new Goal;
 
         $goal->subscription_id = $subscription_id_goal->id ;
@@ -259,6 +266,16 @@ class SettingController extends Controller
         $goal->end_date = $request->end_date;
 
         $goal->save();
+
+        // Mengirimkan email reminder setiap 3 hari sekali
+        $startDate = Carbon::parse($goal->start_date);
+        $endDate = Carbon::parse($goal->end_date);
+
+        // while ($startDate->lte($endDate)) {
+        //     Mail::to($user_email_goal->email)->send(new ReminderEmail($goal));
+
+        //     $startDate->addDays(3);
+        // }
 
         return back()->with('success', 'Goals berhasil diinput');
     }

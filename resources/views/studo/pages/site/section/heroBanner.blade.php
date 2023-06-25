@@ -16,40 +16,40 @@
             </h2>
         </div>
     </div>
-    <div>
-        <div class="row">
-            @foreach($list_goals as $gkey => $goals)
-                <div class="col-sm-4">
-                    <div style="background: rgba(32, 162, 235, 0.1);border-radius: 5px;padding: 24px;margin-top:8px; width: 368px ; height: 132px;">
-                        <div class="row">
-                            <div class="col-sm-7">
-                                <p class="fw-bold mb-1">
-                                    {{ $goals->class_name }}
-                                </p>
-                                <p class="m-0" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3; overflow: hidden;">
-                                    {{ $goals->notes }}
-                                </p>
-                            </div>
-                            <div class="col-sm-5">
-                                <center>
-                                    <p class="m-0">
-                                        {{ $goals->start_date }}
+        <div class="container">
+            <div class="row">
+                @foreach($list_goals as $gkey => $goals)
+                    <div class="col-sm-4 ps-0" style="margin-bottom: 16px;">
+                        <div style="background: rgba(32, 162, 235, 0.1);border-radius: 5px;padding: 24px;margin-top:8px; width: 365px ; height: 132px;">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p class="fw-bold mb-1">
+                                        {{ $goals->class_name }}
                                     </p>
-                                    -
-                                    <p class="m-0">
-                                        <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0 17V0H9L9.4 2H15V12H8L7.6 10H2V17H0Z" fill="#FFC100"/>
-                                        </svg>
-                                        {{ $goals->end_date }}
+                                    <p class="m-0" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3; overflow: hidden;">
+                                        {{ $goals->notes }}
                                     </p>
-                                </center>
+                                </div>
+                                <div class="col-sm-5">
+                                    <center>
+                                        <p class="m-0">
+                                            {{ $goals->start_date }}
+                                        </p>
+                                        -
+                                        <p class="m-0">
+                                            <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M0 17V0H9L9.4 2H15V12H8L7.6 10H2V17H0Z" fill="#FFC100"/>
+                                            </svg>
+                                            {{ $goals->end_date }}
+                                        </p>
+                                    </center>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
-    </div>
     @else
     <div class="row">
         <div class="col-sm-4">

@@ -61,16 +61,19 @@ class SiteController extends Controller
                     'users.id as user_id',
                     'users.name as tutor_name',
                 ])->whereNotIn('classes.id', $arr_pd_id)->get();
-                
-        $list_goals = Goal::join('subscription', 'subscription.id', '=', 'goals.subscription_id')
+
+            $currentDate = date('Y-m-d');
+
+            $list_goals = Goal::join('subscription', 'subscription.id', '=', 'goals.subscription_id')
             ->join('classes', 'classes.id', '=', 'subscription.class_id')
             ->join('users', 'users.id', '=', 'subscription.user_id')
             ->select([
                 'goals.*',
                 'classes.name as class_name',
             ])
+            ->whereDate('goals.end_date', '>=', $currentDate) // Memfilter berdasarkan tanggal
+            ->take(3) // Membatasi maksimal 3 hasil
             ->get();
-
     }
     else{
         $user = NULL;

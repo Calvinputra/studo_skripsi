@@ -50,10 +50,12 @@
                             @csrf
                             <div style="">
                                 <select class="custom-select" name="class_id" id="inputGroupSelect02" style="border-color:black;">
-                                    @foreach($subscription_header as $subscription)
-                                        <option value="{{ $subscription->class_id }}">{{ $subscription->name }}</option>
-                                    @endforeach
+                                    @if($subscription_header)
+                                        @foreach($subscription_header as $subscription)
+                                            <option value="{{ $subscription->class_id }}">{{ $subscription->name }}</option>
+                                        @endforeach
                                         <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    @endif
                                 </select>
                             </div>
                             <div class="row" style="margin-top:24px;">

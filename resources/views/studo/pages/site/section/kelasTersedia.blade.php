@@ -43,11 +43,19 @@
     <div>
         <center>
         @if (auth()->check())
-            <h1 style="margin-top:80px">
-                <b>
-                    Kelas yang belum dibeli
-                </b>
-            </h1>
+            @if(count($subscriptions) > 0)
+                <h1 style="margin-top:80px;">
+                    <b>
+                        Kelas yang belum dibeli
+                    </b>
+                </h1>
+            @else
+                <h1 >
+                    <b>
+                        Kelas yang belum dibeli
+                    </b>
+                </h1>
+            @endif
         @else
         <h1 style="margin-top:80px">
             <b>

@@ -39,11 +39,19 @@
 </style>
 @if(count($subscriptions) > 0)
     <div class="container">
-        <h1 style="margin-top:80px;">
-            <b>
-                Lanjutkan kelas berikut
-            </b>
-        </h1>
+        @if(count($list_goals) > 0)
+            <h1 style="margin-top:80px;">
+                <b>
+                    Lanjutkan kelas berikut
+                </b>
+            </h1>
+        @else
+            <h1 >
+                <b>
+                    Lanjutkan kelas berikut
+                </b>
+            </h1>
+        @endif
         <div class="row" >
             @foreach ($subscriptions as $subscription)
                 <div class="col-sm-4"style="margin-top:60px;">

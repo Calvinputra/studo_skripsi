@@ -33,6 +33,7 @@ class ReminderEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.goals');
+        return $this->subject('Mail from Studosite@gmail.com')
+            ->view('emails.goals', ['goals' => $this->goals]);
     }
 }

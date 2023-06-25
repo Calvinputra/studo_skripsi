@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\studo;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ReminderEmail;
 use App\Models\Goal;
 use App\Models\Subscription;
 use App\Models\User;
@@ -15,7 +16,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use PDF;
-use App\Mail\ReminderEmail;
+
 class SettingController extends Controller
 {
     public function index()
@@ -127,7 +128,6 @@ class SettingController extends Controller
             'list_goals' => $list_goals,
         ]);
     }
-
     public function indexAdmin()
     {
         if (!auth()->check()) {
@@ -252,15 +252,15 @@ class SettingController extends Controller
             'notes' => 'required',
         ]);
 
-        $subscription_id_goal = Subscription::where('class_id',$request->class_id)
-        ->where('user_id', $request->user_id)->first();
+        $subscription_id_goal = Subscription::where('class_id', $request->class_id)
+            ->where('user_id', $request->user_id)
+            ->first();
 
+        $user_email_goal = User::find($subscription_id_goal->user_id);
 
-        $user_email_goal = User::where('id', $subscription_id_goal->user_id)->first();
+        $goal = new Goal();
 
-        $goal = new Goal;
-
-        $goal->subscription_id = $subscription_id_goal->id ;
+        $goal->subscription_id = $subscription_id_goal->id;
         $goal->notes = $request->notes;
         $goal->start_date = $request->start_date;
         $goal->end_date = $request->end_date;
@@ -278,6 +278,22 @@ class SettingController extends Controller
         }
 
         return back()->with('success', 'Goals berhasil diinput');
+    }
+
+
+    public function sendEmail()
+    {
+        $to_email = 'studosite@gmail.com';
+        $subject = 'Mail from ItSolutionStuff.com';
+        $body = 'This is for testing email using SMTP.';
+
+        Mail::raw($body, function ($message) use ($to_email, $subject) {
+            $message->to($to_email)
+                ->subject($subject);
+        });
+
+
+        dd("Email is sent successfully.");
     }
 
 }

@@ -65,6 +65,7 @@ Route::namespace('studo')->group( function () {
 
             Route::post('/make/goals', [SettingController::class, 'postGoal'])->name('studo.post.goal');
 
+            Route::get('send-mail', [SettingController::class, 'sendEmail']);
 
             Route::get('/quest/pretest/{slug}', [QuestController::class, 'indexPreTest'])->name('studo.pages.quest.pre-test');
             Route::post('/quest/pretest/{slug}/submit',  [QuestController::class, 'postPreTest'])->name('studo.pages.quest.pre-test.submit');

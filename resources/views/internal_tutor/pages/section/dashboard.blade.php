@@ -60,9 +60,7 @@ table.dataTable thead .sorting{
         <div class="col-sm-6">
             <div class="padding-header">
                 <p class="header-text-category m-0">
-                    {{--
                         Rp.{{ number_format($check_balance->balance) }}
-                    --}}
                 </p>
                 <p class="text-category m-0">
                     Total Saldo

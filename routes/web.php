@@ -81,6 +81,7 @@ Route::namespace('studo')->group( function () {
 
             Route::post('/forum/{slug}/{chapter_id?}/submit',  [OverviewController::class, 'postForum'])->name('studo.pages.forum.submit');
             Route::post('/reply/forum/{slug}/{chapter_id?}/submit',  [OverviewController::class, 'postReplyForum'])->name('studo.pages.reply.forum.submit');
+            Route::post('/edit/forum/{slug}/{chapter_id?}/submit',  [OverviewController::class, 'postEditForum'])->name('studo.pages.edit.forum.submit');
             Route::post('/delete/forum/{slug}/{id}/{chapter_id?}/delete', [OverviewController::class, 'deleteForum'])->name('studo.pages.forum.delete');
 
 
@@ -155,6 +156,7 @@ Route::namespace('internal')->group(function () {
         Route::post('/internal/tutor/profile/updatePassword/{id}', [TutorController::class, 'updatePassword'])->name('internal_tutor.post.updatePassword');
 
         Route::get('/internal/tutor/get-forum/{classId}', [TabPanesController::class, 'getForum']);
+        Route::post('/internal/tutor/reply-forum/submit',  [TutorController::class, 'postReplyForum'])->name('internal_tutor.pages.reply.forum.submit');
 
     });
 

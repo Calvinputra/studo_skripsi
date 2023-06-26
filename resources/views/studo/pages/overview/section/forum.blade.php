@@ -72,10 +72,14 @@
                                     </svg>
                                 </span>
                                 <div class="dropdown-content-forum">
-                                    <a href="#" class="editForum" data-forum-id="{{ $forum->id }}" style="color: #060606">Edit Forum</a>
-                                    <form method="POST" action="{{ route('studo.pages.forum.delete', [$class->slug, $forum->id, $chapterId]) }}">
+                                    <div style="display:flex; justify-content:left;">
+                                        <button id="editButton-{{ $forum->id }}" class="btn" style="color: #060606; font-weight: 500">Edit Forum</button>
+                                    </div>
+                                    <form class="mb-2" method="POST" action="{{ route('studo.pages.forum.delete', [$class->slug, $forum->id, $chapterId]) }}">
                                         @csrf
-                                        <button class="ps-3" type="submit" style="background-color: white; color: #060606; padding: 10px 24px; border: none; cursor: pointer;">Hapus Forum</button>
+                                        <div style="display:flex; justify-content:left;">
+                                            <button type="submit" class="btn" style="color: #060606; font-weight: 500">Hapus Forum</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -125,17 +129,41 @@
                     </form>
                 </div>
                 {{-- end Form Reply  --}}
+                <div id="editForm-{{ $forum->id }}" style="display: none;">
+                    <form action="{{ route('studo.pages.edit.forum.submit',[$class->slug, $chapterId]) }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Tuliskan Perubahan Forum...</label>
+                            <textarea class="form-control" id="content" name="description" rows="3" required></textarea>
+                        </div>
+                        <input type="hidden" id="forum_id" name="forum_id" value="{{ $forum->id }}">
+                        <div class="d-flex" style="justify-content:right">
+                            <button id="cancelButton" class="btn btn-secondary" style="background: white;color:rgba(6, 56, 82, 1);">Cancel</button>
+                            <button type="submit" class="btn" style="background: rgba(6, 56, 82, 1);color:White;margin-left:16px;">Submit</button>
+                        </div>
+                    </form>
+                </div>
             </div>
             <!-- Reply yang Ada di Database -->
-            <div class="replyContainer" style="margin-top: 16px;">
+            <div class="replyContainer" style="margin-top: 16px;"> 
                 @foreach($reply_forum->where('forum_id', $forum->id) as $reply)
                     <div class="row mb-2 reply" style="border-bottom: 3px solid rgba(32, 162, 235, 1);background:rgba(32, 162, 235, 0.1);border-radius: 5px;padding: 16px;">
                         <!-- Reply Forum -->
                         <div class="col-sm-1">
                         @if($reply->avatar)
                             <img style="width: 50px; height:50px;border-radius:100px;margin:0px;" src="{{ asset($reply->avatar) }}" alt="">
+                            @if($reply->role_id == 2)
+                                <div style="width: 50px;background-color: #ffffff;border-radius: 5px;">
+                                    <p style="color: #FFC100!important;font-size: 16px;font-weight: 700;padding-left: 5px">Tutor</p>
+                                </div>
+                            @endif
                         @else
                             <img style="width: 50px; height:50px;border-radius:100px;margin:0px;" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw0NDw0NDQ0NDQ0NDQ0NDQ0NDQ8IDQ0NFREWFhURExMYHSggGBolGxMTITEhJSkrOi4uFx8zODMsNygtLisBCgoKDQ0NDw0NDisZFRkrLSsrKzctKysrLSsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIALcBEwMBIgACEQEDEQH/xAAYAAEBAQEBAAAAAAAAAAAAAAABAAIDBf/EABoQAQEBAQEBAQAAAAAAAAAAAAABEQISAyH/xAAXAQEBAQEAAAAAAAAAAAAAAAAAAQMC/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAMAwEAAhEDEQA/APDkJh8tHLJxqcnBGYfJxqQGZFjc5OAzjWEgzhw4YgzhkNhAYMaVijHkyNLACxoYDOCxtWAxikawgxixrEDFgx0xSA5eVHSQXn9BnqsWunXLN5Bzoa8s2CrUZEAkbi5jfkQSHDzGsBmcnG8ZkBRY1EAkWNIgzCUQFSIJEYosSQFUxAMFaVBmKwxAEcWAFhQMYsaSAsYrdZsBis1uxnAUSQDh0jny6SAWoDAIhQAwnFAjgBJIEqgBkUUIANAFCoYCCQJBAUlgIEAEkgqy1aADGNs0GcSQDiNs8NQGoRDAKWrFDKQtAhaQSSAIiAisQKJRAoRFQSSBJIEqiASVBkYUAxGioM1lqs0GaQgPDTHzbgNQggiiASKiSpBRJAkQCSUBGpAEUCRABEYCSQFAgxSkArNaCDFDdjOA56RhBfNuOfDpAajUZMAkJRNRlqAkkCMEpBBoADiQJGCgiydA6NBAhAEkYCSQMqpAEkDNZrbHSDKWIGOHTGeW9AtRmVqAUkoiCCIIKERAkkBSQKJKgkIQSIBUYUAKQIEAEQASSAZ6aooOaSActMctwGoRKYgSCoCGgIWpQoGAgqoBlLJApIAQQIQAggEQgILIJVIAiKArHVNrHVQSCBct4xy3ATUBAkICWdIIhKE4DaCCWgUNQNRCEBhQAoEAoEBo0gChqBFlaCtCCArFjdYtBamdQLl0jny3Aa0swgSEBSAFaCBiSUWpJBGDUo0NCBpMnQIWi0GhrKQatTKKNKDQBAANCgAmejaxQCBFXNa1z5rWiNynXONSg3p1g6DRZQNRM6NB01axq0G1WbVoHTrGkGkzq0GtWs6NBrVRo0GhRo6oNaZWJTKg2GdWqHVaxp0COgtACpmgNSoFXJSBStSpAZTqQi0pAFpQFaEA9HUgWmBAdWhAdGpANOpAhpQBFIHQkozp1IANKBmpIVm0JA//2Q==" alt="">
+                            @if($reply->role_id == 2)
+                                <div style="width: 50px;background-color: #ffffff;border-radius: 5px;">
+                                    <p style="color: #FFC100!important;font-size: 16px;font-weight: 700;padding-left: 5px">Tutor</p>
+                                </div>
+                            @endif
                         @endif
                         </div>
                         <div class="col-sm-10">
@@ -199,6 +227,27 @@
 
     $(replyButtonId).show();
     $(replyFormId).hide();
+  });
+});
+</script>
+
+<script>
+   $(document).ready(function() {
+  $('[id^="editButton-"]').click(function() {
+    var forumId = $(this).attr('id').split('-')[1];
+    var editFormId = '#editForm-' + forumId;
+
+    $(this).hide();
+    $(editFormId).show();
+  });
+
+  $('[id^="cancelButton-"]').click(function() {
+    var forumId = $(this).attr('id').split('-')[1];
+    var editButtonId = '#editButton-' + forumId;
+    var editFormId = '#editForm-' + forumId;
+
+    $(editButtonId).show();
+    $(editFormId).hide();
   });
 });
 </script>

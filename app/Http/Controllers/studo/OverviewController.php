@@ -148,6 +148,7 @@ class OverviewController extends Controller
                     'reply_forum.*',
                     'users.name as name',
                     'users.avatar as avatar',
+                    'users.role_id as role_id',
                 ])
                 ->where('class_id', $class->id)
                 ->get();
@@ -359,6 +360,30 @@ class OverviewController extends Controller
 
 
         return redirect()->route('studo.overview', ['slug' => $slug, 'chapter_id' => $chapter_id])->with('success', 'Reply behasil diinput');
+    }
+
+    public function postEditForum(Request $request, $slug, $chapter_id = null)
+    {
+        $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
+        ->select([
+            'classes.*',
+            'users.name as tutor_name',
+            'users.email as tutor_email',
+        ])->where('slug', $slug)->where('status', 'active')->first();
+
+        if (!$class) {
+            return redirect()->route('studo.index')->with('error', 'Quest ini tidak ditemukan !');
+        }
+
+        $edit_forum = Forum::find($request->forum_id);
+        $edit_forum->class_id = $class->id;
+        $edit_forum->user_id =  Auth()->user()->id;
+        $edit_forum->description = $request->description;
+
+        $edit_forum->save();
+
+
+        return redirect()->route('studo.overview', ['slug' => $slug, 'chapter_id' => $chapter_id])->with('success', 'Edit behasil diinput');
     }
 
     public function deleteForum(Request $request, $slug, $id,  $chapter_id = null)

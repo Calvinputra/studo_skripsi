@@ -5,6 +5,7 @@ namespace App\Http\Controllers\internal;
 use App\Http\Controllers\Controller;
 use App\Models\Classes;
 use App\Models\ProjectLog;
+use App\Models\ReplyForum;
 use App\Models\Subscription;
 use App\Models\Tutor;
 use Illuminate\Http\Request;
@@ -184,5 +185,18 @@ class TutorController extends Controller
         // ...
 
         return redirect()->back()->with('success', 'Permintaan tarik saldo berhasil diajukan');
+    }
+    public function postReplyForum(Request $request, $slug, $chapter_id = null)
+    {
+
+
+        $reply_forum = ReplyForum::updateOrCreate([
+            'forum_id' => $request->forum_id,
+            'user_id'       => Auth()->user()->id,
+            'description'     => $request->description,
+        ]);
+
+
+        return redirect()->back()->with('success', 'Reply behasil diinput');
     }
 }

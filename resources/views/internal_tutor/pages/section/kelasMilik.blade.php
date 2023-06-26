@@ -44,6 +44,27 @@
                     ])
                     ->groupBy('project_log.user_id', 'project_log.class_id','project_log.photo', 'users.name', 'users.email','classes.price')
                     ->get();
+
+                    // Forum
+                    $list_forum = \App\Models\Forum::join('classes', 'classes.id', '=', 'forum.class_id')
+                    ->join('users', 'users.id', '=', 'forum.user_id')
+                    ->select([
+                        'forum.*',
+                        'users.id as user_id',
+                        'users.name as name',
+                        'users.avatar as avatar',
+                    ])
+                    ->where('class_id', $class->id)->get();
+
+                    $reply_forum = \App\Models\ReplyForum::join('forum', 'forum.id', '=', 'reply_forum.forum_id')
+                    ->join('users', 'users.id', '=', 'reply_forum.user_id')
+                    ->select([
+                        'reply_forum.*',
+                        'users.name as name',
+                        'users.avatar as avatar',
+                    ])
+                    ->where('class_id', $class->id)
+                ->get();
                 @endphp
                 <div class="row" style="margin:48px 0px;">
                     <div class="col-sm-4">

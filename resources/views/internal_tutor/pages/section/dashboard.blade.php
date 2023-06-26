@@ -4,6 +4,7 @@
         border-radius: 5px;
         color:white !important;
         padding: 10px;
+        font-weight: 700 !important;
 }
 .active-dashboard[aria-selected="true"]:hover{
 }
@@ -76,16 +77,12 @@ table.dataTable thead .sorting{
             <ul class="nav">
                 <div class="nav-item">
                     <a class="btn-dashboard active-dashboard active" id="nav-dashboard-tab" data-bs-toggle="tab" href="#kelasAktif">
-                        <b>
-                            Kelas yang aktif
-                        </b>
+                        Kelas yang aktif
                     </a>
                 </div>
                 <div class="nav-item" style="margin:0px 16px;">
                     <a class="btn-dashboard active-dashboard" id="nav-dashboard-tab" data-bs-toggle="tab" href="#kelasDraft">
-                        <b>
-                            Draft Kelas
-                        </b>
+                        Draft Kelas
                     </a>
                 </div>
             </ul>

@@ -24,10 +24,8 @@
                             {{ $class->name }}
                         </p>
                         <a href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
-                            <button class="btn-dashboard" style="width:100px;">
-                                <b>
-                                    Edit Kelas
-                                </b>
+                            <button class="btn-edit" style="width:100px;">
+                                Edit Kelas
                             </button>
                         </a>
                     </div>

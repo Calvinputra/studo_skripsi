@@ -183,7 +183,7 @@ class OverviewController extends Controller
                     ->where('class_id', $class->id)
                     ->groupBy('user_id');
             })
-            ->groupBy('user_name')
+            ->groupBy('user_name', 'user_avatar')
             ->where('subscription.status', 'paid')
             ->orderBy('total_chapters_watched', 'DESC')
             ->orderBy('total_completion_hours', 'ASC')

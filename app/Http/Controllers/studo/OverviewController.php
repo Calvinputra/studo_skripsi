@@ -144,6 +144,7 @@ class OverviewController extends Controller
                 ->select([
                     'reply_forum.*',
                     'users.name as name',
+                    'users.avatar as avatar',
                 ])
                 ->where('class_id', $class->id)
                 ->get();

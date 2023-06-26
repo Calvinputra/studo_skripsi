@@ -168,6 +168,7 @@ class OverviewController extends Controller
                 })
             ->select([
                 'users.name as user_name',
+                'users.avatar as user_avatar',
                 DB::raw('COUNT(DISTINCT chapter_log.chapter_id) as total_chapters_watched'),
                 DB::raw('SUM(chapters.duration) as total_duration'),
                 DB::raw('TIMESTAMPDIFF(HOUR, MIN(chapter_log.created_at), MAX(chapter_log.created_at)) % 24 as total_completion_hours'),

@@ -4,6 +4,7 @@
         border-radius: 5px;
         color:white !important;
         padding: 10px;
+        font-weight: 700 !important;
 }
 .active-dashboard[aria-selected="true"]:hover{
 }

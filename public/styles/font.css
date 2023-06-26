@@ -213,13 +213,29 @@
         background: rgba(6, 56, 82, 0.10); 
     }
     .btn-dashboard{
-        color:#063852; 
+        color:#063852 !important; 
         border-color:#063852;
         background:white;
         padding: 10px;
         border: 1px solid #063852;
         font-weight: 500;
         border-radius:5px;
+        font-weight:500 !important;
+    }
+
+    .btn-edit:hover{
+        background: rgba(6, 56, 82, 0.10); 
+        color:#063852 !important;
+        border: 1px solid #E6EBED !important;
+    }
+    .btn-edit{
+        color:#063852; 
+        border-color:#E6EBED !important;
+        background:white;
+        padding: 10px;
+        border: 1px solid #063852;
+        border-radius:5px;
+        font-weight:500;
     }
     .btn-dashboard.active{
         color: white;

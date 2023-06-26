@@ -23,11 +23,9 @@
                         <p class="text-kelas-admin" style="margin: 0px 20px 0px 0px;">
                             {{ $class->name }}
                         </p>
-                        <a style="color: inherit;" href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
-                            <button class="btn-dashboard" style="width:100px;">
-                                <b>
-                                    Edit Kelas
-                                </b>
+                        <a href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
+                            <button class="btn-edit" style="width:100px;">
+                                Edit Kelas
                             </button>
                         </a>
                     </div>

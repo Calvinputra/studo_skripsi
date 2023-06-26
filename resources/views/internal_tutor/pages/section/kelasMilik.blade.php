@@ -84,10 +84,8 @@
                             <p class="text-kelas-admin">
                                 {{ $class->name }}
                             </p>
-                            <a class="btn-dashboard hover-img" id="nav-dashboard-tab" href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
-                                <b>
-                                    Edit Kelas
-                                </b>
+                            <a class="btn-edit hover-img" id="nav-dashboard-tab" href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
+                                Edit Kelas
                             </a>
                         </div>
                         <div class="row">

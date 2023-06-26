@@ -15,12 +15,10 @@
                     </svg>
                 @endif
             </label>
-            <button class="btn my-4 my-sm-0 mx-4" style="color:white;background:rgba(6, 56, 82, 0.1);" type="button" onclick="selectImage()">
-                <b>
-                    <p style="color:#063852;margin:0px;">
-                        Ubah foto
-                    </p>
-                </b>
+            <button class="btn my-4 my-sm-0 mx-4 btn-edit"type="button" onclick="selectImage()">
+                <p style="color:#063852;margin:0px;">
+                    Ubah foto
+                </p>
             </button>
             <script>
                 function selectImage() {

@@ -238,9 +238,9 @@
         font-weight:500;
     }
     .btn-dashboard.active{
-        color: white;
+        color: white !important;
         text-decoration: none;
-        font-weight: bold;
+        font-weight: bold !important;
         border-color:#063852 !important;
         background-color:#063852 !important;
     }

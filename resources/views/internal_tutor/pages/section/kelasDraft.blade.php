@@ -23,7 +23,7 @@
                         <p class="text-kelas-admin" style="margin: 0px 20px 0px 0px;">
                             {{ $class->name }}
                         </p>
-                        <a href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
+                        <a style="color: inherit;" href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
                             <button class="btn-dashboard" style="width:100px;">
                                 <b>
                                     Edit Kelas
@@ -44,8 +44,8 @@
         @endif
     @endforeach
     @else
-    <h2 style="font-weight: 700;font-size: 32px;line-height: 39px;margin-top:40px;">
+    <p style="line-height: 39px;margin-top:40px;">
         Tidak ada kelas yang dimiliki.
-    </h2>
+    </p>
     @endif
 </div>

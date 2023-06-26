@@ -52,7 +52,9 @@
                                 src="{{ asset($class->thumbnail) }}"
                                 alt="">                        
                             <div class="middle">
-                                <div class="text hover-text-card" style="color: #063852">Edit Kelas</div>
+                                <div class="text hover-text-card" style="color: #063852">Edit Kelas 
+
+                                </div>
                             </div>            
                         </a>
                     </div>
@@ -113,12 +115,12 @@
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="btn-dashboard" id="nav-dashboard-tab-1" data-bs-toggle="tab" href="#lihatForum{{ $ckey }}">
-                                        <b>Lihat Forum</b>
+                                        Lihat Forum
                                     </a>
                                 </li>
                                 <li class="nav-item ps-3">
                                     <a class="btn-dashboard" id="nav-dashboard-tab-2" data-bs-toggle="tab" href="#nilaiProyek{{ $ckey }}">
-                                        <b>Nilai Proyek</b>
+                                        Nilai Proyek
                                     </a>
                                 </li>
                             </ul>
@@ -136,13 +138,13 @@
             @endif
         @endforeach
         @if(!$activeClassExists)
-            <h2 style="font-weight: 700;font-size: 32px;line-height: 39px;margin-top:40px;">
+            <p style="line-height: 39px;margin-top:40px;">
                 Tidak ada kelas yang aktif
-            </h2>
+            </p>
         @endif
     @else
-    <h2 style="font-weight: 700;font-size: 32px;line-height: 39px;margin-top:40px;">
+    <p style="line-height: 39px;margin-top:40px;">
         Tidak ada kelas yang dimiliki.
-    </h2>
+    </p>
     @endif
 </div>

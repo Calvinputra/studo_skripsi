@@ -7,6 +7,46 @@
   top: 25px;
   
 }
+.dropdown-content-forum {
+    display: none;
+    position: absolute;
+    border-color: #063852;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    padding: 2px 8px;
+    width: 171px;
+    height: auto;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.dropdown-content-forum a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content-forum a:hover {
+    background-color: #ddd;
+}
+
+.dropdown-forum .dropbtn {
+    cursor: pointer;
+}
+
+.dropdown-forum .dropbtn svg {
+    fill: #636466;
+}
+
+.dropdown-forum .dropdown-content-forum {
+    display: none;
+}
+
+.dropdown-forum .dropdown-content-forum.show {
+    display: block;
+}
 </style>
 
 @section('content')

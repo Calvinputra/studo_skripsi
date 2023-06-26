@@ -14,6 +14,7 @@ use App\Models\QuestCompletion;
 use App\Models\ReplyForum;
 use App\Models\Subscription;
 use App\Models\User;
+use App\Models\Tutor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -135,6 +136,7 @@ class OverviewController extends Controller
                 ->join('users', 'users.id', '=', 'forum.user_id')
                 ->select([
                     'forum.*',
+                    'users.id as user_id',
                     'users.name as name',
                     'users.avatar as avatar',
                 ])
@@ -357,5 +359,17 @@ class OverviewController extends Controller
 
 
         return redirect()->route('studo.overview', ['slug' => $slug, 'chapter_id' => $chapter_id])->with('success', 'Reply behasil diinput');
+    }
+
+    public function deleteForum(Request $request, $slug, $id,  $chapter_id = null)
+    {   
+        $forum = Forum::find($id);
+
+        if ($forum) {
+            $forum->delete();
+        }
+
+
+        return redirect()->route('studo.overview', ['slug' => $slug, 'chapter_id' => $chapter_id])->with('success', 'Forum behasil dihapus');
     }
 }

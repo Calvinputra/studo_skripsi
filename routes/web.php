@@ -66,6 +66,7 @@ Route::namespace('studo')->group( function () {
             Route::post('/make/goals', [SettingController::class, 'postGoal'])->name('studo.post.goal');
             Route::post('/edit/goals/{id}', [SettingController::class, 'updateGoal'])->name('studo.update.setting.goal');
 
+
             Route::get('send-mail', [SettingController::class, 'sendEmail']);
 
             Route::get('/quest/pretest/{slug}', [QuestController::class, 'indexPreTest'])->name('studo.pages.quest.pre-test');
@@ -80,6 +81,9 @@ Route::namespace('studo')->group( function () {
 
             Route::post('/forum/{slug}/{chapter_id?}/submit',  [OverviewController::class, 'postForum'])->name('studo.pages.forum.submit');
             Route::post('/reply/forum/{slug}/{chapter_id?}/submit',  [OverviewController::class, 'postReplyForum'])->name('studo.pages.reply.forum.submit');
+            Route::post('/delete/forum/{slug}/{id}/{chapter_id?}/delete', [OverviewController::class, 'deleteForum'])->name('studo.pages.forum.delete');
+
+
             Route::get('/signout', [App\Http\Controllers\studo\AuthController::class, 'getSignout'])->name('studo.post.signout');
 
         });

@@ -48,7 +48,7 @@
         </div>
         <div class="form-group">
             <p style="font-style: normal;font-weight: 700;font-size: 16px;line-height: 19px;color:black;">
-                Nomor Telepon
+                Nomor Telepon<i style="color:#EB2020;">*</i>
             </p>
             <input type="text" id="phone_number" value="{{ old('phone_number', $user->phone_number) }}" placeholder="08XXXXXXXXX" name="phone_number" style="border: 1px solid black;border-radius:5px;" class="form-control">
             <p id="phone_number_error" style="display: none; color: red;">Nomor telepon harus diawali dengan 08 dan minimal 10 angka.</p>

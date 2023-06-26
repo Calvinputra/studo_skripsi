@@ -34,28 +34,28 @@ th{
     <div style="margin-top:40px;">
             <ul class="nav">
                 <div class="nav-item">
-                    <a class="btn-overview active" id="nav-benefit-tab" data-bs-toggle="tab" href="#listKelas">
+                    <a class="btn-overview active" style="color:#063852" id="nav-benefit-tab" data-bs-toggle="tab" href="#listKelas">
                         <b>
                             List Kelas
                         </b>
                     </a>
                 </div>
-                <div class="nav-item" style="margin:0px 16px;">
-                    <a class="btn-overview" id="nav-benefit-tab" data-bs-toggle="tab" href="#listPengguna">
+                <div class="nav-item" style="margin-left:16px;">
+                    <a class="btn-overview" style="color:#063852" id="nav-benefit-tab" data-bs-toggle="tab" href="#listPengguna">
                         <b>
                             List Pengguna
                         </b>
                     </a>
                 </div>
                 <div class="nav-item" style="margin:0px 16px;">
-                    <a class="btn-overview" id="nav-review-tab" data-bs-toggle="tab" href="#tarikSaldo">
+                    <a class="btn-overview" style="color:#063852" id="nav-review-tab" data-bs-toggle="tab" href="#tarikSaldo">
                         <b>
                             List Pengajuan Tarik Saldo
                         </b>
                     </a>
                 </div>
                 <div class="nav-item">
-                    <a class="btn-overview" id="nav-review-tab" data-bs-toggle="tab" href="#accSubscription">
+                    <a class="btn-overview" style="color:#063852" id="nav-review-tab" data-bs-toggle="tab" href="#accSubscription">
                         <b>
                             List Beli Kelas
                         </b>

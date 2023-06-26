@@ -61,7 +61,7 @@
                             <div class="middle">
                                 <div class="text hover-text-card">Lihat Overview Kelas</div>
                             </div>
-                            <p class="title-text-card" style="margin-top:24px;margin-bottom:8px;">
+                            <p class="class-webkit-line-1  title-text-card" style="margin-top:24px;margin-bottom:8px;">
                                 {{ $subscription->name }}
                             </p>
                             <p class="mentor-name-text-card"style="margin: 8px 0px;">

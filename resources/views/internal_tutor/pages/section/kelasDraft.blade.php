@@ -42,8 +42,8 @@
         @endif
     @endforeach
     @else
-    <h2 style="font-weight: 700;font-size: 32px;line-height: 39px;margin-top:40px;">
+    <p style="line-height: 39px;margin-top:40px;">
         Tidak ada kelas yang dimiliki.
-    </h2>
+    </p>
     @endif
 </div>

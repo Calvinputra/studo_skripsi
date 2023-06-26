@@ -148,6 +148,7 @@ class OverviewController extends Controller
                     'reply_forum.*',
                     'users.name as name',
                     'users.avatar as avatar',
+                    'users.role_id as role_id',
                 ])
                 ->where('class_id', $class->id)
                 ->get();
@@ -167,6 +168,7 @@ class OverviewController extends Controller
                 })
             ->select([
                 'users.name as user_name',
+                'users.avatar as user_avatar',
                 DB::raw('COUNT(DISTINCT chapter_log.chapter_id) as total_chapters_watched'),
                 DB::raw('SUM(chapters.duration) as total_duration'),
                 DB::raw('TIMESTAMPDIFF(HOUR, MIN(chapter_log.created_at), MAX(chapter_log.created_at)) % 24 as total_completion_hours'),
@@ -181,7 +183,7 @@ class OverviewController extends Controller
                     ->where('class_id', $class->id)
                     ->groupBy('user_id');
             })
-            ->groupBy('user_name')
+            ->groupBy('user_name', 'user_avatar')
             ->where('subscription.status', 'paid')
             ->orderBy('total_chapters_watched', 'DESC')
             ->orderBy('total_completion_hours', 'ASC')
@@ -359,6 +361,30 @@ class OverviewController extends Controller
 
 
         return redirect()->route('studo.overview', ['slug' => $slug, 'chapter_id' => $chapter_id])->with('success', 'Reply behasil diinput');
+    }
+
+    public function postEditForum(Request $request, $slug, $chapter_id = null)
+    {
+        $class = Classes::join('users', 'users.id', '=', 'classes.user_id')
+        ->select([
+            'classes.*',
+            'users.name as tutor_name',
+            'users.email as tutor_email',
+        ])->where('slug', $slug)->where('status', 'active')->first();
+
+        if (!$class) {
+            return redirect()->route('studo.index')->with('error', 'Quest ini tidak ditemukan !');
+        }
+
+        $edit_forum = Forum::find($request->forum_id);
+        $edit_forum->class_id = $class->id;
+        $edit_forum->user_id =  Auth()->user()->id;
+        $edit_forum->description = $request->description;
+
+        $edit_forum->save();
+
+
+        return redirect()->route('studo.overview', ['slug' => $slug, 'chapter_id' => $chapter_id])->with('success', 'Edit behasil diinput');
     }
 
     public function deleteForum(Request $request, $slug, $id,  $chapter_id = null)

@@ -44,6 +44,27 @@
                     ])
                     ->groupBy('project_log.user_id', 'project_log.class_id','project_log.photo', 'users.name', 'users.email','classes.price')
                     ->get();
+
+                    // Forum
+                    $list_forum = \App\Models\Forum::join('classes', 'classes.id', '=', 'forum.class_id')
+                    ->join('users', 'users.id', '=', 'forum.user_id')
+                    ->select([
+                        'forum.*',
+                        'users.id as user_id',
+                        'users.name as name',
+                        'users.avatar as avatar',
+                    ])
+                    ->where('class_id', $class->id)->get();
+
+                    $reply_forum = \App\Models\ReplyForum::join('forum', 'forum.id', '=', 'reply_forum.forum_id')
+                    ->join('users', 'users.id', '=', 'reply_forum.user_id')
+                    ->select([
+                        'reply_forum.*',
+                        'users.name as name',
+                        'users.avatar as avatar',
+                    ])
+                    ->where('class_id', $class->id)
+                ->get();
                 @endphp
                 <div class="row" style="margin:48px 0px;">
                     <div class="col-sm-4">
@@ -52,7 +73,9 @@
                                 src="{{ asset($class->thumbnail) }}"
                                 alt="">                        
                             <div class="middle">
-                                <div class="text hover-text-card" style="color: #063852">Edit Kelas</div>
+                                <div class="text hover-text-card" style="color: #063852">Edit Kelas 
+
+                                </div>
                             </div>            
                         </a>
                     </div>
@@ -111,12 +134,12 @@
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="btn-dashboard" id="nav-dashboard-tab-1" data-bs-toggle="tab" href="#lihatForum{{ $ckey }}">
-                                        <b>Lihat Forum</b>
+                                        Lihat Forum
                                     </a>
                                 </li>
                                 <li class="nav-item ps-3">
                                     <a class="btn-dashboard" id="nav-dashboard-tab-2" data-bs-toggle="tab" href="#nilaiProyek{{ $ckey }}">
-                                        <b>Nilai Proyek</b>
+                                        Nilai Proyek
                                     </a>
                                 </li>
                             </ul>
@@ -130,17 +153,17 @@
                     </div>
                 </div>
             @else
-            {{-- Kosong --}}
+                {{-- Kosong --}}
             @endif
         @endforeach
         @if(!$activeClassExists)
-            <h2 style="font-weight: 700;font-size: 32px;line-height: 39px;margin-top:40px;">
+            <p style="line-height: 39px;margin-top:40px;">
                 Tidak ada kelas yang aktif
-            </h2>
+            </p>
         @endif
     @else
-    <h2 style="font-weight: 700;font-size: 32px;line-height: 39px;margin-top:40px;">
+    <p style="line-height: 39px;margin-top:40px;">
         Tidak ada kelas yang dimiliki.
-    </h2>
+    </p>
     @endif
 </div>

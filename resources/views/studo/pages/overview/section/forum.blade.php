@@ -45,7 +45,7 @@
             <div class="row mb-3" style="border: 1px solid #E6EBED;border-radius: 5px;padding: 16px;">
                 <!-- Konten Forum -->
                 <div class="col-sm-1">
-                    <img style="width: 50px; height:50px;border-radius:100px;margin:0px;" src="{{ $user->avatar }}" alt="">
+                    <img style="width: 50px; height:50px;border-radius:100px;margin:0px;" src="{{ asset($user->avatar) }}" alt="">
                 </div>
                 <div class="col-sm-10">
                     <p class="m-0 text-chapter">
@@ -88,7 +88,7 @@
                     <div class="row mb-2 reply" style="border-bottom: 3px solid rgba(32, 162, 235, 1);background:rgba(32, 162, 235, 0.1);border-radius: 5px;padding: 16px;">
                         <!-- Reply Forum -->
                         <div class="col-sm-1">
-                            <img style="width: 50px; height:50px;border-radius:100px;margin:0px;" src="{{ $reply->avatar }}" alt="">
+                            <img style="width: 50px; height:50px;border-radius:100px;margin:0px;" src="{{ asset($reply->avatar) }}" alt="">
                         </div>
                         <div class="col-sm-10">
                             <p class="m-0 text-chapter">

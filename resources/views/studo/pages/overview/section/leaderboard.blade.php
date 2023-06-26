@@ -36,7 +36,11 @@
                                                 {{ $leaderboard->user_name }}</td>
                                             @endif
                                             <td style="text-align:center;">{{ $leaderboard->total_chapters_watched }}/{{ $count_chapter_leader_boards }}</td>
-                                            <td style="text-align:center;">{{ $leaderboard->total_completion_days }} hari {{ $leaderboard->total_completion_hours }} jam {{ $leaderboard->total_completion_minutes }} menit {{ $leaderboard->total_completion_seconds }} detik </td>
+                                            @if($leaderboard->total_completion_days === null)
+                                                <td style="text-align:center;">Belum Mulai Kelas</td>
+                                            @else
+                                                <td style="text-align:center;">{{ $leaderboard->total_completion_days }} hari {{ $leaderboard->total_completion_hours }} jam {{ $leaderboard->total_completion_minutes }} menit {{ $leaderboard->total_completion_seconds }} detik </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

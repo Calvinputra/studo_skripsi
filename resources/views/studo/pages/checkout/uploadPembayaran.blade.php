@@ -76,7 +76,7 @@
                     <div class="row" style="padding: 24px;background: rgba(32, 162, 235, 0.1);border-radius: 5px;margin:0px;">
                         <div class="col-sm-9 d-grid align-items-center">
                             <p class="m-0" style="font-weight: 600">
-                                Rp.{{ $normal_price_formatted }}
+                                Rp.{{ number_format($class->price, 0, ',', '.') }}
                             </p>
                         </div>
                         <div class="col-sm-3 d-grid align-items-center">

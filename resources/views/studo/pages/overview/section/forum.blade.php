@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <button type="button" style="border: 2px solid rgba(6, 56, 82, 1); color:rgba(6, 56, 82, 1);background:white" id="cancelForumButton" class="btn btn-secondary">Cancel</button>
+                     <button type="button" onclick="cancelBuat()" style="border: 2px solid rgba(6, 56, 82, 1); color:rgba(6, 56, 82, 1);background:white" id="cancelForumButton" class="btn btn-secondary">Cancel</button>
                     <button type="submit" class="btn" style="background: rgba(6, 56, 82, 1); color: white; margin-left: 16px;">Submit</button>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                                             </div>
 
                                             <div class="d-flex justify-content-end">
-                                                <button type="button" style="border: 2px solid rgba(6, 56, 82, 1); color:rgba(6, 56, 82, 1);background:white" id="cancelForumButton" class="btn btn-secondary">Cancel</button>
+                                                 <button type="button" onclick="cancelEdit()" style="border: 2px solid rgba(6, 56, 82, 1); color:rgba(6, 56, 82, 1);background:white" id="cancelForumButton" class="btn btn-secondary">Cancel</button>
                                                 <button type="submit" class="btn" style="background: rgba(6, 56, 82, 1); color: white; margin-left: 16px;">Submit</button>
                                             </div>
                                         </div>
@@ -123,7 +123,7 @@
                             </div>
                             <input type="hidden" id="forum_id" name="forum_id" value="{{ $forum->id }}">
                             <div class="d-flex" style="justify-content:right">
-                                <button id="cancelButton" class="btn btn-secondary" style="background: white;color:rgba(6, 56, 82, 1);">Cancel</button>
+                                <button id="cancelButton" type="button" onclick="cancelReply({{ $forum->id }})" class="btn btn-secondary" style="background: white;color:rgba(6, 56, 82, 1);">Cancel</button>
                                 <button type="submit" class="btn" style="background: rgba(6, 56, 82, 1);color:White;margin-left:16px;">Submit</button>
                             </div>
                         </form>
@@ -138,7 +138,7 @@
                             </div>
                             <input type="hidden" id="forum_id" name="forum_id" value="{{ $forum->id }}">
                             <div class="d-flex" style="justify-content:right">
-                                <button id="cancelButton" class="btn btn-secondary" style="background: white;color:rgba(6, 56, 82, 1);">Cancel</button>
+                                <button id="cancelButton" type="button" onclick="cancelEdit({{ $forum->id }})" class="btn btn-secondary" style="background: white;color:rgba(6, 56, 82, 1);">Cancel</button>
                                 <button type="submit" class="btn" style="background: rgba(6, 56, 82, 1);color:White;margin-left:16px;">Submit</button>
                             </div>
                         </form>
@@ -264,4 +264,26 @@ $(document).ready(function() {
         }
     });
 });
+</script>
+<script>
+    function cancelEdit() {
+        document.getElementById('forumFormEdit').style.display = 'none';
+    }
+</script>
+<script>
+    function cancelBuat() {
+        document.getElementById('forumForm').style.display = 'none';
+    }
+</script>
+<script>
+    function cancelReply(forumId) {
+        var formId = 'replyForm-' + forumId;
+        document.getElementById(formId).style.display = 'none';
+    }
+</script>
+<script>
+    function cancelEdit(forumId) {
+        var formId = 'editForm-' + forumId;
+        document.getElementById(formId).style.display = 'none';
+    }
 </script>

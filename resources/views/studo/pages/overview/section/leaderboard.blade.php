@@ -37,7 +37,7 @@
                                             @endif
  
                                             <td style="text-align:center;">{{ $leaderboard->total_chapters_watched }}/{{ $count_chapter_leader_boards }}</td>
-                                            <td style="text-align:center;">{{ $leaderboard->total_completion_days }} hari {{ $leaderboard->total_completion_hours }} jam {{ $leaderboard->total_completion_minutes }} menit </td>
+                                            <td style="text-align:center;">{{ $leaderboard->total_completion_days }} hari {{ $leaderboard->total_completion_hours }} jam {{ $leaderboard->total_completion_minutes }} menit {{ $leaderboard->total_completion_seconds }} detik </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

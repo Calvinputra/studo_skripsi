@@ -113,11 +113,15 @@ class SettingController extends Controller
         ->join('users', 'users.id', '=', 'subscription.user_id')
         ->select([
             'goals.*',
+            'classes.id as class_id',
             'classes.name as class_name',
         ])
             ->whereDate('goals.end_date', '>=', $currentDate) // Memfilter berdasarkan tanggal
             ->get();
 
+        $subscription_header = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
+        ->where('subscription.user_id', $user->id)
+        ->get();
 
 
         return view('studo.pages.setting.index', [
@@ -126,6 +130,7 @@ class SettingController extends Controller
             'check_done_class' => $check_done_class,
             'check_undone_class' => $check_undone_class,
             'list_goals' => $list_goals,
+            'subscription_header' => $subscription_header,
         ]);
     }
     public function indexAdmin()
@@ -278,27 +283,44 @@ class SettingController extends Controller
         return back()->with('success', 'Goals berhasil diinput');
     }
 
+    public function updateGoal(Request $request, $id)
+    {
 
-    // public function sendEmail()
-    // {
-    //     $to_email = 'calvinputranirwana2001@gmail.com';
-    //     $to_name = 'calvinputranirwana2001@gmail.com';
-    //     $subject = 'Mail from ItSolutionStuff.com';
-    //     $body = 'This is for testing email using SMTP.';
-    //     $user = User::find(1); // Contoh pengambilan data pengguna dari model User
+        $request->validate([
+            'class_id' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'notes' => 'required',
+        ]);
+        $subscription_id_goal = Subscription::where('class_id', $request->class_id)
+            ->where('user_id', $request->user_id)
+            ->first();
+        $user_email_goal = User::find($subscription_id_goal->user_id);
 
-    //     $goals = [
-    //             'name' => $user->name,
-    //             'email' => $user->email,
-    //             // Tambahkan data lain sesuai kebutuhan Anda
-    //         ];
 
-    //     Mail::send('emails.goals', $goals, function($message) use ($to_name, $to_email) {
-    //     $message->to($to_email, $to_name)
-    //     ->subject('Laravel Test Mail');
-    //         $message->from('studosite@gmail.com','test');
-    //     });
+        $goal = Goal::find($id);
+        $goal->subscription_id = $subscription_id_goal->id;
+        $goal->notes = $request->notes;
+        $goal->start_date = $request->start_date;
+        $goal->end_date = $request->end_date;
+        
+        $goal->save();
 
-    // }
+        // Kirim email reminder pertama jika start_date berubah
+        $reminderDate = Carbon::parse($goal->start_date)->addDays(3);
+        $now = Carbon::now();
+
+        if ($reminderDate->lessThanOrEqualTo($now)) {
+            $subscription_id_goal = Subscription::where('class_id', $request->class_id)
+                ->where('user_id', $request->user_id)
+                ->first();
+
+            $user_email_goal = User::find($subscription_id_goal->user_id);
+
+            Mail::to($user_email_goal->email)->send(new ReminderEmail($goal));
+        }
+
+        return back()->with('success', 'Goals berhasil diperbarui');
+    }
 
 }

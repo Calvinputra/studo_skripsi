@@ -33,15 +33,15 @@
                             <img style="width:96px;height:40px;" src="{{ asset('/thumbnails/studo.png') }}" alt="">
                         </a>
                         <li class="nav-item">
-                            <a class="nav-link nav-link-pengingatBelajar" href="" disabled>
-                                <p class="m-0" style="color:#063852">
+                            <a class="nav-link" href="{{ route('studo.index') }}">
+                                <p class="m-0" style="color:#063852;font-size: 16px; font-weight: 500">
                                     Beranda
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link nav-link-pengingatBelajar" href="" data-bs-toggle="modal" data-bs-target="#goalsModal" disabled>
-                                <p class="m-0" style="color:#063852">
+                                <p class="m-0" style="color:#063852;font-size: 16px; font-weight: 500">
                                     Pengingat Belajar
                                 </p>
                             </a>
@@ -83,7 +83,7 @@
                     </a>
                     <div class="d-flex align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link pe-0" href="#">
                                 <button class="btn my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#loginModal" style="color:#063852; border-color:#063852;background:#E6EBED" type="button">
                                     <b>
                                         Masuk
@@ -92,7 +92,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link ps-3" href="#">
                                 <button class="btn my-2 my-sm-0 "data-bs-toggle="modal" data-bs-target="#registerModal" style="color:white;background:#063852;" type="button">
                                     <b>
                                         Daftar

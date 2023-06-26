@@ -64,6 +64,7 @@ Route::namespace('studo')->group( function () {
             Route::get('/generate-certificate/{user}', [SettingController::class, 'generateCertificate'])->name('studo.generate.certificate');
 
             Route::post('/make/goals', [SettingController::class, 'postGoal'])->name('studo.post.goal');
+            Route::post('/edit/goals/{id}', [SettingController::class, 'updateGoal'])->name('studo.update.setting.goal');
 
             Route::get('send-mail', [SettingController::class, 'sendEmail']);
 

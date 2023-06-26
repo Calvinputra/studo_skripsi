@@ -38,48 +38,53 @@
                     </center>
                 </div>
                 <div class="col-sm-1">
-                    <button class="test" href="#" data-toggle="modal" data-target="#goalModalSetting{{ $lkey+1 }}">
+                    <a class="test" href="#" data-bs-toggle="modal" data-bs-target="#goalModalSetting{{ $lkey+1 }}">
                         <img src="{{ asset('/thumbnails/more_vert.png') }}" alt="">
-                    </button>
+                    </a>
                 </div>
             </div>
 
             <!-- Goal Modal -->
-            <div class="modal fade" id="goalModalSetting{{ $lkey+1 }}" tabindex="-1" role="dialog" aria-labelledby="goalModalSettingLabel{{ $lkey+1 }}" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal fade" id="goalModalSetting{{ $lkey+1 }}" tabindex="-1" aria-labelledby="goalModalSettingLabel{{ $lkey+1 }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="goalModalSettingLabel{{ $lkey+1 }}">Ubah Pengingat Belajar</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <h5 class="modal-title" style="font-weight: bold" id="goalModalSettingLabel{{ $lkey+1 }}">Ubah Pengingat Belajar</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('studo.post.goal') }}" method="POST">
+                            <form action="{{ route('studo.update.setting.goal', $goal->id) }}" method="POST">
                                 @csrf
-                                <!-- Form fields for goal update -->
-                                <div class="form-group">
-                                    <label for="startDate{{ $lkey+1 }}" class="fw-bold">Tanggal Mulai Belajar</label>
-                                    <input type="date" name="start_date" id="startDate{{ $lkey+1 }}" class="form-control" value="{{ $goal->start_date }}" required>
+                                <div style="">
+                                    <input type="text" style="border-color:black;" name="subscription_id" value="{{ $goal->class_name }}" class="form-control" placeholder="{{ $goal->class_name }}" required disabled>
+                                    <input type="hidden" name="goal_id" value="{{ $goal->id }}">
+                                    <input type="hidden" name="class_id" value="{{ $goal->class_id }}">
+                                        @if(auth()->check())
+                                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                        @endif
                                 </div>
                                 <div class="form-group">
-                                    <label for="endDate{{ $lkey+1 }}" class="fw-bold">Tanggal Selesai Belajar</label>
-                                    <input type="date" name="end_date" id="endDate{{ $lkey+1 }}" class="form-control" value="{{ $goal->end_date }}" required>
+                                    <label class="form-label semibold fw-bold">Tanggal mulai belajar</label>
+                                    <input type="date" style="border-color:black;" name="start_date" value="{{ $goal->start_date }}" class="form-control" placeholder="Start Date" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="notes{{ $lkey+1 }}" class="fw-bold">Motivasi</label>
-                                    <textarea name="notes" id="notes{{ $lkey+1 }}" class="form-control" rows="3" required>{{ $goal->notes }}</textarea>
+                                    <label class="form-label semibold fw-bold">Tanggal selesai belajar</label>
+                                    <input type="date" style="border-color:black;" name="end_date" value="{{ $goal->end_date }}" class="form-control" placeholder="End Date" required>
                                 </div>
-                                <!-- End form fields -->
-
-                                <div class="text-right">
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1" class="fw-bold">Apa motivasimu?</label>
+                                    <textarea class="form-control" name="notes" style="border-color:black;" placeholder="Apa goal yang ingin kamu capai?" rows="3" required>{{ $goal->notes }}</textarea>
+                                </div>
+                                <div style="float:right;">
+                                    <button class="btn my-4 my-sm-0" style="color:white;background:#063852;" type="submit">
+                                        <b>Simpan</b>
+                                    </button>
                                 </div>
                             </form>
                         </div>
-                    {{-- </div>
+                    </div>
                 </div>
-            </div> --}}
+            </div>
             <!-- End Goal Modal -->
         @endforeach
     @else

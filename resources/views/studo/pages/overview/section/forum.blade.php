@@ -45,7 +45,7 @@
             <div class="row mb-3" style="border: 1px solid #E6EBED;border-radius: 5px;padding: 16px;">
                 <!-- Konten Forum -->
                 <div class="col-sm-1">
-                    <img style="width: 50px; height:50px;border-radius:100px;margin:0px;" src="{{ asset($user->avatar) }}" alt="">
+                    <img style="width: 50px; height:50px;border-radius:100px;margin:0px;" src="{{ asset($forum->avatar) }}" alt="">
                 </div>
                 <div class="col-sm-10">
                     <p class="m-0 text-chapter">

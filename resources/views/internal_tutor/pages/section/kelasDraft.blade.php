@@ -24,9 +24,9 @@
                             {{ $class->name }}
                         </p>
                         <a href="{{ route('internal_tutor.class.informasi.edit', $class->slug) }}">
-                            <button class="btn-edit" style="width:100px;">
+                            <p class="btn-edit" style="width:100px;">
                                 Edit Kelas
-                            </button>
+                            </p>
                         </a>
                     </div>
                         <input type="hidden" name="status" value="active">

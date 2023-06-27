@@ -73,7 +73,7 @@
                     </p>
                     <p>
                         <b>
-                            Good Job! Silahkan ambil sertifkat kamu
+                            Good Job! Silahkan ambil sertifikat kamu
                         </b>
                         <br>
                         <a href="{{ route('studo.setting') }}">

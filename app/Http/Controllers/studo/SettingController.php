@@ -115,7 +115,7 @@ class SettingController extends Controller
             'classes.id as class_id',
             'classes.name as class_name',
         ])
-            ->where('users.id', '=', 'subscription.user_id')
+            ->where('users.id', auth()->user()->id)
             ->whereDate('goals.end_date', '>=', $currentDate) // Memfilter berdasarkan tanggal
             ->get();
 

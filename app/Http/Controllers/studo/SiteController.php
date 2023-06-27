@@ -71,7 +71,7 @@ class SiteController extends Controller
                 'goals.*',
                 'classes.name as class_name',
             ])
-            ->where('users.id', '=', 'subscription.user_id')
+            ->where('users.id', auth()->user()->id)
             ->whereDate('goals.end_date', '>=', $currentDate) // Memfilter berdasarkan tanggal
             ->take(3) // Membatasi maksimal 3 hasil
             ->get();

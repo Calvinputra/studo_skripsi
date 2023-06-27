@@ -62,6 +62,7 @@
                         'reply_forum.*',
                         'users.name as name',
                         'users.avatar as avatar',
+                        'users.role_id as role_id',
                     ])
                     ->where('class_id', $class->id)
                 ->get();

@@ -84,17 +84,16 @@ class SettingController extends Controller
             ->where('posttest_completion.user_id', $user->id)
                 ->where('posttest_completion.quest_type', 'posttest');
         })
-            ->join('quest_completion AS pretest_completion', function ($join) use ($user) {
-                $join->on('pretest_completion.quest_id', '=', 'quest.id')
-                ->where('pretest_completion.user_id', $user->id)
-                    ->where('pretest_completion.quest_type', 'pretest');
+            ->leftJoin('project_log', function ($join) use ($user) {
+                $join->on('project_log.class_id', '=', 'classes.id')
+                ->where('project_log.user_id', $user->id);
             })
             ->select([
                 'classes.*',
                 'subscription.user_id as user_id',
                 'users.name as user_name',
-                'pretest_completion.id as pretest_completion_id',
-                'pretest_completion.quest_type as pretest_completion_type',
+                'posttest_completion.id as posttest_completion_id',
+                'project_log.id as project_log_id',
             ])
             ->whereIn('subscription.id', function ($query) use ($user) {
                 $query->select(DB::raw('MAX(id)'))
@@ -103,8 +102,8 @@ class SettingController extends Controller
                     ->where('status', 'paid')
                     ->groupBy('class_id');
             })
-            ->whereNull('posttest_completion.id')
             ->get();
+
 
         $currentDate = date('Y-m-d');
 
@@ -116,6 +115,7 @@ class SettingController extends Controller
             'classes.id as class_id',
             'classes.name as class_name',
         ])
+            ->where('users.id', '=', 'subscription.user_id')
             ->whereDate('goals.end_date', '>=', $currentDate) // Memfilter berdasarkan tanggal
             ->get();
 

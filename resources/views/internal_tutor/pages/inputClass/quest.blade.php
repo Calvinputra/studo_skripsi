@@ -420,8 +420,8 @@
                                         <input type="hidden" name="quest_id" value="{{ $quest->quest_id }}">
                                         <div class="modal-footer">
                                             <button type="button" class="btn" style="color:#063852; border-color:#063852;background:white"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn" style="color:white;background:#063852;">Save</button>
+                                                data-bs-dismiss="modal">Tutup</button>
+                                            <button type="submit" class="btn" style="color:white;background:#063852;">Simpan</button>
                                         </div>
                                     </div>
                                 </div>
@@ -476,8 +476,8 @@
                                         <input type="hidden" name="quest_id" value="{{ $quest->quest_id }}">
                                         <div class="modal-footer">
                                             <button type="button" class="btn" style="color:#063852; border-color:#063852;background:white"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn" style="color:white;background:#063852;">Save</button>
+                                                data-bs-dismiss="modal">Tutup</button>
+                                            <button type="submit" class="btn" style="color:white;background:#063852;">Simpan</button>
                                         </div>
                                     </div>
                                 </div>

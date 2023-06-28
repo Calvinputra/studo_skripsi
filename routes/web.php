@@ -85,7 +85,6 @@ Route::namespace('studo')->group( function () {
             Route::post('/delete/forum/{slug}/{id}/{chapter_id?}/delete', [OverviewController::class, 'deleteForum'])->name('studo.pages.forum.delete');
 
 
-            Route::get('/signout', [App\Http\Controllers\studo\AuthController::class, 'getSignout'])->name('studo.post.signout');
 
         });
 });
@@ -176,6 +175,7 @@ Route::middleware('auth.admin')->group(function () {
     Route::post('/admin/dashboard/hapus/pengguna/{id}', [DashboardController::class, 'deletePengguna'])->name('studo.deletePengguna');
     Route::post('/admin/dashboard/hapus/kelas/{id}', [DashboardController::class, 'deleteKelas'])->name('studo.deleteKelas');
 
+    Route::get('/signout', [App\Http\Controllers\admin\AuthController::class, 'getSignout'])->name('studo.post.signout.admin');
 
 
 });

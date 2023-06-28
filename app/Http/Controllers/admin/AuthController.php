@@ -60,5 +60,10 @@ class AuthController extends Controller
         return redirect()->route('admin.pages.dashboard.index')->with('success', 'Login sebagai Admin Berhasil');
     }
 
+    public function getSignout()
+    {
+        auth()->logout();
+        return redirect()->route('admin.pages.auth.signin')->with('success', 'Berhasil Logout dari Akun Admin');
+    }
 
 }

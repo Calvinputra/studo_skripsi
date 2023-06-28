@@ -4,7 +4,7 @@
             Tentang Kelas
         </p>
         <p style="font-weight: 400;font-size: 18px;line-height: 22px;">
-            {{ $class->description }}
+            {{ $chapter->description }}
         </p>
     </div>
 </div>

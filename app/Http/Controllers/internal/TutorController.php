@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Wallet;
 use App\Models\Withdrawal;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class TutorController extends Controller
@@ -51,13 +52,23 @@ class TutorController extends Controller
         //     ->whereIn('class_id', $classes->pluck('id')->toArray())
         //     ->get();
 
+        $total_user = Subscription::join('classes', 'classes.id', '=', 'subscription.class_id')
+        ->join('users', 'users.id', '=', 'classes.user_id')
+        ->select('subscription.class_id', 'classes.user_id', 'classes.price', DB::raw('COUNT(*) as total'))
+        ->where('classes.user_id', auth()->user()->id)
+        ->where('subscription.status', "paid")
+            ->groupBy('subscription.class_id', 'classes.user_id', 'classes.price')
+            ->get();
+            
+
+
         return view('internal_tutor.pages.index', [
             'tutor' => $tutor,
             'classes' => $classes,
             'count_classes' => $count_classes,
             'sold_class' => $sold_class,
             'check_balance' => $check_balance,
-            // 'list_nilai_proyek' => $list_nilai_proyek,
+            'total_user' => $total_user,
         ]);
     }
     

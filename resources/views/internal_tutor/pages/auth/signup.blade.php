@@ -24,11 +24,11 @@
 
 @section('content')
 <div class="loginBox"> 
-    <h3>Register here</h3>
+    <h3>Daftar sebagai Tutor</h3>
     <form action="{{ route('internal_tutor.post.signup') }}" method="post">
         @csrf
         <div class="inputBox"> 
-            <input id="name" type="name" name="name" placeholder="name"  style="height:40px;padding:20px;"> 
+            <input id="name" type="name" name="name" placeholder="nama"  style="height:40px;padding:20px;"> 
             <input id="email" type="email" name="email" placeholder="email"  style="height:40px;padding:20px;margin:10px 0px;">
             <div class="password-input" style="color:black; border:1px solid black;margin:0px 0px 20px 0px;">
                 <input id="password" type="password" name="password" placeholder="password"> 
@@ -40,7 +40,7 @@
 
     <div class="text-center">
         <p style="color:black">Sudah punya akun?</p>
-        <a href="{{route('internal_tutor.signin')}}" style="color: black;font-size:18px">Sign-In</a>
+        <a href="{{route('internal_tutor.signin')}}" style="color: black;font-size:18px">Masuk sebagai Tutor</a>
     </div>
 </div>
 <script>

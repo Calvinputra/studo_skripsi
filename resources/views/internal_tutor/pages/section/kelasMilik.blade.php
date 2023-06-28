@@ -53,7 +53,7 @@
                         'users.id as user_id',
                         'users.name as name',
                         'users.avatar as avatar',
-                    ])
+                    ])  
                     ->where('class_id', $class->id)->get();
 
                     $reply_forum = \App\Models\ReplyForum::join('forum', 'forum.id', '=', 'reply_forum.forum_id')
@@ -100,7 +100,9 @@
                             </div>
                             <div class="col-sm-8">
                                 <p class="m-0">
-                                    : {{ count($list_nilai_proyek) }} User
+                                @foreach($total_user as $user)
+                                    <p>{{ $user->total }} User</p>
+                                @endforeach
                                 </p>
                             </div>
                         </div>
@@ -114,17 +116,18 @@
                                         &nbsp;&nbsp;Pendapatan
                                 </p>
                             </div>
+                            @php
+                                $total_price = 0;
+                            @endphp
+
+                            @foreach($total_user as $user)
+                                @php
+                                    $subtotal = $user->price * $user->total;
+                                    $total_price += $subtotal;
+                                @endphp
+                            @endforeach
                             <div class="col-sm-8">
                                 <p class="m-0">
-                                    @php
-                                    $total_price = 0;
-                                    @endphp
-
-                                    @foreach($list_nilai_proyek as $nilai_proyek)
-                                        @php
-                                        $total_price += ($nilai_proyek->class_price);
-                                        @endphp
-                                    @endforeach
                                     <p class="m-0">
                                         : Rp.{{ number_format($total_price) }}
                                     </p>

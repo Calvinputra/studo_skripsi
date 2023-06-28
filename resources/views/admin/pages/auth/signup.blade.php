@@ -19,7 +19,7 @@
     <form action="{{ route('internal_tutor.post.signup') }}" method="post">
         @csrf
         <div class="inputBox"> 
-            <input id="name" type="name" name="name" placeholder="name"> 
+            <input id="name" type="name" name="name" placeholder="nama"> 
             <input id="email" type="email" name="email" placeholder="email">
             <div class="password-input">
                 <input id="password" type="password" name="password" placeholder="password"> 
@@ -31,7 +31,7 @@
 
     <div class="text-center">
         <p style="color:#fff">Sudah punya akun?</p>
-        <a href="{{route('internal_tutor.signin')}}" style="color: #59238F;font-size:18px">Sign-In</a>
+        <a href="{{route('internal_tutor.signin')}}" style="color: #59238F;font-size:18px">Masuk sebagai Admin</a>
     </div>
 </div>
 <script>

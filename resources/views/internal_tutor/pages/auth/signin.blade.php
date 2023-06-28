@@ -48,7 +48,7 @@
 
     <div class="text-center">
         <p style="color:black" href="#">Belum Punya Akun?</p>
-        <a href="{{route('internal_tutor.signup')}}" style="color: black;font-size:18px">Sign-Up</a>
+        <a href="{{route('internal_tutor.signup')}}" style="color: black;font-size:18px">Daftar sebagai Tutor</a>
     </div>
 </div>
 

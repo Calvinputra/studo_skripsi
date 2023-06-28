@@ -57,7 +57,7 @@ th{
                 <div class="nav-item">
                     <a class="btn-overview" style="color:#063852" id="nav-review-tab" data-bs-toggle="tab" href="#accSubscription">
                         <b>
-                            List Beli Kelas
+                            List Pembelian Kelas
                         </b>
                     </a>
                 </div>

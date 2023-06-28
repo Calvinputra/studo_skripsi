@@ -53,7 +53,7 @@ class AuthController extends Controller
     public function getSignout()
     {
         auth()->logout();
-        return redirect()->route('internal_tutor.signin')->with('success', 'Berhasil Logout dari Akun Tutor');
+        return redirect()->route('studo.index')->with('success', 'Berhasil Logout dari Akun Tutor');
     }
 
     public function postSignin(Request $request)

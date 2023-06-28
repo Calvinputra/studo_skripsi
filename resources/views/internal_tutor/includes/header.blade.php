@@ -49,7 +49,7 @@
                                 <a class="nav-link" href="{{ route('internal_tutor.profileTutor') }}">
                                     Pengaturan
                                 </a>
-                                <a class="nav-link" href="{{ route('studo.post.signout') }}">
+                                <a class="nav-link" href="{{ route('internal_tutor.post.signout') }}">
                                     Keluar
                                 </a>
                             </div>

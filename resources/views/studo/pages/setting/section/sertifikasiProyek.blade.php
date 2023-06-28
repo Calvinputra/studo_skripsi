@@ -60,7 +60,7 @@ a{
                 </div>
                 <div class="col-sm-6 d-grid align-items-center">
                     <div>
-                        <p class="info-text-login m-0">
+                        <p class="info-text-login m-0" style="color: var(--blue, #20A2EB)">
                             {{ $done_class->category }}
                         </p>
                         <p class="text-kelas-admin" style="margin-top:8px;margin-bottom:0px;">

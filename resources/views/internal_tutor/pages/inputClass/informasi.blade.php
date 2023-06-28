@@ -174,16 +174,16 @@
                                                 <option selected>Pilih Kategory</option>
                                                 @php
                                                     $categories = [
-                                                        'programming' => 'Programming & Web Development',
-                                                        'graphic_design' => 'Graphic Design',
-                                                        'digital_marketing' => 'Digital Marketing',
-                                                        'business_skill' => 'Business Skills',
-                                                        'data_science' => 'Data Science & Analytics',
-                                                        'health' => 'Health & Wellness',
-                                                        'language' => 'Language Learning',
-                                                        'art_music' => 'Art & Music',
-                                                        'photography' => 'Photography',
-                                                        'personal_development' => 'Personal Development'
+                                                        'Programming' => 'Programming & Web Development',
+                                                        'Graphic Design' => 'Graphic Design',
+                                                        'Digital Marketing' => 'Digital Marketing',
+                                                        'Business Skill' => 'Business Skills',
+                                                        'Data Science' => 'Data Science & Analytics',
+                                                        'Health' => 'Health & Wellness',
+                                                        'Language' => 'Language Learning',
+                                                        'Art Music' => 'Art & Music',
+                                                        'Photography' => 'Photography',
+                                                        'Personal Development' => 'Personal Development'
                                                     ];
                                                 @endphp
                                                 @foreach ($categories as $key => $value)

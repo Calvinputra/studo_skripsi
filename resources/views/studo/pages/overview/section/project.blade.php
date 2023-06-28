@@ -36,10 +36,10 @@
             </div>
             <div>
                 <p class="title-text-card" style="margin-bottom:8px;">
-                    Upload hasil project    
+                    Upload Hasil Project    
                 </p>
                 <p class="m-0">
-                    File dalam bentuk blablabla  
+                    File dalam bentuk dokumen denagn extension (.xml, .png, .jpg, .pdf, .jpeg, .xlxs)
                 </p>
             </div>
         </div>

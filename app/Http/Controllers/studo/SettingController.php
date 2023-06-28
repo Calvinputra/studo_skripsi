@@ -88,13 +88,30 @@ class SettingController extends Controller
                 $join->on('project_log.class_id', '=', 'classes.id')
                 ->where('project_log.user_id', $user->id);
             })
+            ->leftJoin('chapters', 'chapters.class_id', '=', 'classes.id')
             ->select([
-                'classes.*',
+                'classes.id as id',
+                'classes.name as name',
+                'classes.slug as slug',
+                'classes.thumbnail as thumbnail',
                 'subscription.user_id as user_id',
                 'users.name as user_name',
                 'posttest_completion.id as posttest_completion_id',
                 'project_log.id as project_log_id',
+                    DB::raw('GROUP_CONCAT(DISTINCT chapters.id SEPARATOR ",") as chapter_ids'),
             ])
+            ->selectSub(function ($query) use ($user) {
+                $query->selectRaw('COUNT(DISTINCT chapter_log.chapter_id)')
+                ->from('chapter_log')
+                ->join('chapters', 'chapters.id', '=', 'chapter_log.chapter_id')
+                ->whereColumn('chapters.class_id', 'classes.id')
+                ->where('chapter_log.user_id', $user->id);
+            }, 'completed_count')
+            ->selectSub(function ($query) {
+                $query->selectRaw('COUNT(chapters.id)')
+                ->from('chapters')
+                ->whereColumn('chapters.class_id', 'classes.id');
+            }, 'total_count')
             ->whereIn('subscription.id', function ($query) use ($user) {
                 $query->select(DB::raw('MAX(id)'))
                 ->from('subscription')
@@ -102,7 +119,21 @@ class SettingController extends Controller
                     ->where('status', 'paid')
                     ->groupBy('class_id');
             })
+            ->whereNull('posttest_completion.id')
+            ->groupBy(
+                'classes.id',
+                'classes.user_id',
+                'classes.name',
+                'classes.slug',
+                'classes.thumbnail',
+                'subscription.user_id',
+                'users.name',
+                'posttest_completion.id',
+                'project_log.id'
+            )
             ->get();
+
+
 
 
         $currentDate = date('Y-m-d');

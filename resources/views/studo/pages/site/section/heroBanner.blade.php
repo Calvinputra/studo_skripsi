@@ -23,7 +23,7 @@
                         <div style="background: rgba(32, 162, 235, 0.1);border-radius: 5px;padding: 24px;margin-top:8px; width: 365px ; height: 132px;">
                             <div class="row">
                                 <div class="col-sm-7">
-                                    <p class="fw-bold mb-1">
+                                    <p class="fw-bold mb-1" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1; overflow: hidden;">
                                         {{ $goals->class_name }}
                                     </p>
                                     <p class="m-0" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3; overflow: hidden;">

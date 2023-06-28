@@ -35,7 +35,7 @@
 </style>
 <div style="margin-top:40px;">
     <div>
-        <p style="font-weight: 400;font-size: 18px;line-height: 22px;">
+        <p style="color: var(--blue, #20A2EB);font-size: 18px;font-weight: 500;">
             {{ $class->category }}
         </p>
         @if ($subscription)

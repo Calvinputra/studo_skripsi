@@ -10,7 +10,7 @@
         @endphp
         <div class="row">
             <div class="col-sm-7">
-                <p ckass="desc-text-main">
+                <p style="color: var(--blue, #20A2EB);font-size: 18px;font-weight: 500;">
                     {{ $class->category }}
                 </p>
                 <h2 class="title-text-login" style="margin-top:8px;margin-bottom:0px;">

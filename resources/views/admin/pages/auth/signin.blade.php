@@ -34,7 +34,7 @@
                 <i id="toggle-password" class="fa fa-eye password-icon"></i>
             </div>
         </div> 
-        <input style="background:#063852;" type="submit" name="" value="Login">
+        <input style="background:#063852;" type="submit" name="" value="Masuk sebagai Admin">
         
     </form> 
 </div>

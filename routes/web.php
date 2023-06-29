@@ -175,7 +175,7 @@ Route::middleware('auth.admin')->group(function () {
     Route::post('/admin/dashboard/hapus/pengguna/{id}', [DashboardController::class, 'deletePengguna'])->name('studo.deletePengguna');
     Route::post('/admin/dashboard/hapus/kelas/{id}', [DashboardController::class, 'deleteKelas'])->name('studo.deleteKelas');
 
-    Route::get('/signout', [App\Http\Controllers\admin\AuthController::class, 'getSignout'])->name('studo.post.signout.admin');
+    Route::get('/admin/signout', [App\Http\Controllers\admin\AuthController::class, 'getSignout'])->name('studo.post.signout.admin');
 
 
 });

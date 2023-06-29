@@ -69,7 +69,7 @@
                                         Pengaturan
                                     </b>
                                 </a>
-                                <a class="nav-link" href="{{ route('studo.post.signout') }}">
+                                <a class="nav-link" href="{{ route('studo.get.signout') }}">
                                     <b>
                                         Keluar
                                     </b>

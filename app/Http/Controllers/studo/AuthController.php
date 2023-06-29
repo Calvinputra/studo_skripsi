@@ -50,7 +50,7 @@ class AuthController extends Controller
         }
     }
 
-    public function getSignout()
+    public function getSignoutUser()
     {
         auth()->logout();
         return redirect()->route('studo.index')->with('success', 'Berhasil Logout');

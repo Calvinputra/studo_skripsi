@@ -127,11 +127,11 @@
                                 @endphp
                             @endforeach
                             <div class="col-sm-8">
-                                <p class="m-0">
+                                <p class="m-0"> 
                                     <p class="m-0">
                                         : Rp.{{ number_format($total_price) }}
-                                    </p>
-                                </p>
+                                    </p>    
+                                </p>    
                             </div>
                         </div>
                         <div class="nav-container pt-2">
@@ -143,7 +143,7 @@
                                 </li>
                                 <li class="nav-item ps-3">
                                     <a class="btn-dashboard" id="nav-dashboard-tab-2" data-bs-toggle="tab" href="#nilaiProyek{{ $ckey }}">
-                                        Nilai Proyek
+                                        Nilai Pengguna
                                     </a>
                                 </li>
                             </ul>

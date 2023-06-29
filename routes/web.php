@@ -54,7 +54,7 @@ Route::namespace('studo')->group( function () {
 
         Route::middleware('auth')->group(function () {
 
-            Route::get('/signout', [App\Http\Controllers\studo\AuthController::class, 'getSignout'])->name('studo.post.signout');
+            Route::get('/signout', [App\Http\Controllers\studo\AuthController::class, 'getSignoutUser'])->name('studo.get.signout');
 
             Route::get('/setting', [SettingController::class, 'index'])->name('studo.setting');
             Route::post('/setting/user/profile/update/{id}', [SettingController::class, 'updateProfile'])->name('studo.post.updateProfile');

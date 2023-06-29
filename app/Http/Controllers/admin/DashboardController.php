@@ -157,7 +157,7 @@ class DashboardController extends Controller
             $delete->delete();
         }
 
-        return redirect()->route('admin.pages.dashboard.index')->with('success', 'Data berhasil ditolak dan dihapus');
+        return redirect()->route('admin.pages.dashboard.index')->with('success', 'Data berhasil dihapus');
     }
     
 }

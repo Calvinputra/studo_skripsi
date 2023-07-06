@@ -21,7 +21,7 @@
     </div>
     @if($project->photo)
         <div>
-            <img style="width: 448px;height:252px;margin:24px 0px;" src="{{ $project->photo }}" alt="">
+            <img style="width: 448px;height:252px;margin:24px 0px;" src="{{ asset($project->photo) }}" alt="">
         </div>
     @else
 
